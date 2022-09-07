@@ -6,12 +6,18 @@ body {
 
 }
 
+h1{
+    text-align: left;
+    background-color: #18567D;
+    color: white;
+}
+
 ul {
     list-style-type: none;
     margin: 0;
     padding: 0;
     overflow: hidden;
-    background-color: #004d99;
+    background-color: #000000;
     max-width:1357px;
 }
 
@@ -56,6 +62,11 @@ li.dropdown {
     opacity: .8;
 }
 
+h2 {
+    text-align: left;
+    color: #18567D;
+}
+
 td {
     padding: 5px;
     text-align: left;
@@ -65,7 +76,7 @@ td {
 tr{
     padding: 0px;
     text-align: top;
-    background-color:#ffffff
+    background-color:#FFFFFF
 }
 
 img:hover {
