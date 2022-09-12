@@ -1,13 +1,22 @@
 
 body {
     font-family:sans-serif;
-
+    background-color: #FFFFFF;
 }
 
-h1{
+.project-title{
     text-align: left;
-    background-color: #18567D;
-    color: white;
+    background-color: #2360A5;
+    color: #FFFFFF;
+    font-size: 40px;
+}
+
+.section-header{
+    text-align: left;
+    background-color: #2360A5;
+    color: #FFFFFF;
+    font-size: 40px;
+
 }
 
 ul {
@@ -15,13 +24,18 @@ ul {
     margin: 0;
     padding: 0;
     overflow: hidden;
-    background-color: #18567D;
+    background-color: #2360A5;
     max-width:1500px;
 }
 
 li {
     float: left;
-    font-size: 16px;
+    font-size: 20px;
+}
+
+li.question{
+    font-size: 24px;
+    display: block;
 }
 
 li a, .dropbtn {
@@ -63,19 +77,25 @@ li.dropdown {
 
 h2 {
     text-align: left;
-    color: #18567D;
+    color: #2360A5;
+}
+
+.section-body{
+    font-size: 24px;
+    display: inline-block;
+    vertical-align: top;
 }
 
 td {
     padding: 0px;
     text-align: left;
-    width: 500px;
+    width: 750px;
 }
 
 tr{
     padding: 0px;
     text-align: top;
-    background-color:#FFFFFF
+    vertical-align: top;
 }
 
 img:hover {
