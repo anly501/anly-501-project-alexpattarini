@@ -1,0 +1,31 @@
+
+body {
+    font-family:sans-serif;
+}
+
+h1{
+    text-align: left;
+    background-color: #18567D;
+    color: white;
+    max-width: 1500px;
+}
+
+ul, li {
+    list-style-type: none;
+    display: inline-block;
+    margin: 0;
+    padding: 0;
+    color: #FFFFFF;
+    background-color: #18567D;
+    width: 1500px;
+}
+
+li a, .dropbtn {
+    display: inline-block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 15px;
+    overflow: hidden;
+}

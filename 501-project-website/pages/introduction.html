@@ -2,8 +2,72 @@
 
 <html>
     <head>
+        <title>501 Project Introduction</title>
+        <link rel="stylesheet" href="styles.css">
+
+        <script src="../jquery-3.6.1.min.js"></script>
     </head>
+
     <body>
+        <!-- embeds navigation bar -->
+        <div id="navigation">
+
+        </div>
+        <!--below function enables nav bar, adapted from https://stackoverflow.com/questions/31954089/how-can-i-reuse-a-navigation-bar-on-multiple-pages-->
+        <script>
+            $(function(){
+                $("#navigation").load("../formatting/header-list.html")
+            })
+        </script>
+
+        <!--main body of text-->
+        <table>
+
+            <tr>
+                <td>                                
+                    <div id="introbody">
+                        <p>Public transportation is the lifeline of tens of millions of Americans every day. Whether it is commuting to work, traveling to school, or simply visiting friends and family, public
+                            transportation remains an incredibly important resource nationwide. Nowhere is this more apparent than in major cities throughout the United States, where many individuals are especially
+                            reliant on public transit to facilitate their lives, specifically through heavy rail based transportation networks. Heavy rail encompasses a wide range of train transport types, such as
+                            cargo transport, national passenger rail (i.e., Amtrak), local commuter rail networks, and more. This project will focus, in particular, on local heavy rail subway systems, or subway/metro 
+                            systems such as the New York City Subway System, Washington DC's Metrorail network, the Bay Area's BART system, and more. These systems transport hundreds of thousands, if not millions of people
+                            each day, and are oftentimes as essential to the functioning of such cities as their roads and sidewalks.
+                        </p>
+                    </div>
+                </td>
+                <td>
+                    <!--table of images-->
+                    <table class="image-table">
+                        <tr>
+                            <td>
+                                <a href="https://new.mta.info/" target="_blank">
+                                    <img class="transit-logo" src="../images/MTA-logo.png">
+                                </a>
+                            </td>
+                            <td>
+                                <a class="transit-logo" href="https://www.wmata.com/" target="_blank">
+                                    <img class="transit-logo" src="../images/WMATA-logo.jpg">
+                                </a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <a href="https://www.mbta.com/schedules/subway" target="_blank">
+                                    <img class="transit-logo" src="../images/Boston-T-logo.png">
+                                </a>
+                            </td>
+                            <td>
+                                <a href="https://www.bart.gov/" target="_blank">
+                                    <img class="transit-logo" src="../images/BART-logo.png">
+                                </a>
+                            </td>
+                        </tr>
+                    </table>
+
+                </td>
+            </tr>
+
+        </table>
 
     </body>
 </html>

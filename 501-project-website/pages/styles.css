@@ -1,8 +1,6 @@
 
 body {
-    font-family:verdana;
-    background-image: ;
-    background-color: ;
+    font-family:sans-serif;
 
 }
 
@@ -17,12 +15,13 @@ ul {
     margin: 0;
     padding: 0;
     overflow: hidden;
-    background-color: #000000;
-    max-width:1357px;
+    background-color: #18567D;
+    max-width:1500px;
 }
 
 li {
     float: left;
+    font-size: 16px;
 }
 
 li a, .dropbtn {
@@ -68,7 +67,7 @@ h2 {
 }
 
 td {
-    padding: 5px;
+    padding: 0px;
     text-align: left;
     width: 500px;
 }
@@ -81,4 +80,8 @@ tr{
 
 img:hover {
   opacity: .6;
+}
+
+img.transit-logo{
+    max-width: 100%;
 }
