@@ -33,11 +33,6 @@ li {
     font-size: 20px;
 }
 
-li.question{
-    font-size: 24px;
-    display: block;
-}
-
 li a, .dropbtn {
     display: inline-block;
     color: white;

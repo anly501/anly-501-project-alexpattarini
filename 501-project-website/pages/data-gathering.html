@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>501 Project Introduction</title>
+        <link rel="stylesheet" href="styles.css">
+
+        <script src="../jquery-3.6.1.min.js"></script>
+    </head>
+
+    <body>
+        <!-- embeds navigation bar -->
+        <div id="navigation">
+
+        </div>
+        <!--below function enables nav bar, adapted from https://stackoverflow.com/questions/31954089/how-can-i-reuse-a-navigation-bar-on-multiple-pages-->
+        <script>
+            $(function(){
+                $("#navigation").load("../formatting/header-list.html")
+            })
+        </script>
+
+        <!--header-->
+        <h1 class="section-header">
+            Data Gathering
+        </h1>
+
+        <p>
+            The following data were primarily acquired from the NYC MTA's Open Data Program through the use of their Socrata Open Data API (SODA). Links for specific data sets will be provided, but a large portion of those individual data sets were sourced from the following
+            document: <a href="../../data/00-raw-data/MTA Open Data Catalog.csv">MTA Open Data Catalog</a>
+        </p>
+
+            <!--table of text/images-->
+            <table>
+                <!--row 1-->
+                <tr>
+                    <!--row 1 col 1-->
+                    <td>
+                        <h2>Ridership Data</h2>
+
+                    </td>
+                    <!--row 1 col 2-->
+                    <td>
+                        <!--image table of data sets-->
+                        <table class="wide-image-table">
+
+                        </table>
+                    </td>
+                </tr>
+                <!--row 2-->
+                <tr>
+                    <!--row 2 col 1-->
+                    <td>
+                        <h2>Service Reliability Data</h2>
+                    </td>
+                    <!--row 2 col 2-->
+                    <td>
+
+                    </td>
+                </tr>
+                <!--row 3-->
+                <tr>
+                    <!--row 3 col 1-->
+                    <td>
+                        <h2>Public Opinion Data</h2>
+                    </td>
+                    <!--row 3 col 2-->
+                    <td>
+
+                    </td>
+                </tr>
+            </table>
+
+
+    </body>
+</html>
