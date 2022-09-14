@@ -93,10 +93,18 @@ tr{
     vertical-align: top;
 }
 
+hr{
+    height: 100px;
+}
+
 img:hover {
   opacity: .6;
 }
 
 img.transit-logo{
+    max-width: 100%;
+}
+
+img.data-image{
     max-width: 100%;
 }

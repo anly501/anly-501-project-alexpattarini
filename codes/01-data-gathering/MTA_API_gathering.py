@@ -18,8 +18,9 @@ pwd = mta_api[5]
 
 # Access MTA Socrata API
 client = Socrata("data.ny.gov",app_token,username=api_key,password=api_secret)
-# GET fare card history data and move to data frame
-results = client.get("v7qc-gwpn")
+
+# GET fare card history data and move to data frame --- 98988 cuts off the data set at 2017 and beyond
+results = client.get("v7qc-gwpn",limit=98988)
 #print(results)
 fare_card_df = pd.DataFrame(results)
 #print(fare_card_df.head())
@@ -34,27 +35,7 @@ feedback_df = pd.DataFrame(results)
 # Export df to csv for later use
 feedback_df.to_csv(R"./data/00-raw-data/MTA-Customer-Feedback.csv")
 
-# GET System Usage 2021
-results = client.get("uu7b-3kff")
-system_usage_df = pd.DataFrame(results)
-system_usage_df.to_csv(R"./data/00-raw-data/MTA-System-Usage-2021.csv")
-
-# GET System Usage 2020
-results = client.get("py8k-a8wg")
-system_usage_df = pd.DataFrame(results)
-system_usage_df.to_csv(R"./data/00-raw-data/MTA-System-Usage-2020.csv")
-
-# GET System Usage 2019
-results = client.get("xfn5-qji9")
-system_usage_df = pd.DataFrame(results)
-system_usage_df.to_csv(R"./data/00-raw-data/MTA-System-Usage-2019.csv")
-
-# GET System Usage 2018
-results = client.get("bjcb-yee3")
-system_usage_df = pd.DataFrame(results)
-system_usage_df.to_csv(R"./data/00-raw-data/MTA-System-Usage-2018.csv")
-
-# GET System Usage 2017
-results = client.get("v5y5-mwpb")
-system_usage_df = pd.DataFrame(results)
-system_usage_df.to_csv(R"./data/00-raw-data/MTA-System-Usage-2017.csv")
+# GET Geospatial data regarding subway stations
+results = client.get("i9wp-a4ja",limit=1900)
+station_loc_df = pd.DataFrame(results)
+station_loc_df.to_csv(R"./data/00-raw-data/MTA-Subway-Station-Location-Data.csv")
