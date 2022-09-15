@@ -158,6 +158,27 @@
                         </table>
                     </td>
                 </tr>
+                <!--row 7-->
+                <tr>
+                    <!--row 7 col 1-->
+                    <td>
+                        <h2>NYCT Subway Twitter Data</h2>
+                        The MTA operates a Twitter account under the name <a href="https://twitter.com/NYCTSubway?ref_src=twsrc%5Egoogle%7Ctwcamp%5Eserp%7Ctwgr%5Eauthor">@NYCTSubway</a>. The vast majority
+                        of tweets on this account involve notifying customers of active and upcoming delays/service disruptions. However, the MTA does not appear to have a single data set that tracks
+                        specific instances of delays and service disruptions on the subway, thus their Twitter account is a reliable means as to ascertain the nature and frequency of delays throughout the
+                        NYC Subway system. The image to the right depicts the first several rows of 1017 tweets extracted from the NYCTSubway account in the past two weeks, encompassing all tweets posted
+                        by this account. These data were acquired through the use of the Twitter API and R (via the twitteR package), and thus is time limited, meaning the Twitter API does not allow for 
+                        searches of older tweets. Ultimately, this means these data are limited to recent occurrences which are still useful to this analysis. The R script used to access the Twitter API and 
+                        extract the relevant tweets can be downloaded <a href="../../codes/01-data-gathering/Twitter_API_gathering.R">here</a> and the resulting data frame can be downloaded by clicking on the 
+                        image on the right.
+                    </td>
+                    <!--row 7 col 2-->
+                    <td>
+                        <a href="../../data/00-raw-data/NYCTSubway-Tweets-0901-0914.csv">
+                            <img class="data-image" src="../images/NYCT-subway-tweets-head.PNG"
+                        </a>
+                    </td>
+                </tr>
             </table>
         </div>
 
