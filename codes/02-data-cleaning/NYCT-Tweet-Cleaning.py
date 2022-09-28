@@ -23,14 +23,14 @@ mystopwords = stopwords.words('english')
 # Remove stop words with length 1 (subway line names are 1 letter)
 mystopwords = [word for word in mystopwords if len(word)>1]
 # Append frequently used words from NYCT twitter that are not useful for analysis
-mystopwords.extend(["Northbound","Southbound","southbound","northbound","both","directions","while","running","problems","delays","delayed","delay","st","ave","av","rd","train","trains","near",'i','d','s','t'])
+mystopwords.extend(["Northbound","Southbound","southbound","northbound","both","directions","while","running","problems","delays","delayed","delay","st","ave","av","rd","train","trains","near",'i','d','s','t','need'])
 
 # Convert text of tweets to list
 tweets = nyct['text'].tolist()
 # Remove urls from text
 tweets = [re.sub(r'http\S+', '', x) for x in tweets]
 # Use CountVectorizer to tokenize tweets
-nyct_cvec = CountVectorizer(token_pattern=r'(?u)\b\w+\b',stop_words=mystopwords)
+nyct_cvec = CountVectorizer(stop_words=mystopwords)
 nyct_mx = nyct_cvec.fit_transform(tweets)
 nyct_array = nyct_mx.toarray()
 # Create document term frequency matrix
