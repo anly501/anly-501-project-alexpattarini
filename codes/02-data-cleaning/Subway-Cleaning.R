@@ -14,6 +14,8 @@ fares <- filter(fares,!startsWith(fares$station,"SBS-"))
 fares <- filter(fares,!endsWith(fares$station,"DEPOT"))
 # Remove specific rows with station names not relevant to analysis
 fares <- filter(fares,fares$station!="UNUSED")
+fares <- filter(fares,fares$station!="MTABC - EASTCHESTER 2")
+fares <- filter(fares,fares$station!="ORCHARD BEACH")
 #levels(as.factor(fares$station))
 
 # Check for NA values in columns
@@ -25,10 +27,18 @@ fares <- select(fares,-contains("bus"))
 fares <- select(fares,-contains("path"))
 
 # Check data types of columns
-str(fares)
+#str(fares)
 
 # Type cast date columns to date type
 fares$from_date <- as.Date(fares$from_date)
 fares$to_date <- as.Date(fares$to_date)
 #str(fares)
-#sum(fares$full_fare)/colSums(Filter(is.numeric,fares))
+
+# Remove duplicates if any
+fares <- fares[!duplicated(fares),]
+
+# Gather fares to longer format
+fares_gathered <- gather(fares,fare_type,fare_count,-from_date,-to_date,-remote_station_id,-station)
+
+# Save gathered fares to csv
+write.csv(fares_gathered,"../../data/01-modified-data/MTA-Fare-Card-Cleaned-Gathered.csv")

@@ -36,4 +36,7 @@ lirr_ovr <- full_join(otp_lirr,delays_lirr,by=c("ServiceDate","Agency"))
 mnr_ovr$ServiceDate <-as.Date(mnr_ovr$ServiceDate, format="%m/%d/%Y")
 lirr_ovr$ServiceDate <-as.Date(lirr_ovr$ServiceDate, format="%m/%d/%Y")
 
+write.csv(mnr_ovr,"../../data/01-modified-data/MNR-overall-delays-otp.csv")
+write.csv(lirr_ovr,"../../data/01-modified-data/LIRR-overall-delays-otp.csv")
+
 

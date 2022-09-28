@@ -34,7 +34,7 @@
             to be in a more appropriate manner for exploratory data analysis and deeper machine learning analyses. The raw data that was cleaned can be found in both the <a href="../pages/data-gathering.html">Data Gathering</a>
             tab as well as in this project's <a href="https://github.com/anly501/anly-501-project-alexpattarini/tree/main/data/00-raw-data">Github repository folder</a>. Modified data files will be available
             for download in their respective section below when applicable. All code scripts that were used to clean the accompanying data sets and produce the modified data sets can be found in a Github repository folder
-            <a href="">here</a>.
+            <a href="https://github.com/anly501/anly-501-project-alexpattarini/tree/main/codes/02-data-cleaning">here</a>, and specific download links will be provided in each respective section.
             </p>
             <!--table of text/images-->
             <table>
@@ -45,10 +45,90 @@
                         <h2>Metro-North and LIRR Service Reliability</h2>
                         From a cursory look at the data gathered in the data gathering section of this project, it is apparent that the on-time performance data and delay data for the LIRR and MNR share two common column names and values within:
                         Service Date and Agency. Additionally, these two data sets share similar topic, and thus it is appropriate that they may be combined. The cleaning and combination of these data sets was 
-                        accomplished using an R script that can be downloaded here
+                        accomplished using an R script that can be downloaded <a href="../../codes/02-data-cleaning/MNR-LIRR-Cleaning-Merging.R">here</a>. From an overall look at these two data sets, there are clear discrepancies
+                        between the depth of record-taking for the LIRR compared to the MNR records. Several columns of both the on-time performance data set and delays data set only contain values for LIRR observations. Thus,
+                        both data sets were separated into separate data sets, each for LIRR and MNR respectively. Each of these (now four) data sets were cleaned individually. The less extensive data of the MNR data sets necessitated
+                        that several columns be dropped due to only containing missing values (i.e., NA values), such as columns about LIRR specific delays and numbers of specific incidents. Both the LIRR and MNR subsets of the 
+                        on-time performance data set contain rows that outline the patterns of on-time performance for specific routes of each agency as well as summaries for the whole respective systems, 
+                        while the subsets of the delays data set is solely comprised of system total data. Thus, rows that only contain observations regarding specific routes of the MNR and LIRR were removed, and thus only 
+                        the data for system total (i.e., aggregation of the individual routes) on-time performance remained. Additionally, the data regarding AM-Peak on-time performance contained an excessive amount of missing values
+                        (all dates after 2018 have missing values in this column), and thus this column was dropped from both the MNR and LIRR data sets. Subsequently, the respective MNR and LIRR sets were joined together such that an 
+                        "overall" <a href="../../data/01-modified-data/MNR-overall-delays-otp.csv">MNR</a> and "overall" <a href="../../data/01-modified-data/LIRR-overall-delays-otp.csv"></a> data set were generated, both pictured to the right. 
+                        Finally, the service date column in these two data sets was not of a "Date" data type, and thus was typecast to that type.
                     </td>
                     <!--row 1 col 2-->
-                    <td></td>
+                    <td>
+                        <!--image table-->
+                        <table>
+                            <tr>
+                                <a href="../../data/01-modified-data/MNR-overall-delays-otp.csv">
+                                    <img class="data-image" src="../images/mnr-otp-delays-head.PNG">
+                                </a>
+                            </tr>
+                            <tr>
+                                <a href="../../data/01-modified-data/LIRR-overall-delays-otp.csv">
+                                    <img class="data-image" src="../images/lirr-otp-delays-head.PNG">
+                                </a>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                <!--row 2-->
+                <tr>
+                    <!--row 2 col 1-->
+                    <td>
+                        <h2>NYCT Subway Fare Data</h2>
+                        Critical to understanding the popularity and efficiency of the NYC Subway is data on use of MetroCards (fare cards) to enter the NYC Subway system as described in the data gathering section.
+                        Such fare card data was cleaned through an R script which can be downloaded <a href="../../codes/02-data-cleaning/Subway-Cleaning.R">here</a>. The first step of cleaning this data set was to remove
+                        rows that contained data that was not subject to the analyses of this project. The raw data set (can be downloaded <a href="../../data/00-raw-data/MTA-Fare-Card-Data-From-2010.csv">here</a>) contains 
+                        many rows that contain information about stations that are not part of the NYC subway stations, such as the PATH and some specific bus lines. Any rows containing observations of these non-subway stations 
+                        were filtered out of the data set. Subsequently, types of fare cards that are not subject to subsequent analyses were also removed, such as passes specifically for bus services, the PATH, and/or airtrain exclusively.
+                        Subequently, the date columns were typecast from character type to "Date" to make further analyses more streamlined. Finally, this data set was pivoted into a tall format such that each station has multiple 
+                        rows (observations) for the same date range, but each with a different fare card type and count (pictured right). These data were then saved to a .csv file which can be downloaded
+                         <a href="../../data/01-modified-data/MTA-Fare-Card-Cleaned-Gathered.csv">here</a>.
+                    </td>
+                    <!--row 2 col 2-->
+                    <td>
+                        <a href="../../data/01-modified-data/MTA-Fare-Card-Cleaned-Gathered.csv">
+                            <img class="data-image" src="../images/clean-fare-card-head.PNG">
+                        </a>
+                    </td>
+
+                </tr>
+                <!--row 3-->
+                <tr>
+                    <!--row 3 col 1-->
+                    <td>
+                        <h2>NYCTSubway Tweet Data Cleaning</h2>
+                        As discussed in the data gathering stage, tweets were pulled from the <a href="https://twitter.com/NYCTSubway?ref_src=twsrc%5Egoogle%7Ctwcamp%5Eserp%7Ctwgr%5Eauthor">@NYCTSubway</a> twitter account 
+                        regarding subway delays. On their own, the raw data (found <a href="../../data/00-raw-data/NYCTSubway-Tweets-0901-0914.csv">here</a> in .csv form) extracted from these tweets using the Twitter API
+                        is not ready for proper analysis. The text of each individual tweet from the raw data frame was isolated and fed into a method called CountVectorizer. CountVectorizer takes in a list of documents,
+                        in this case tweets, and computes the frequency of different words/characters/terms across documents. The output of CountVectorizer is manipulated into a dataframe, known as a document term matrix, whose
+                        columns consist of all parsed out words/terms and each row consists of each tweet. Values within the data frame (numbered 0 or higher) constitute the number of times that a given word (column value) appears 
+                        in a given tweet (row value). The process of creating a document term frequency matrix was applied twice for this project, and the Python code that accomplishes that can be downloaded <a href="../../codes/02-data-cleaning/NYCT-Tweet-Cleaning.py">here</a>.
+                        The first implementation of CountVectorizer to the @NYCTSubway Tweet data found the frequency of all words in each tweet after certain stopwords (i.e., words that are just "noise" to the analysis and not useful) were 
+                        removed. The first picture to the right is the head of the resulting document-term matrix for that <a href="../../data/01-modified-data/NYCT-tweets-DTM.csv">data set</a>. The second implementation focused on single characters in each tweet, such as A, B, C, etc. that 
+                        are NYC Subway lines. The aim of creating this data set is to see the frequency of delays by train line as the NYCT lists out all lines affected by a given delay in their tweets. Thus, the full text of each
+                        tweet was reduced to only single characters that represent NYCT Subway lines. These were then vectorized and manipulated into a document term matrix, and the head of that <a href="../../data/01-modified-data/one-char-tweets-DTM.csv">data set</a> is also pictured on the right.
+                    </td>
+                    <!--row 3 col 2-->
+                    <td>
+                        <!--image table-->
+                        <table>
+                            <tr>
+                                <a href="../../data/01-modified-data/NYCT-tweets-DTM.csv">
+                                    <img class="data-image" src="../images/nyct-tweet-dtm-head.PNG">
+                                </a>
+                                Note: Many columns omitted in this image due to space constraints.
+                            </tr>
+                            <tr>
+                                <a href="../../data/01-modified-data/one-char-tweets-DTM.csv">
+                                    <img class="data-image" src="../images/one-char-tweet-head.PNG">
+                                </a>
+                                Note: Many columns omitted in this image due to space constraints.
+                            </tr>
+                        </table>
+                    </td>
                 </tr>
             </table>
         </div>
