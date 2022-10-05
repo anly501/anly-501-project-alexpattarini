@@ -32,8 +32,102 @@
                 creating visualizations and analyzing statistical characteristics of the data sets cleaned in the <a href="../pages/data-cleaning.html">Data Gathering</a> section to see what trends are important/potentially present, what variables
                 should be considered in models, and much more. Below is a series of graphs with accompanying descriptions that apply EDA to this project. Modified data sets that were used as the basis 
                 for these graphs can be found in the aforementioned Data Cleaning section, however the scripts that generate these visualizations and statistical summaries can be downloaded and viewed both in their 
-                individual sections and in <a href="">this</a> Github repository folder.
+                individual sections and in <a href="">this</a> Github repository folder. All images can be viewed in a separate window by clicking on them.
             </p>
+        <table>
+            <!--row 1-->
+            <tr>
+                <!--row 1 col 1-->
+                <td>
+                    <h2>@NYCT Tweet Data</h2>
+                    NYCT Tweet data cleaned in the Data Cleaning section was split into two dataframes: <a href="../../data/01-modified-data/NYCT-tweets-DTM.csv">one</a> of subway lines, and <a href="../../data/01-modified-data/one-char-tweets-DTM.csv"></a> 
+                    of all text content from the tweets. To visualize the frequency of the most common words and subway lines in these tweets, word clouds were constructed using a script in python that 
+                    can be downloaded <a href="../../codes/03-EDA/NYCT-Tweet-Visualization.py">here</a>. The upper word cloud is composed of the most common words in the overall tokenization of the tweets.
+                    It is apparant that the most common words in relation to subway delays are NYPD, person (referring to a person on the tracks or causing another disruption), activation of brakes, signal
+                    problems/issues, and emergency services. This is understandable given the extremely sprawling of the NYC subway system, so it is understandable that police presence is often the cause of 
+                    delays. Given the scope and age of the NYC Subway system, it is not surprising that mechanical faults are frequently the causes of subway delays. The second word cloud is the frequency of 
+                    subway line names in these tweets associated with delays. Each letter/number is color coded in accordance with its real life color, and its size is representative of its frequency in these tweets.
+                    In this time frame, it is apparent that tweets most focused on the A, F, 6, and 1 lines, indicating that these 4 lines were most susceptbile to delays in this time frame.
+                </td>
+                <!--row 1 col 2-->
+                <td>
+                    <table>
+                        <tr>
+                            <td><a href="../images/WORDCLOUD-Full-DTM.png" target="_blank"><img class="data-image" src="../images/WORDCLOUD-Full-DTM.png"></a></td>
+                            <td><a><img></a></td>
+                        </tr>
+                        <tr>
+                            <td><a href="../images/WORDCLOUD-OneChar-DTM.png" target="_blank"><img class="data-image" src="../images/WORDCLOUD-OneChar-DTM.png"></a></td>
+                            <td><a></a></td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            <!--row 2-->
+            <tr>
+                <!--row 2 col 1-->
+                <td>
+                    <h2>Fare Card Time Series Visualization</h2>
+                    Vital to analyzing the overall efficiency and public opinion of the NYC subway is how much the system is actually used. In the Data Cleaning section, MetroCard data were cleaned 
+                    and formatted regarding the counts of MetroCard use at each subway station over weekly periods. The <a href="../../data/01-modified-data/MTA-Fare-Card-Cleaned-Gathered.csv">cleaned data frame</a>
+                    was subsetted only to counts for four of the most popular MetroCards, being the full fare, 7 day unlimited, 30 day unlimited, and senior citizen/disabled MetroCard. Subsequently, four 
+                    time series, one for each type of MetroCard, were created and are displayed to the right. The script that constructed these time series plots can be downloaded <a href="../../codes/03-EDA/Fares-Visualization.py">here</a>.
+                    It is clear that the counts of MetroCard uses for all four types follow a relatively similar pattern, with relative stability from 2017 to early 2020, and then a huge dip in usage, likely due to 
+                    the lockdowns and restrictions in light of the COVID-19 pandemic.
+                </td>
+                <!--row 2 col 2-->
+                <td>
+                    <table>
+                        <tr>
+                            <td><a href="../images/TIMESERIES-Full Fare-MetroCard.png" target="_blank"><img class="data-image" src="../images/TIMESERIES-Full Fare-MetroCard.png"></a></td>
+                            <td><a href="../images/TIMESERIES-7 Day Unlimited-MetroCard.png" target="_blank"><img class="data-image" src="../images/TIMESERIES-7 Day Unlimited-MetroCard.png"></a></td>
+                        </tr>
+                        <tr>
+                            <td><a href="../images/TIMESERIES-30 Day Unlimited-MetroCard.png" target="_blank"><img class="data-image" src="../images/TIMESERIES-30 Day Unlimited-MetroCard.png"></a></td>
+                            <td><a href="../images/TIMESERIES-Senior Citizen-Disabled-MetroCard.png" target="_blank"><img class="data-image" src="../images/TIMESERIES-Senior Citizen-Disabled-MetroCard.png""></a></td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            <!--row 3-->
+            <tr>
+                <!--row 3col 1-->
+                <td>
+                    <h2>LIRR and Metro North Service Reliability Visualization</h2>
+                    When analyzing the operating effectiveness of the Metro-North (MNR) and Long Island Railroad (LIRR), it is imperative to analyze how "on-time" they are, and how often they are affected 
+                    by incidents that lead to delays. In the Data Cleaning section, such data sets were cleaned and one data set for the <a href="../../data/01-modified-data/LIRR-overall-delays-otp.csv">LIRR</a> 
+                    one for the <a href="../../data/01-modified-data/MNR-overall-delays-otp.csv">MNR</a> were created. Using these data sets, several statistical summaries, time series plots, and bar charts were 
+                    constructed, all pictured to the right. The R script used to generate these can be downloaded <a href="../../codes/03-EDA/LIRR-MNR-Delays-Visualization.R">here</a>. First, there is a set
+                    of summary statistics regarding on time performance and frequency of major incidents along the MNR and LIRR. We can see that the MNR averages a higher OTP (on-time percentage, i.e. percentage
+                    of trains that arrive within 6 minutes of their scheduled time) than the LIRR both due to a higher median (0.9754 vs. 0.9065) and higher median (0.9790 vs. 0.9241). From the summary statistics 
+                    regarding major incidents, the LIRR and MNR combined averaged approximately 7 major incidents per month over the Jan 2020-Oct 2021 time frame, although the median number of incidents is only 5 per month.
+                    Moving on to the time series plots, these were constructed individually for the LIRR and MNR to differences in the depth of record-taking for the two agencies. The LIRR details overall OTP percentages while 
+                    stratifying for PM Peak and Off Peak on time percentages while Metro-North only records overall OTP percentages. Thus, a smaller time frame is considered for MNR data compared to the LIRR data. In the first 
+                    time series plot, it is apparent that off peak trains tend to outperform the overall OTP and peak PM OTP percentages. The huge dip downwards occurs in early 2020, likely due to the restrictions imposed 
+                    by the NY State Government's response to the outbreak of the COVID-19 pandemic. PM Peak trains especially underperform in terms of OTP percentage in 2017 and 2018, although this does not seem to 
+                    be the case in 2021. Subsequently, a time series plot for Metro-North OTP percentages was constructed in a smaller time frame, along with a bar chart of major incidents by month scaled to a range of 
+                    0 to 1. The shape of the distribution of major incident counts is still preserved despite this transformation, and can easily be transformed back into the true counts it represents if necessary. 
+                    We can see that despite variations in major incidents, the OTP percentage of the MNR remains largely the same, hovering in the 90-100% range, even despite the pandemic. Finally, the MNR and LIRR data 
+                    sets were compared in a time series plot and bar chart. Due to inconsistencies in the time frames covered by the record-taking of the LIRR and MNR, the time frames for these graphs was shrunk to 
+                    January 2020 to October 2021, and the data sets were adjusted as such for these visualizations. As was the case with the summary statistics, it is clear that, visually, the MNR outperforms the LIRR in 
+                    terms of on time percentage over the entire time frame until late 2021, where the two OTP percentage lines begin to converge. Using this same data set, a bar chart of major incidents was also constructed 
+                    comparing the raw number of major incidents by month of the MNR and LIRR. Both the LIRR and MNR experience lows in major incidents, understandably, during the height of the COVID-19 pandemic in early-mid
+                    2020, where service was reduced for both transit agencies. The overall trend of the number of LIRR major incidents appears to be trending slightly downwards, while the MNR data continues to vary greatly.
+                </td>
+                <!--row 3 col 2-->
+                <td>
+                    <table>
+                        <tr><a href="../images/SUMMARY-MNR-LIRR-OVERALL.PNG" target="_blank"><img class="data-image" src="../images/SUMMARY-MNR-LIRR-OVERALL.PNG"></a></tr>
+                        <tr><a href="../images/TIMESERIES-LIRR-OTP.png" target="_blank"><img class="data-image" src="../images/TIMESERIES-LIRR-OTP.png"></a></tr>
+                        <tr><a href="../images/TIMESERIES-MNR-OTP.png" target="_blank"><img class="data-image" src="../images/TIMESERIES-MNR-OTP.png"></a></tr>
+                        <tr><a href="../images/TIMESERIES-MNR-LIRR-OTP.png" target="_blank"><img class="data-image" src="../images/TIMESERIES-MNR-LIRR-OTP.png"></a></tr>
+                        <tr><a href="../images/BARCHART-MNR-LIRR-MAJINC.png" target="_blank"><img class="data-image" src="../images/BARCHART-MNR-LIRR-MAJINC.png"></a></tr>
+
+                    </table>
+                </td>
+            </tr>
+
+        </table>
         </div>
     </body>
 </html>

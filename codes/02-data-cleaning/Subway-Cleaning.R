@@ -20,6 +20,8 @@ fares <- filter(fares,fares$station!="ORCHARD BEACH")
 
 # Check for NA values in columns
 colSums(is.na(fares))
+fares <- fares[ , colSums(is.na(fares)) == 0]
+# Drop NA columns
 # NA values found in 3 columns, will be dealt with in later analyses if they become pertinent
 # Unnecessary columns dropped
 fares <- select(fares,-contains("airtrain"))
@@ -39,6 +41,9 @@ fares <- fares[!duplicated(fares),]
 
 # Gather fares to longer format
 fares_gathered <- gather(fares,fare_type,fare_count,-from_date,-to_date,-remote_station_id,-station)
+
+# Remove column
+fares_gathered <- fares_gathered[-4]
 
 # Save gathered fares to csv
 write.csv(fares_gathered,"../../data/01-modified-data/MTA-Fare-Card-Cleaned-Gathered.csv")
