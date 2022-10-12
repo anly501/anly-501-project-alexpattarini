@@ -15,8 +15,17 @@ from matplotlib import pyplot as plt
 wdir = os.path.dirname(os.path.abspath(__file__))
 os.chdir(wdir)
 
-# Import NYCT Tweet Data Set
-nyct = pd.read_csv("../../data/00-raw-data/NYCTSubway-Tweets-0901-0914.csv",index_col=0,encoding="unicode_escape")
+# Import NYCT Tweet Data Set and Combine all separate searches
+nyct_base = pd.read_csv("../../data/00-raw-data/NYCTSubway-Tweets-0901-0914.csv",index_col=0,encoding="unicode_escape")
+### COMBINE DATAFRAMES AND SAVE ###
+base_path = os.listdir("../../data/00-raw-data")
+nyct = pd.DataFrame(columns=nyct_base.columns)
+for f in base_path:
+    if f.startswith('NYCTSubway'):
+        new_df = pd.read_csv("../../data/00-raw-data/"+ f,index_col=0,encoding="unicode_escape")
+        nyct = pd.concat([nyct,new_df],axis=0)
+print(nyct.head())
+
 
 # Define stop words
 mystopwords = stopwords.words('english')
@@ -36,6 +45,7 @@ nyct_array = nyct_mx.toarray()
 # Create document term frequency matrix
 nyct_dtm = pd.DataFrame(data=nyct_array,columns=nyct_cvec.get_feature_names_out())
 # Save dtm to csv
+#nyct_dtm.to_csv('../../data/01-modified-data/NYCT-0901-0914-tweets-DTM.csv')
 nyct_dtm.to_csv('../../data/01-modified-data/NYCT-tweets-DTM.csv')
 
 ### PROCESSING FOR LINE LETTERS ###
@@ -61,7 +71,10 @@ one_mod_mx = one_vec.fit_transform(tweets_one_mod)
 one_mod_array = one_mod_mx.toarray()
 one_mod_dtm = pd.DataFrame(data=one_mod_array,columns=one_vec.get_feature_names_out())
 # Save t csv
+#one_mod_dtm.to_csv('../../data/01-modified-data/one-char-0901-0914-tweets-DTM.csv')
 one_mod_dtm.to_csv('../../data/01-modified-data/one-char-tweets-DTM.csv')
+
+
 '''
 #EDA Testing for Stop Words
 # Word Cloud
