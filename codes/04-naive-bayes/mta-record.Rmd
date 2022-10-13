@@ -1,0 +1,147 @@
+---
+title: "Naive Bayes Record Data Modeling"
+author: "Alex Pattarini"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+This markdown file builds a Naive Bayes model that aims to predict agency based on various indicators (major incidents, OTP)
+
+```{r setup, include=FALSE}
+# Import relevant packages
+#install.packages("e1071")
+#install.packages("caTools")
+#install.packages("caret")
+#install.packages("psych")
+#install.packages("rstudioapi")
+#install.packages("tidyverse")
+#install.packages("naivebayes")
+
+ 
+# Loading package
+library(e1071)
+library(caTools)
+library(caret)
+library(tidyverse)
+library(lubridate)
+library(rstudioapi)
+library(psych)
+library(naivebayes)
+library(scales)
+
+# Set working directory to current file location
+setwd(dirname(getActiveDocumentContext()$path))
+```
+
+## Input data
+
+```{r data-input}
+# Read data
+mnr <- read.csv("../../data/01-modified-data/MNR-overall-delays-otp.csv",header=T)
+lirr <- read.csv("../../data/01-modified-data/LIRR-overall-delays-otp.csv",header=T)
+
+# Type cast columns to date
+mnr$ServiceDate <-as.Date(mnr$ServiceDate)
+lirr$ServiceDate <-as.Date(lirr$ServiceDate, format="%m/%d/%Y")
+
+# Reformat ID variable to be unique to observation
+mnr$X <- paste("M",mnr$X)
+lirr$X <- paste("L",lirr$X)
+```
+
+## Data modification
+
+In this analysis, both MNR and LIRR data sets must be combined for the model to be created, and their combination can be found below. Several columns of the LIRR data set are dropped due to not being recorded in the MNR data set. There are two rows where On Time Percentage is listed as 0, those rows are removed as outliers.
+
+```{r data-mods}
+# Join data frames
+df <- full_join(mnr,lirr)
+# Drop columns with na values (not relevant to analysis)
+df <- df[ , colSums(is.na(df)) == 0]
+# Rename ID column
+colnames(df)[1] <- "id"
+# Remove 0 rows
+df <- df[df$OTP!=0,]
+# Type cast to appropriate data type
+df$OTP <- as.factor(df$OTP)
+```
+
+## Preliminary Visualization (Pairs Plot)
+
+```{r pairs}
+png(filename="../../501-project-website/images/PAIRS-PLOT-mnr-lirr-otp.png")
+pairs.panels(df[-c(1,4)])
+dev.off()
+```
+
+Correlation is observed between the two variables regarding major incidents and on-time-performance, thus the major incidents variable will be removed, as we are more interested in analyzing On Time Performance as to its relation to Agency type. This column is dropped below. Additionally, variables irrelevant to analysis (e.g., ID, date) are dropped.
+
+```{r drop-cor}
+df <- df[-c(1,2,4,6)]
+```
+
+## Establishing training/test sets
+
+Training and test sets are created below using an 80/20 split.
+
+```{r params}
+set.seed(1717)
+split <- sample(2, nrow(df), replace = T, prob = c(0.8, 0.2))
+train <- df[split == 1,]
+test <- df[split == 2,]
+```
+
+## Fit model
+
+```{r naivebayes}
+model <- naive_bayes(Agency ~ .,data=train,usekernel = T)
+plot(model)
+print(model)
+```
+
+## Predict using training set and create confusion matrix
+
+```{r train_pred}
+yp_train <- predict(model,train)
+cm_train <- table(train$Agency,yp_train)
+confusionMatrix(cm_train)
+
+# Visualize confusion mx
+tclass = c(0,0,1,1)
+pclass = c(0,1,0,1)
+y = c(2,67,19,4)
+cm_df = data.frame(tclass,pclass,y)
+g = ggplot(data=cm_df,mapping=aes(x=tclass,y=pclass)) +
+  geom_tile(aes(fill=y),color="white") +
+  geom_text(aes(label = sprintf("%1.0f", y)), vjust = 1) +
+  scale_fill_gradient(low = "blue", high = "red") +
+  scale_y_continuous(name="Actual Value",expand=c(0,0),labels=c("MNR","LIRR"),breaks=c(0,1)) +
+  scale_x_continuous(name="Predicted Value",expand=c(0,0),labels=c("LIRR","MNR"),breaks=c(0,1)) +
+  labs(title="Confusion Matrix for Training Agency Data Set") +
+  theme_bw() + theme(legend.position = "none")
+ggsave("../../501-project-website/images/CONFUSION-MX-train-MNR-LIRR-OTP.png")
+```
+From the results above, we can see that the training model has an accuracy of 93.48% at a statistically significant p-value. The confusion matrix above, where 1.0=LIRR and 0.0=MNR prediction
+
+## Predict using test set and create confusion matrix
+
+```{r test_pred}
+yp_test <- predict(model,test)
+cm_test <- table(test$Agency,yp_test)
+confusionMatrix(cm_test)
+
+# Visualize confusion mx
+tclass = c(0,0,1,1)
+pclass = c(0,1,0,1)
+y = c(1,8,3,1)
+cm_df = data.frame(tclass,pclass,y)
+g = ggplot(data=cm_df,mapping=aes(x=tclass,y=pclass)) +
+  geom_tile(aes(fill=y),color="white") +
+  geom_text(aes(label = sprintf("%1.0f", y)), vjust = 1) +
+  scale_fill_gradient(low = "blue", high = "red") +
+  scale_y_continuous(name="Actual Value",expand=c(0,0),labels=c("MNR","LIRR"),breaks=c(0,1)) +
+  scale_x_continuous(name="Predicted Value",expand=c(0,0),labels=c("LIRR","MNR"),breaks=c(0,1)) +
+  labs(title="Confusion Matrix for Test Agency Data Set") +
+  theme_bw() + theme(legend.position = "none")
+ggsave("../../501-project-website/images/CONFUSION-MX-test-MNR-LIRR-OTP.png")
+```
