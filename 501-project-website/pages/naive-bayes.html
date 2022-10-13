@@ -26,7 +26,95 @@
         </h1>
         
         <div class="section-body">
-            
+            <p>
+                Naive Bayes models are based upon the well-known <a href="https://en.wikipedia.org/wiki/Bayes%27_theorem">Bayes' Theorem</a> and are used to apply binary and/or multi-class classification 
+                to aid in prediction based on given explanatory variables. In order to ascertain the effectiveness of a model, the data must be split into "training" and "test" data sets, where the model
+                "learns" the patterns and associations from the training data with known outputs to predict outputs in the "test" data set and any other real world data. The "training" set is used to 
+                construct the model initially, and is the basis upon which all further predictions are referent to.
+                The following subsections contain applications of these models to the various data sources that were cleaned and explored in prior 
+                sections. All codes for individual models can be downloaded in their individual subsections, but all of these codes may also be found 
+                <a href="https://github.com/anly501/anly-501-project-alexpattarini/tree/main/codes/04-naive-bayes">here</a>.
+            </p>
+            <!--table of subsections-->
+            <table>
+                <!--row 1-->
+                <tr>
+                    <!--row 1 col 1-->
+                    <td>
+                        <h2>Multinomial Model of Tweet Data Sentiment Analysis</h2>
+                        Sentiment analysis, or using machine learning processes to analyze the "sentiment" of a given set of text (i.e., positive, neutral, or negative), 
+                        was applied to the set of tweets gathered regarding the MTA as a whole (as opposed to the tweets acquired from the @NYCTSubway account). Each tweet was assigned an
+                        associated label as "negative", "neutral", or "positive" based on this sentiment analysis. However, for the subsequent analysis, all tweets denoted as "neutral" were removed 
+                        as this analysis is only concerned with either positive or negative statements regarding the MTA. These tweets were then vectorized using CountVectorizer, a method described
+                        in prior sections, and converted into an array format to correctly interface with the Python-based Naive Bayes modeling functions. Subsequently, these data were randomly split into the 
+                        respective "training" and "test" data sets such that they contained 80% and 20% of the gathered tweets respectively. To assess the predictive power of the subsequent Naive Bayes model,
+                        two models were constructed: a random predicting model based on probabilities found in the original data set, and a multinomial Naive Bayes model. All code used to create the visualizations
+                        on the right and the construction of the models can be downloaded <a href="../../codes/04-naive-bayes/mta-tweets-nb.ipynb">here</a>.
+                        
+                        <h2>Probability Based Model</h2>
+                        Using the sentiment labels outlined above, the proportion of tweets that were denoted as positive and negative were calculated (~0.55 and ~0.45) respectively. Predicitons were made by
+                        assigning predicted labels based on these probabilities (i.e., the expected number of positives predicted is about 55% of the tweets) based on the number of tweets in the training and test
+                        data sets respectively. These results are summarized in the image of Python output on the right side. We can see that the accuracy (number of sentiments predicted correctly), 
+                        precision(how often is positive prediction of a tweet is correct), and recall(when a tweet is actually positive, how often is it correctly predicted) are all close to the probabilities
+                        calculated earlier, and the model is a poor predictor for sentiment labels on both the training and test data. The confusion matrices pictured to the right show that this model is 
+                        fairly inaccurate in these predictions due to the large numbers of false positives and false negatives (top right, bottom left corners).
+                        
+                        <h2>Naive Bayes Model</h2>
+                        Using the sentiment labels and tweets in the training data set, a Naive Bayes model was fitted to predict classifications of the sentiments of other tweets. This model was used to predict 
+                        the sentiment labels of both the training and test data sets. After fitting the model, the classification report for the prediction of the training and test data sets was created and is pictured
+                        to the right. From this report, we can see that the Naive Bayes model vastly out performed the purely probability based model constructed above given by the significantly higher accuracy,
+                        precision, and recall scores across the board. Although this model did not perform as well in predicting the test data set, all accuracy, precision, and recall scores are appropriately 
+                        high enough to distinguish this model as an effective predcitor of text sentiment in these tweets. The confusion matrices only confirm these findings, indicating that this model 
+                        was effective at predicting sentiment labels given by the relatively low numbers of false positives and false negatives (top right, bottom left corners) as well as the relatively 
+                        high number of true positive assignments and true negative assignments (in the main diagonal).
+                    </td>
+                    <!--row 1 col 2-->
+                    <td>
+                        <!--table of images-->
+                        <table class="image-table">
+                            <tr>
+                                <td><a href="../images/NAIVE-BAYES-PBased-classification-report.PNG" target="_blank"><img class="data-image" src="../images/NAIVE-BAYES-PBased-classification-report.PNG"></a></td>
+                            </tr>
+                            <tr>
+                                <td><a href="../images/CONFUSION-MX-PBased-train-Opinion-Tweets.png" target="_blank"><img class="data-image" src="../images/CONFUSION-MX-PBased-train-Opinion-Tweets.png"></a></td>
+                                <td><a href="../images/CONFUSION-MX-PBased-test-Opinion-Tweets.png" target="_blank"><img class="data-image" src="../images/CONFUSION-MX-PBased-test-Opinion-Tweets.png"></a></td>
+                            </tr>
+                            <tr>
+                                <td><a href="../images/NAIVE-BAYES-classification-report.PNG"><img class="data-image" src="../images/NAIVE-BAYES-classification-report.PNG"></a></td>
+                            </tr>
+                            <tr>
+                                <td><a href="../images/CONFUSION-MX-NB-train-Opinion-Tweets.png" target="_blank"><img class="data-image" src="../images/CONFUSION-MX-NB-train-Opinion-Tweets.png"></a></td>
+                                <td><a href="../images/CONFUSION-MX-NB-test-Opinion-Tweets.png" target="_blank"><img class="data-image" src="../images/CONFUSION-MX-NB-test-Opinion-Tweets.png"></a></td>
+                            </tr>
+
+                        </table>
+                    </td>
+                </tr>
+                <!--row 2-->
+                <tr>
+                    <!--row 2 col 1-->
+                    <td>
+                        <h2>Gaussian Model of On-Time-Performance by Transit Agency</h2>
+                    </td>
+                    <!--row 2 col 2-->
+                    <td>
+                        <!--image table-->
+                        <table>
+                            <tr>
+                                <td><a href="../images/PAIRS-PLOT-mnr-lirr-otp.png" target="_blank"><img class="data-image" src="../images/PAIRS-PLOT-mnr-lirr-otp.png"></a></td>
+                            </tr>
+                            <tr>
+                                <td><a href="../images/NAIVE-BAYES-R-train-classification-report.PNG" target="_blank"><img class="data-image" src="../images/NAIVE-BAYES-R-train-classification-report.PNG"></a></td>
+                                <td><a href="../images/NAIVE-BAYES-R-test-classification-report.PNG" target="_blank"><img class="data-image" src="../images/NAIVE-BAYES-R-test-classification-report.PNG"></a></td>
+                            </tr>
+                            <tr>
+                                <td><a href="../images/CONFUSION-MX-train-MNR-LIRR-OTP.png" target="_blank"><img class="data-image" src="../images/CONFUSION-MX-train-MNR-LIRR-OTP.png"></a></td>
+                                <td><a href="../images/CONFUSION-MX-test-MNR-LIRR-OTP.png" target="_blank"><img class="data-image" src="../images/CONFUSION-MX-test-MNR-LIRR-OTP.png"></a></td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
         </div>
     </body>
 </html>
