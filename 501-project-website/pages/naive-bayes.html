@@ -86,7 +86,6 @@
                                 <td><a href="../images/CONFUSION-MX-NB-train-Opinion-Tweets.png" target="_blank"><img class="data-image" src="../images/CONFUSION-MX-NB-train-Opinion-Tweets.png"></a></td>
                                 <td><a href="../images/CONFUSION-MX-NB-test-Opinion-Tweets.png" target="_blank"><img class="data-image" src="../images/CONFUSION-MX-NB-test-Opinion-Tweets.png"></a></td>
                             </tr>
-
                         </table>
                     </td>
                 </tr>
@@ -95,6 +94,28 @@
                     <!--row 2 col 1-->
                     <td>
                         <h2>Gaussian Model of On-Time-Performance by Transit Agency</h2>
+                        The RMarkdown script that was created to create the subsequent visualizations and guide the following analysis can be downloaded <a href="../../codes/04-naive-bayes/mta-record.Rmd">here</a>. 
+                        To further analyze on time performance of the Metro North (MNR) and Long Island Rail Road (LIRR), a Naive Bayes model was fitted to the service reliability data cleaned and explored
+                        in prior sections. The difference between a multinomial and Gaussian Naive Bayes model is that a multinomial model uses discrete features to make predictions (e.g., text data from tweets)
+                        while the Gaussian model uses continuous variables to make such predictions. However, the MNR and LIRR data needed to be modified to be able to interface with the Python-based Naive Bayes modeling 
+                        software. The LIRR and MNR data sets have some differing variables (the LIRR data set contains more indicators of service reliability), so to make comparison and classification possible,
+                        any variables not shared by the two data sets were ignored. Subsequently, the MNR and LIRR data sets were combined along the variables they had in common, most notably on-time-performance
+                        percentage (OTP) and number of major incidents. 
+                        <h2>Initial EDA</h2>
+                        The Gaussian Naive Bayes model is based upon an assumption of independence between explanatory variables, and thus some initial 
+                        exploratory analysis was necessary to ascertain whether OTP and major incidents were correlated with each other. Based on the pairs plot pictured to the right, it is very clear that 
+                        number of major incidents and OTP are strongly correlated with one another (associated correlation coefficient of -0.88), and thus one of these variables must be dropped to continue with this 
+                        analysis. Thus, the number of major incidents indicator was dropped.
+                        <h2>Fitting the Model</h2>
+                        In order to predict the classification of transit agency based on service reliability, a Gaussian Naive Bayes model was fitted using the monthly OTP of each agency. The modified data set was Subsequently
+                        randomly divided in an 80/20 split to training and test data sets.
+                        Various indicators of the effecitveness of this model are pictured to the right in the form of R console output, each for the predictions of the training and test data sets respectively. 
+                        We can see that this model is fairly accurate in predicting the accompanying transit agency based on OTP across both data sets given by the good accuracy scores and predictive value. It is possible 
+                        that the reduced accuracy/predictive value in the test data set is due to the relatively small sample size employed in this analysis.
+                        <h2>Confusion Matrices</h2>
+                        The confusion matrices pictured to the right confirm the effectiveness of this model in predicting agency based on OTP. We can see that in both confusion matrices that the 
+                        true positives (LIRR predicted correctly) and true negatives (MNR predicted correctly) far outnumber the false positives and false negatives. Thus, it can reasoanbly be concluded that this 
+                        Gaussian Naive Bayes model is an effective predictor of agency type based on service reliability metrics.
                     </td>
                     <!--row 2 col 2-->
                     <td>
@@ -105,10 +126,14 @@
                             </tr>
                             <tr>
                                 <td><a href="../images/NAIVE-BAYES-R-train-classification-report.PNG" target="_blank"><img class="data-image" src="../images/NAIVE-BAYES-R-train-classification-report.PNG"></a></td>
+                            </tr>
+                            <tr>
                                 <td><a href="../images/NAIVE-BAYES-R-test-classification-report.PNG" target="_blank"><img class="data-image" src="../images/NAIVE-BAYES-R-test-classification-report.PNG"></a></td>
                             </tr>
                             <tr>
                                 <td><a href="../images/CONFUSION-MX-train-MNR-LIRR-OTP.png" target="_blank"><img class="data-image" src="../images/CONFUSION-MX-train-MNR-LIRR-OTP.png"></a></td>
+                            </tr>
+                            <tr>
                                 <td><a href="../images/CONFUSION-MX-test-MNR-LIRR-OTP.png" target="_blank"><img class="data-image" src="../images/CONFUSION-MX-test-MNR-LIRR-OTP.png"></a></td>
                             </tr>
                         </table>
