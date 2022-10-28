@@ -274,14 +274,14 @@ Name: Agency, dtype: int64</code></pre>
 <span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a>cm_plot <span class="op">=</span> ConfusionMatrixDisplay(cm,display_labels<span class="op">=</span>labels)</span>
 <span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a>cm_plot.plot()</span>
 <span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Confusion Matrix for Probability Based </span><span class="ch">\n</span><span class="st">Model of Agency Classification by Total Ridership and MDBF"</span>)</span>
-<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a>plt.savefig(<span class="st">"../../501-project-website/images/DT-CONFUSION-MX-PBased-train-Opinion-Tweets.png"</span>)</span>
+<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a>plt.savefig(<span class="st">"../../501-project-website/images/DT-CONFUSION-MX-PBased-train.png"</span>)</span>
 <span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a><span class="co"># Test set</span></span>
 <span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a>cm <span class="op">=</span> confusion_matrix(y_test,yp_test)</span>
 <span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a>cm_plot <span class="op">=</span> ConfusionMatrixDisplay(cm,display_labels<span class="op">=</span>labels)</span>
 <span id="cb7-26"><a href="#cb7-26" aria-hidden="true" tabindex="-1"></a>cm_plot.plot()</span>
 <span id="cb7-27"><a href="#cb7-27" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Confusion Matrix for Probability Based </span><span class="ch">\n</span><span class="st">Model of Agency Classification by Total Ridership and MDBF"</span>)</span>
-<span id="cb7-28"><a href="#cb7-28" aria-hidden="true" tabindex="-1"></a>plt.savefig(<span class="st">"../../501-project-website/images/DT-CONFUSION-MX-PBased-test-Opinion-Tweets.png"</span>)</span>
+<span id="cb7-28"><a href="#cb7-28" aria-hidden="true" tabindex="-1"></a>plt.savefig(<span class="st">"../../501-project-website/images/DT-CONFUSION-MX-PBased-test.png"</span>)</span>
 <span id="cb7-29"><a href="#cb7-29" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb7-30"><a href="#cb7-30" aria-hidden="true" tabindex="-1"></a><span class="co"># Print classification report</span></span>
 <span id="cb7-31"><a href="#cb7-31" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"CLASSIFICATION REPORT FOR TRAINING SET"</span>)</span>
@@ -433,15 +433,15 @@ gini     41</code></pre>
 <span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a>cm <span class="op">=</span> confusion_matrix(y_train,yp_train)</span>
 <span id="cb14-16"><a href="#cb14-16" aria-hidden="true" tabindex="-1"></a>cm_plot <span class="op">=</span> ConfusionMatrixDisplay(cm,display_labels<span class="op">=</span>labels)</span>
 <span id="cb14-17"><a href="#cb14-17" aria-hidden="true" tabindex="-1"></a>cm_plot.plot()</span>
-<span id="cb14-18"><a href="#cb14-18" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Confusion Matrix for Decision Tree Based </span><span class="ch">\n</span><span class="st">Model of NYC Subway Opinion Tweets Training Set"</span>)</span>
-<span id="cb14-19"><a href="#cb14-19" aria-hidden="true" tabindex="-1"></a>plt.savefig(<span class="st">"../../501-project-website/images/DT-CONFUSION-MX-train-Opinion-Tweets.png"</span>)</span>
+<span id="cb14-18"><a href="#cb14-18" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Confusion Matrix for Decision Tree Based </span><span class="ch">\n</span><span class="st">Model of Agency Classification by Total Ridership and MDBF"</span>)</span>
+<span id="cb14-19"><a href="#cb14-19" aria-hidden="true" tabindex="-1"></a>plt.savefig(<span class="st">"../../501-project-website/images/DT-CONFUSION-MX-train.png"</span>)</span>
 <span id="cb14-20"><a href="#cb14-20" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb14-21"><a href="#cb14-21" aria-hidden="true" tabindex="-1"></a><span class="co"># Test set</span></span>
 <span id="cb14-22"><a href="#cb14-22" aria-hidden="true" tabindex="-1"></a>cm <span class="op">=</span> confusion_matrix(y_test,yp_test)</span>
 <span id="cb14-23"><a href="#cb14-23" aria-hidden="true" tabindex="-1"></a>cm_plot <span class="op">=</span> ConfusionMatrixDisplay(cm,display_labels<span class="op">=</span>labels)</span>
 <span id="cb14-24"><a href="#cb14-24" aria-hidden="true" tabindex="-1"></a>cm_plot.plot()</span>
-<span id="cb14-25"><a href="#cb14-25" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Confusion Matrix for Decision Tree Based </span><span class="ch">\n</span><span class="st">Model of NYC Subway Opinion Tweets Test Set"</span>)</span>
-<span id="cb14-26"><a href="#cb14-26" aria-hidden="true" tabindex="-1"></a>plt.savefig(<span class="st">"../../501-project-website/images/DT-CONFUSION-MX-test-Opinion-Tweets.png"</span>)</span>
+<span id="cb14-25"><a href="#cb14-25" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Confusion Matrix for Decision Tree Based </span><span class="ch">\n</span><span class="st">Model of Agency Classification by Total Ridership and MDBF"</span>)</span>
+<span id="cb14-26"><a href="#cb14-26" aria-hidden="true" tabindex="-1"></a>plt.savefig(<span class="st">"../../501-project-website/images/DT-CONFUSION-MX-test.png"</span>)</span>
 <span id="cb14-27"><a href="#cb14-27" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb14-28"><a href="#cb14-28" aria-hidden="true" tabindex="-1"></a>fig <span class="op">=</span> plt.figure()</span>
 <span id="cb14-29"><a href="#cb14-29" aria-hidden="true" tabindex="-1"></a>tree_plot <span class="op">=</span> tree.plot_tree(model,filled<span class="op">=</span><span class="va">True</span>)</span>
