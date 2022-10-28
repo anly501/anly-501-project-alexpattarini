@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>mta-tweet-sentiment-svm</title>
+<title>SVM</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -98,17 +98,46 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <link href="MTA-Tweet-Sentiment-SVM_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
 
 
+<link rel="stylesheet" href="styles.css">
 </head>
 
-<body class="fullcontent">
+<body>
 
 <div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
-
+<div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+  <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#c-gamma-kernel-hyperparameter-tuning" id="toc-c-gamma-kernel-hyperparameter-tuning" class="nav-link active" data-scroll-target="#c-gamma-kernel-hyperparameter-tuning">C, Gamma, Kernel Hyperparameter Tuning</a></li>
+  <li><a href="#final-results" id="toc-final-results" class="nav-link" data-scroll-target="#final-results">Final Results</a></li>
+  <li><a href="#conclusions" id="toc-conclusions" class="nav-link" data-scroll-target="#conclusions">Conclusions</a></li>
+  </ul>
+</nav>
+</div>
 <main class="content" id="quarto-document-content">
 
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">SVM</h1>
+</div>
 
 
-<div class="cell" data-execution_count="102">
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+</header>
+
+<p>Firstly, relevant packages and libraries are loaded in the code drop down below.</p>
+<div class="cell" data-execution_count="1">
+<details>
+<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
@@ -131,18 +160,24 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> nltk.stem <span class="im">import</span> PorterStemmer</span>
 <span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>nltk.download(<span class="st">'words'</span>)</span>
 <span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> GridSearchCV</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output cell-output-stderr">
 <pre><code>[nltk_data] Downloading package words to
 [nltk_data]     C:\Users\alexp\AppData\Roaming\nltk_data...
 [nltk_data]   Package words is already up-to-date!</code></pre>
 </div>
 </div>
-<div class="cell" data-execution_count="103">
+<div class="cell" data-execution_count="2">
+<details>
+<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.read_csv(<span class="st">'../../data/01-modified-data/NYCT-Opinion-Tweets-Sentiments.csv'</span>)</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Remove neutral tweets</span></span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> df[df[<span class="st">'category'</span>]<span class="op">!=</span><span class="st">"neu"</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 </div>
-<div class="cell" data-execution_count="104">
+<div class="cell" data-execution_count="3">
+<details>
+<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Convert df to list of strings</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>corpus <span class="op">=</span> df[<span class="st">'text'</span>].tolist()</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -151,8 +186,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'label'</span>] <span class="op">=</span> df[<span class="st">'category'</span>].cat.codes</span>
 <span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>y1 <span class="op">=</span> df[<span class="st">'label'</span>].to_numpy()</span>
 <span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>labels <span class="op">=</span> [<span class="st">'neg'</span>,<span class="st">'pos'</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 </div>
-<div class="cell" data-execution_count="105">
+<div class="cell" data-execution_count="4">
+<details>
+<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Vectorize corpus text</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>vec <span class="op">=</span> CountVectorizer(min_df<span class="op">=</span><span class="fl">0.001</span>)</span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>all_x <span class="op">=</span> vec.fit_transform(corpus)</span>
@@ -161,15 +199,21 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="co"># one hot encoding</span></span>
 <span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>max_x<span class="op">=</span>np.<span class="bu">max</span>(X,axis<span class="op">=</span><span class="dv">0</span>)</span>
 <span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>X<span class="op">=</span>np.ceil(X<span class="op">/</span>max_x)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 </div>
-<div class="cell" data-execution_count="106">
+<div class="cell" data-execution_count="5">
+<details>
+<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> train_test_split</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>test_ratio<span class="op">=</span><span class="fl">0.2</span></span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>x_train, x_test, y_train, y_test <span class="op">=</span> train_test_split(X, y1, test_size<span class="op">=</span>test_ratio, random_state<span class="op">=</span><span class="dv">0</span>)</span>
 <span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>y_train<span class="op">=</span>y_train.flatten()</span>
 <span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>y_test<span class="op">=</span>y_test.flatten()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 </div>
-<div class="cell" data-execution_count="117">
+<div class="cell" data-execution_count="6">
+<details>
+<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Model determined by probabilities of positive and negative in the training data</span></span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="co"># proability of negative opinion in training data set</span></span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>p_neg_train <span class="op">=</span> <span class="bu">len</span>(y_train[y_train<span class="op">==</span><span class="dv">0</span>])<span class="op">/</span><span class="bu">len</span>(y_train)</span>
@@ -199,33 +243,34 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb7-27"><a href="#cb7-27" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(classification_report(y_train,yp_train,target_names<span class="op">=</span>[<span class="st">"neg"</span>,<span class="st">"pos"</span>]))</span>
 <span id="cb7-28"><a href="#cb7-28" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"CLASSIFICATION REPORT FOR TEST SET"</span>)</span>
 <span id="cb7-29"><a href="#cb7-29" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(classification_report(y_test,yp_test,target_names<span class="op">=</span>[<span class="st">"neg"</span>,<span class="st">"pos"</span>]))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>CLASSIFICATION REPORT FOR TRAINING SET
               precision    recall  f1-score   support
 
-         neg       0.43      0.43      0.43       169
-         pos       0.56      0.56      0.56       215
+         neg       0.45      0.44      0.44       169
+         pos       0.57      0.58      0.57       215
 
-    accuracy                           0.50       384
-   macro avg       0.50      0.50      0.50       384
-weighted avg       0.50      0.50      0.50       384
+    accuracy                           0.52       384
+   macro avg       0.51      0.51      0.51       384
+weighted avg       0.52      0.52      0.52       384
 
 CLASSIFICATION REPORT FOR TEST SET
               precision    recall  f1-score   support
 
-         neg       0.39      0.41      0.40        39
-         pos       0.59      0.57      0.58        58
+         neg       0.39      0.28      0.33        39
+         pos       0.59      0.71      0.65        58
 
-    accuracy                           0.51        97
+    accuracy                           0.54        97
    macro avg       0.49      0.49      0.49        97
-weighted avg       0.51      0.51      0.51        97
+weighted avg       0.51      0.54      0.52        97
 </code></pre>
 </div>
 <div class="cell-output cell-output-display">
-<p><img src="MTA-Tweet-Sentiment-SVM_files/figure-html/cell-7-output-2.png" class="img-fluid"></p>
+<p><img src="MTA-Tweet-Sentiment-SVM_files/figure-html/cell-7-output-2.png" width="521" height="467"></p>
 </div>
 <div class="cell-output cell-output-display">
-<p><img src="MTA-Tweet-Sentiment-SVM_files/figure-html/cell-7-output-3.png" class="img-fluid"></p>
+<p><img src="MTA-Tweet-Sentiment-SVM_files/figure-html/cell-7-output-3.png" width="512" height="467"></p>
 </div>
 </div>
 <p>The above probability-based model is clearly a poor classifier of the sentiments of the MTA-related tweets given by the poor accuracy, precision, and recall scores across the board (all in and around 50%). This is not surprising considering that predictions for this model are entirely random, based on the existing proportions of positive and negative labelled tweets in the training data set. Thus, a more complex and specific model must be used to classify these tweets, so I will build a Support Vector Classifier (SVC) model and analyze its effectiveness compared to the probability-based model constructed above.</p>
@@ -233,7 +278,9 @@ weighted avg       0.51      0.51      0.51        97
 <h2 class="anchored" data-anchor-id="c-gamma-kernel-hyperparameter-tuning">C, Gamma, Kernel Hyperparameter Tuning</h2>
 <p>However, in order to find the optimal SVC model to classify the MTA-related tweets, there are certain hyperparameters (i.e., user-defined inputs) that affect how a given SVC model fits a given set of data. Hyperparameters are independent of any training/validation/test data set, and must be determined by the individual constructing a given model. For the SVC type of model, these hyperparameters/choics are C, Gamma, and the kernel. Firstly, the C hyperparameter controls to what extent the model tries to avoid misclassifying observations, with a larger C value leading to the model to try to correctly classify more points, which leads to the risk of overfitting. However, a C parameter that is too low will lead to the resulting model having low accuracy and high rates of misclassification. The kernel choice determines what type of mathematical function the SVC model uses to find its resulting decision hyperplane. Different sets of data may be classified more effectively with differing types of functiosn as their baseline, which indicates that investigating models with differing kernel choices is necessary to find an optimal model. Finally, the gamma parameter essentially controls the curvature of the constructed decision hyperplane, with a high gamma enabling the SVC model to have a more curved decision barrier. This gamma parameter is only truly relevant for RBF (radial basis function) SVC models.</p>
 <p>In order to investigate what set of parameters is most optimal for classifying the sentiments of the MTA-related tweets cleaned and explored in prior sections of this project, many combinations of these three parameters must be tested. To do this, I will perform a grid search where models are systematically constructed with differing combinations of parameters and their respective measures of accuracy, precision, etc. are internally calculated. The code that accomplishes this process can be found below.</p>
-<div class="cell" data-execution_count="179">
+<div class="cell" data-execution_count="7">
+<details>
+<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>kernel_list <span class="op">=</span> [<span class="st">'linear'</span>,<span class="st">'rbf'</span>, <span class="st">'poly'</span>, <span class="st">'sigmoid'</span>]</span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>Cs <span class="op">=</span> [<span class="fl">0.01</span>,<span class="fl">0.1</span>,<span class="dv">1</span>,<span class="dv">10</span>,<span class="dv">1000</span>]</span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>gammas <span class="op">=</span> [<span class="dv">1</span>,<span class="fl">0.1</span>,<span class="fl">0.01</span>,<span class="fl">0.001</span>,<span class="fl">0.0001</span>]</span>
@@ -256,21 +303,25 @@ weighted avg       0.51      0.51      0.51        97
 <span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a>    plt.xlabel(<span class="st">'Gamma'</span>)</span>
 <span id="cb9-21"><a href="#cb9-21" aria-hidden="true" tabindex="-1"></a>    plt.ylabel(<span class="st">'Mean score'</span>)</span>
 <span id="cb9-22"><a href="#cb9-22" aria-hidden="true" tabindex="-1"></a>    plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output cell-output-display">
-<p><img src="MTA-Tweet-Sentiment-SVM_files/figure-html/cell-8-output-1.png" class="img-fluid"></p>
-</div>
-<div class="cell-output cell-output-display">
-<p><img src="MTA-Tweet-Sentiment-SVM_files/figure-html/cell-8-output-2.png" class="img-fluid"></p>
+<p><img src="MTA-Tweet-Sentiment-SVM_files/figure-html/cell-8-output-1.png" width="597" height="449"></p>
 </div>
 <div class="cell-output cell-output-display">
-<p><img src="MTA-Tweet-Sentiment-SVM_files/figure-html/cell-8-output-3.png" class="img-fluid"></p>
+<p><img src="MTA-Tweet-Sentiment-SVM_files/figure-html/cell-8-output-2.png" width="597" height="449"></p>
 </div>
 <div class="cell-output cell-output-display">
-<p><img src="MTA-Tweet-Sentiment-SVM_files/figure-html/cell-8-output-4.png" class="img-fluid"></p>
+<p><img src="MTA-Tweet-Sentiment-SVM_files/figure-html/cell-8-output-3.png" width="606" height="449"></p>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="MTA-Tweet-Sentiment-SVM_files/figure-html/cell-8-output-4.png" width="597" height="449"></p>
 </div>
 </div>
-<div class="cell" data-execution_count="181">
+<div class="cell" data-execution_count="8">
+<details>
+<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"The ideal parameters for this model based on a grid search is:"</span>,grid.best_estimator_)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>The ideal parameters for this model based on a grid search is: SVC(C=10, gamma=0.1, kernel='sigmoid')</code></pre>
 </div>
@@ -279,7 +330,9 @@ weighted avg       0.51      0.51      0.51        97
 </section>
 <section id="final-results" class="level2">
 <h2 class="anchored" data-anchor-id="final-results">Final Results</h2>
-<div class="cell" data-execution_count="182">
+<div class="cell" data-execution_count="9">
+<details>
+<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># SVC Model</span></span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Normalize data and fit model</span></span>
 <span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>pipeline <span class="op">=</span> make_pipeline(StandardScaler(),SVC(C<span class="op">=</span><span class="dv">10</span>,gamma<span class="op">=</span><span class="fl">0.1</span>,kernel<span class="op">=</span><span class="st">'sigmoid'</span>))</span>
@@ -307,6 +360,7 @@ weighted avg       0.51      0.51      0.51        97
 <span id="cb12-25"><a href="#cb12-25" aria-hidden="true" tabindex="-1"></a>cm_plot.plot()</span>
 <span id="cb12-26"><a href="#cb12-26" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Confusion Matrix for Sigmoid SVC Based </span><span class="ch">\n</span><span class="st">Model of NYC Subway Opinion Tweets Test Set"</span>)</span>
 <span id="cb12-27"><a href="#cb12-27" aria-hidden="true" tabindex="-1"></a>plt.savefig(<span class="st">"../../501-project-website/images/CONFUSION-MX-PBased-test-Opinion-Tweets.png"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>CLASSIFICATION REPORT FOR TRAINING SET
               precision    recall  f1-score   support
@@ -330,17 +384,17 @@ weighted avg       0.81      0.80      0.80        97
 </code></pre>
 </div>
 <div class="cell-output cell-output-display">
-<p><img src="MTA-Tweet-Sentiment-SVM_files/figure-html/cell-10-output-2.png" class="img-fluid"></p>
+<p><img src="MTA-Tweet-Sentiment-SVM_files/figure-html/cell-10-output-2.png" width="521" height="467"></p>
 </div>
 <div class="cell-output cell-output-display">
-<p><img src="MTA-Tweet-Sentiment-SVM_files/figure-html/cell-10-output-3.png" class="img-fluid"></p>
+<p><img src="MTA-Tweet-Sentiment-SVM_files/figure-html/cell-10-output-3.png" width="512" height="467"></p>
 </div>
 </div>
-<p>We can see that this model generally does a good job of classifying the sentiments of MTA-related tweets based on their word composition (after removing stop words/standardizing and other feature selection) given by the accuracy, precision, and recall scores occupying the neighborhood in and around 80% across both the training and test set predictions. The confusion matrices back up this assertion given by the number of correclty identified setniments in the main diagonal compared to false negative classifications and false positive classifications. In comparison to the probability based model constructed earlier, it is very clear that the SVC model is a better classifier of these sentiments.</p>
+<p>We can see that this model generally does a good job of classifying the sentiments of MTA-related tweets based on their word composition (after removing stop words/standardizing and other feature selection) given by the accuracy, precision, and recall scores occupying the neighborhood in and around 80% across both the training and test set predictions. The confusion matrices back up this assertion given by the number of correclty identified setniments in the main diagonal compared to false negative classifications and false positive classifications. In comparison to the probability based model constructed earlier, it is very clear that the SVC model is a better classifier of these sentiments. In order to improve the fit of this type of model, the hyperparameter tuning could accommodate more options in terms of possible C and gamma values, although such a process would be more computationally intensive and time consuming. The model does not appear to overfitted given by the similar accuracy scores between the predictions regarding the training set and those regarding the test set</p>
 </section>
 <section id="conclusions" class="level2">
 <h2 class="anchored" data-anchor-id="conclusions">Conclusions</h2>
-<p>Ultimately, from the creation of the rudimentary probability-based classification model to the hyperparameter tuning and construction of the finalized SVC model, we can see that the SVC model is a vastly superior classification model compared to the probability-based model.</p>
+<p>Ultimately, from the creation of the rudimentary probability-based classification model to the hyperparameter tuning and construction of the finalized SVC model, we can see that the SVC model is a vastly superior classification model compared to the probability-based model. Given by the decent accuracy, precision, and recall scores</p>
 </section>
 
 </main>
