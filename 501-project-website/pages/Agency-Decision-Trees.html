@@ -149,7 +149,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <section id="feature-selectiondata-processing" class="level2">
 <h2 class="anchored" data-anchor-id="feature-selectiondata-processing">Feature Selection/Data Processing</h2>
 <p>Inconsistencies between the data frames described above must be resolved and then merged in order to result in data that may be used to construct an appropriate model. Ridership data is gathered daily while MDBF data is gathered on a monthly basis, so the ridership data is averaged by month in order to ensure that these data frames can be compared and merged. The MBDF data frame assesses MDBF by the type of train car and includes averages for their entire fleets, so any row for specific train car type is dropped. Additionally, the ServiceDate variable tracking when each individual observation was made/reported is not necessary for a classification model, and thus it is also dropped from the data frame.</p>
-<div class="cell" data-execution_count="165">
+<div class="cell" data-execution_count="175">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Import relevant packages</span></span>
@@ -175,7 +175,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> collections <span class="im">import</span> Counter</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<div class="cell" data-execution_count="166">
+<div class="cell" data-execution_count="176">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Read in appropriate data sets</span></span>
@@ -209,7 +209,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <section id="class-distribution" class="level2">
 <h2 class="anchored" data-anchor-id="class-distribution">Class Distribution</h2>
 <p>The frequency of observations for each respective agency is displayed below, wherein each agency is represented roughly fairly equally within the data set. This means that resulting models are less likely to suffer from overfitting (which would occur if one agency label was severely overpresent relative to the others),and thus resulting models can be more generalizable. The relatively balanced nature of the classes for this model indicates that the larger class is likely to be “overclassified,” where the smaller class gets overwhelmed by the presence of a larger class in comparison. Ultimately, this is a good indicator for the creation of the subsequent model construction.</p>
-<div class="cell" data-execution_count="167">
+<div class="cell" data-execution_count="177">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(df[<span class="st">'Agency'</span>].value_counts())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -225,7 +225,7 @@ Name: Agency, dtype: int64</code></pre>
 <section id="baseline-model-construction" class="level2">
 <h2 class="anchored" data-anchor-id="baseline-model-construction">Baseline Model Construction</h2>
 <p>Before any substantive model creation can occur, the data must be split into a training data set and test data set with a 70%-30% split (70-30 due to smaller sample size). Agencies are encoded as strings in the original data set, so they are coded as numbers for the analysis to be performed. The resulting</p>
-<div class="cell" data-execution_count="168">
+<div class="cell" data-execution_count="178">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Assign numerical codes to categories</span></span>
@@ -251,7 +251,7 @@ Name: Agency, dtype: int64</code></pre>
 </div>
 </div>
 <p>First, a random model will be fitted to compare the subsequent decision tree model to. This random model will be generated based on the frequency of Agency type within the training data set generated above.</p>
-<div class="cell" data-execution_count="169">
+<div class="cell" data-execution_count="179">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Model determined by probabilities of positive and negative in the training data</span></span>
@@ -325,7 +325,7 @@ weighted avg       0.28      0.26      0.25        19
 <h2 class="anchored" data-anchor-id="hyperparameter-tuning">Hyperparameter Tuning</h2>
 <p>However, in order to find the most optimal decision tree model to classify agency based on various performance metrics, a set of hyperparameters (i.e., user defined inputs for the classifier method) must be chosen which will affect how well the resulting model fits the training and test data sets. For decision tree (DT) models, two important hyperparameters are the criterion and maximum depth. Criterion refers to the way that the quality of each split in the decision tree is assessed, either using the Gini impurity, or entropy. Gini impurity analyzes the frequency at which data points may be misclassified for a given split when they are randomly labelled, and its range from 0 to 0.5. When a leaf of a decision tree has a Gini impurity score of 0, that means that the leaf is pure, and no further splits should be made. Entropy is a more complex measure than Gini impurity, and it measures the extent of disorder within a target split, and the split that results in the least entropy is considered the “optimal” split. Entropy ranges from 0 to 1, and when entropy is equal to 0, that means purity is achieved within a node. The maxmimum depth of a decision tree model caps the number of layers the DT model may have, which can enable overfitting if the value is too high, and underfitting if the maximum depth is too low.</p>
 <p>In order to aptly tune these hyperparameters to the problem of agency classification at hand, a grid search will be performed. A grid search looks at all combinations of predetermined hyperparameter options (i.e., the range of what is searched is user defined) and constructs a model, which generates various measures of accuracy. DT models of this scale are not overly computationally intensive to run, so I will iterate over the grid search 100 times to observe what maximum depth parameters and which criterion is more appropriate for the model at hand. Each grid search generates a “best estimator”, or best set of parameters, which I then save to be analyzed further. The code that accomplishes this task can be found in the below dropdown.</p>
-<div class="cell" data-execution_count="170">
+<div class="cell" data-execution_count="180">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Define search parameters to be iterated over</span></span>
@@ -348,7 +348,7 @@ weighted avg       0.28      0.26      0.25        19
 </details>
 </div>
 <p>Once the 100 best maximum depth parameters and 100 best criterion choices have been aggregated, they must be compared to one another to ascertain what is the most “optimal” parameter combination. Plots of the frequency of best estimators are plotted below.</p>
-<div class="cell" data-execution_count="171">
+<div class="cell" data-execution_count="181">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate counts of max depths and best criterions</span></span>
@@ -397,7 +397,7 @@ gini     41</code></pre>
 </div>
 </div>
 <p>As can be seen above, various maximum depths were deemed “best” by the several grid searches, while the frequency of Gini and entropy criterion being deemed the “best” estimator are not too dissimilar, although there is an apparent difference. Thus, the average of all of the “best” maximum depth parameters and the greater of the “best” criterion are to be used as the basis for the final DT model.</p>
-<div class="cell" data-execution_count="174">
+<div class="cell" data-execution_count="182">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate average best max depth of grid searches</span></span>
@@ -406,14 +406,14 @@ gini     41</code></pre>
 <span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"The ideal parameters for this model based on a grid search a maximum depth of"</span>,max_depth_avg,<span class="st">"with a criterion of entropy"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
-<pre><code>The ideal parameters for this model based on a grid search a maximum depth of 7.71 with a criterion of gini</code></pre>
+<pre><code>The ideal parameters for this model based on a grid search a maximum depth of 7.71 with a criterion of entropy</code></pre>
 </div>
 </div>
 </section>
 <section id="final-results" class="level2">
 <h2 class="anchored" data-anchor-id="final-results">Final Results</h2>
 <p>The process of hyperparameter tuning has generated the above “optimal” parameters to be used to construct a decision tree model to classify agency type based on the previously mentioned indicators of performance. More detailed summaries of this model are generated and explained below.</p>
-<div class="cell" data-execution_count="173">
+<div class="cell" data-execution_count="183">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> tree.DecisionTreeClassifier(max_depth<span class="op">=</span><span class="bu">round</span>(max_depth_avg),criterion<span class="op">=</span>higher_criterion)</span>
