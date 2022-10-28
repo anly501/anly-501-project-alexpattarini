@@ -1,0 +1,16 @@
+---
+title: "Decision Trees"
+jupyter: python3
+format:
+    html:
+        code-fold: true
+        toc: true
+        html-math-method: katex
+        css: styles.css
+editor:
+    render-on-save: false
+---
+
+```{python}
+
+```
