@@ -141,14 +141,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>HEADER BAR DOES NOT WORK WITH QUARTO, ACCESS OTHER TABS BY CLOSING THIS ONE</p>
 <section id="what-is-svm-and-how-does-it-work" class="level2">
 <h2 class="anchored" data-anchor-id="what-is-svm-and-how-does-it-work">What is SVM and How Does It Work?</h2>
-<p>SVM, or support vector machines, is a supervised machine learning algorithm which can analyze data for classification and/or regression, however the subject of the subsequent analysis will involve SVC, or support vector classifiers. The overarching goal of the use of SVM classification is to separate one set of data into two groups by finding a hyperplane (A.K.A. a decision boundary) such that one class of objects is on one side of the boundary, and the other is on the opposing side while minimizing incorrect classifications. It is important to note that SVMs are bianry classifiers by nature, meaning that individually, an application of SVM can only be used to separate a set of data as being part of one group or another (rather than a set of three or more groups being the basis). The ideal outcome of an SVM-based analysis is the discovery of a hyperplane that maximizes the “margin”, or the distance between the resulting hyperplane and the support vectors (i.e., nearby observations).</p>
+<p>SVM, or support vector machines, is a supervised machine learning algorithm which can analyze data for classification and/or regression, however the subject of the subsequent analysis will involve SVC, or support vector classifiers. The overarching goal of the use of SVM classification is to separate one set of data into two groups by finding a hyperplane (A.K.A. a decision boundary) such that one class of objects is on one side of the boundary, and the other is on the opposing side while minimizing incorrect classifications. It is important to note that SVMs are binary classifiers by nature, meaning that individually, an application of SVM can only be used to separate a set of data as being part of one group or another (rather than a set of three or more groups being the basis). The ideal outcome of an SVM-based analysis is the discovery of a hyperplane that maximizes the “margin”, or the distance between the resulting hyperplane and the support vectors (i.e., nearby observations).</p>
 <p>One of the most important parts of SVM are the aptly named “support vectors”, which are the points that are near the to-be-determined decision boundary. These points hold the most influence and sway over where exactly the hyperplane that attempts to classify the set of data points will manifest. The SVM algorithm then assesses these data points (along with all others), and computes a decision boundary based on a set of hyperparameters (i.e., user defined inputs) which are discussed in more depth later on in this section. There are several advantages that SVM models have, such as the ability to deal effectively with high dimensional data (for example, words in a text data set such as this analysis deals with) and low sample sizes, along with being very versatile given its varied hyperparameters, and is relatively computationally efficient given its heavy reliance on support vectors (which are a subset of the overall data set). However, SVMs are notoriously suspect to overfitting, where the decision boundary may be extremely accurate for a training data set, but is not generalizable because the generated hyperplane is way too specific. This makes the process of hyperparameter tuning even more vital when constructing an SVM-based model.</p>
 <p>The subsequent analysis asessess sentiment analysis labels of tweets (as also explored in the Naive Bayes section) as “positive” or “negative”, so this is purely a binary classification problem. In the coming analyses, an SVC based model will be constructed in comparison to a random, simple probability-based model based on the number of “positives” and “negatives” inherent within the already-labelled tweets. It is important to note that these labelled tweets have already been pre-processed to an extent as outlined in the Data Cleaning section, where stop words and other redundant/irrelevant characters and words were removed from the tweets, along with stemming and lemmitization to standardize words of different forms but similar roots (e.g., play, plays, played, playing all have the same root of play). This in and of itself functiosn as a form of feature selection for the subsequent model construction.</p>
 </section>
 <section id="feature-selectiondata-processing" class="level2">
 <h2 class="anchored" data-anchor-id="feature-selectiondata-processing">Feature Selection/Data Processing</h2>
 <p>Firstly, relevant packages and libraries are loaded in the code drop down below.</p>
-<div class="cell" data-execution_count="15">
+<div class="cell" data-execution_count="1">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
@@ -181,7 +181,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 </div>
 <p>Secondly, the previously cleaned tweets are imported and neutral tweets are dropped as they are not relevant to the analysis.</p>
-<div class="cell" data-execution_count="16">
+<div class="cell" data-execution_count="2">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.read_csv(<span class="st">'../../data/01-modified-data/NYCT-Opinion-Tweets-Sentiments.csv'</span>)</span>
@@ -190,7 +190,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </details>
 </div>
 <p>The subsequent two code chunks convert the data frame of tweets into a format that can be used to create appropriate classification models. Firstly, the set of tweets is converted into a list, and their accompanying sentiment labels are assigned a numeric value (0 for negative, 1 for positive), and converted to a numpy array. Secondly, the tweets themselves are “vectorized” using the CountVectorizer method in which the text is broken up into words. It is important to note that in prior data cleaning, stop words and redundant characters and words were removed, which functions as a form of feature selection. Additionally, feature selection is achieved as words that appear in very few of the tweets are not considered in this analysis (given by the min_df=0.001 argument in CountVectorizer), ensuring that words that have very little impact or relevance to the overall analysis are removed, thus improving the runtime of the subsequent models. These sets of words are then combined into a one-hot encoded document term frequency matrix where each row represents a “document” (in this case tweet), and columns represents the presence of words in each document. Finally, the data is now ready to be further analyzed and models may now be built.</p>
-<div class="cell" data-execution_count="17">
+<div class="cell" data-execution_count="3">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Convert df to list of strings</span></span>
@@ -203,7 +203,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>labels <span class="op">=</span> [<span class="st">'neg'</span>,<span class="st">'pos'</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<div class="cell" data-execution_count="18">
+<div class="cell" data-execution_count="4">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Vectorize corpus text</span></span>
@@ -220,7 +220,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <section id="class-distribution" class="level2">
 <h2 class="anchored" data-anchor-id="class-distribution">Class Distribution</h2>
 <p>The distribution of positive and negative labels is generated and outputted by the code chunk below. Although the label of “positive” and “negative” have been converted into numeric form, we can see that they are not too different in number, indicating that there is generally a good amount of class balance between the labels. This means that resulting models are less likely to suffer from overfitting (which would occur if one sentiment label was overpresent relative to the other),and thus resulting models can be more generalizable. The relatively balanced nature of the classes for this model indicates that the larger class is likely to be “overclassified,” where the smaller class gets overwhelmed by the presence of a larger class in comparison. Ultimately, this is a good indicator for the creation of the subsequent model construction.</p>
-<div class="cell" data-execution_count="19">
+<div class="cell" data-execution_count="5">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(df[<span class="st">'label'</span>].value_counts())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -235,7 +235,7 @@ Name: label, dtype: int64</code></pre>
 <section id="baseline-model-construction" class="level2">
 <h2 class="anchored" data-anchor-id="baseline-model-construction">Baseline Model Construction</h2>
 <p>Before any analysis and model construction occurs, the overall data set of tweets must be split into a training and test set, which in this case is split in an 80%-20% fashion. To provide a baseline to which an SVM model will be compared to, a model based on the prior frequencies/probabilities of positive and negative sentiment labels within the training data. Using these probabilities (i.e., proportion of training tweets with a “positive” label and the proportion with a “negative” label), predictions of sentiment labels were randomly assigned with no regard for the word composition of the tweets. Subsequently, various measures of model fit, such as accuracy, precision, and recall scores, are calculated, displayed, and interpreted below. Additionally, confusion matrices showing the number of correctly and incorrectly predicted sentiment labels are displayed below, where entries in the top left and bottom right indicate the number of correctly labelled tweets.</p>
-<div class="cell" data-execution_count="20">
+<div class="cell" data-execution_count="6">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> train_test_split</span>
@@ -245,7 +245,7 @@ Name: label, dtype: int64</code></pre>
 <span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>y_test<span class="op">=</span>y_test.flatten()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<div class="cell" data-execution_count="21">
+<div class="cell" data-execution_count="7">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Model determined by probabilities of positive and negative in the training data</span></span>
@@ -263,14 +263,14 @@ Name: label, dtype: int64</code></pre>
 <span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>cm_plot <span class="op">=</span> ConfusionMatrixDisplay(cm,display_labels<span class="op">=</span>labels)</span>
 <span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>cm_plot.plot()</span>
 <span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Confusion Matrix for Probability Based </span><span class="ch">\n</span><span class="st">Model of NYC Subway Opinion Tweets Training Set"</span>)</span>
-<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a>plt.savefig(<span class="st">"../../501-project-website/images/CONFUSION-MX-PBased-train-Opinion-Tweets.png"</span>)</span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a>plt.savefig(<span class="st">"../../501-project-website/images/SVM-CONFUSION-MX-PBased-train-Opinion-Tweets.png"</span>)</span>
 <span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Test set</span></span>
 <span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a>cm <span class="op">=</span> confusion_matrix(y_test,yp_test)</span>
 <span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a>cm_plot <span class="op">=</span> ConfusionMatrixDisplay(cm,display_labels<span class="op">=</span>labels)</span>
 <span id="cb9-21"><a href="#cb9-21" aria-hidden="true" tabindex="-1"></a>cm_plot.plot()</span>
 <span id="cb9-22"><a href="#cb9-22" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Confusion Matrix for Probability Based </span><span class="ch">\n</span><span class="st">Model of NYC Subway Opinion Tweets Test Set"</span>)</span>
-<span id="cb9-23"><a href="#cb9-23" aria-hidden="true" tabindex="-1"></a>plt.savefig(<span class="st">"../../501-project-website/images/CONFUSION-MX-PBased-test-Opinion-Tweets.png"</span>)</span>
+<span id="cb9-23"><a href="#cb9-23" aria-hidden="true" tabindex="-1"></a>plt.savefig(<span class="st">"../../501-project-website/images/SVM-CONFUSION-MX-PBased-test-Opinion-Tweets.png"</span>)</span>
 <span id="cb9-24"><a href="#cb9-24" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb9-25"><a href="#cb9-25" aria-hidden="true" tabindex="-1"></a><span class="co"># Print classification report</span></span>
 <span id="cb9-26"><a href="#cb9-26" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"CLASSIFICATION REPORT FOR TRAINING SET"</span>)</span>
@@ -282,22 +282,22 @@ Name: label, dtype: int64</code></pre>
 <pre><code>CLASSIFICATION REPORT FOR TRAINING SET
               precision    recall  f1-score   support
 
-         neg       0.44      0.45      0.44       169
-         pos       0.56      0.54      0.55       215
+         neg       0.43      0.45      0.44       169
+         pos       0.55      0.53      0.54       215
 
-    accuracy                           0.50       384
-   macro avg       0.50      0.50      0.50       384
-weighted avg       0.50      0.50      0.50       384
+    accuracy                           0.49       384
+   macro avg       0.49      0.49      0.49       384
+weighted avg       0.50      0.49      0.50       384
 
 CLASSIFICATION REPORT FOR TEST SET
               precision    recall  f1-score   support
 
-         neg       0.41      0.44      0.43        39
-         pos       0.61      0.59      0.60        58
+         neg       0.46      0.49      0.48        39
+         pos       0.64      0.62      0.63        58
 
-    accuracy                           0.53        97
-   macro avg       0.51      0.51      0.51        97
-weighted avg       0.53      0.53      0.53        97
+    accuracy                           0.57        97
+   macro avg       0.55      0.55      0.55        97
+weighted avg       0.57      0.57      0.57        97
 </code></pre>
 </div>
 <div class="cell-output cell-output-display">
@@ -313,7 +313,7 @@ weighted avg       0.53      0.53      0.53        97
 <h2 class="anchored" data-anchor-id="c-gamma-kernel-hyperparameter-tuning">C, Gamma, Kernel Hyperparameter Tuning</h2>
 <p>However, in order to find the optimal SVC model to classify the MTA-related tweets, there are certain hyperparameters (i.e., user-defined inputs) that affect how a given SVC model fits a given set of data. Hyperparameters are independent of any training/validation/test data set, and must be determined by the individual constructing a given model. For the SVC type of model, these hyperparameters/choics are C, Gamma, and the kernel. Firstly, the C hyperparameter controls to what extent the model tries to avoid misclassifying observations, with a larger C value leading to the model to try to correctly classify more points, which leads to the risk of overfitting. However, a C parameter that is too low will lead to the resulting model having low accuracy and high rates of misclassification. The kernel choice determines what type of mathematical function the SVC model uses to find its resulting decision hyperplane. Different sets of data may be classified more effectively with differing types of functiosn as their baseline, which indicates that investigating models with differing kernel choices is necessary to find an optimal model. Finally, the gamma parameter essentially controls the curvature of the constructed decision hyperplane, with a high gamma enabling the SVC model to have a more curved decision barrier. This gamma parameter is only truly relevant for RBF (radial basis function) SVC models.</p>
 <p>In order to investigate what set of parameters is most optimal for classifying the sentiments of the MTA-related tweets cleaned and explored in prior sections of this project, many combinations of these three parameters must be tested. To do this, I will perform a grid search where models are systematically constructed with differing combinations of parameters and their respective measures of accuracy, precision, etc. are internally calculated. The code that accomplishes this process can be found below.</p>
-<div class="cell" data-execution_count="22">
+<div class="cell" data-execution_count="8">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>kernel_list <span class="op">=</span> [<span class="st">'linear'</span>,<span class="st">'rbf'</span>, <span class="st">'poly'</span>, <span class="st">'sigmoid'</span>]</span>
@@ -352,7 +352,7 @@ weighted avg       0.53      0.53      0.53        97
 <p><img src="MTA-Tweet-Sentiment-SVM_files/figure-html/cell-9-output-4.png" class="img-fluid"></p>
 </div>
 </div>
-<div class="cell" data-execution_count="23">
+<div class="cell" data-execution_count="9">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"The ideal parameters for this model based on a grid search is:"</span>,grid.best_estimator_)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -365,7 +365,7 @@ weighted avg       0.53      0.53      0.53        97
 </section>
 <section id="final-results" class="level2">
 <h2 class="anchored" data-anchor-id="final-results">Final Results</h2>
-<div class="cell" data-execution_count="24">
+<div class="cell" data-execution_count="10">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># SVC Model</span></span>
@@ -387,14 +387,14 @@ weighted avg       0.53      0.53      0.53        97
 <span id="cb14-17"><a href="#cb14-17" aria-hidden="true" tabindex="-1"></a>cm_plot <span class="op">=</span> ConfusionMatrixDisplay(cm,display_labels<span class="op">=</span>labels)</span>
 <span id="cb14-18"><a href="#cb14-18" aria-hidden="true" tabindex="-1"></a>cm_plot.plot()</span>
 <span id="cb14-19"><a href="#cb14-19" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Confusion Matrix for Sigmoid SVC Based </span><span class="ch">\n</span><span class="st">Model of NYC Subway Opinion Tweets Training Set"</span>)</span>
-<span id="cb14-20"><a href="#cb14-20" aria-hidden="true" tabindex="-1"></a>plt.savefig(<span class="st">"../../501-project-website/images/CONFUSION-MX-PBased-train-Opinion-Tweets.png"</span>)</span>
+<span id="cb14-20"><a href="#cb14-20" aria-hidden="true" tabindex="-1"></a>plt.savefig(<span class="st">"../../501-project-website/images/SVM-CONFUSION-MX-train-Opinion-Tweets.png"</span>)</span>
 <span id="cb14-21"><a href="#cb14-21" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb14-22"><a href="#cb14-22" aria-hidden="true" tabindex="-1"></a><span class="co"># Test set</span></span>
 <span id="cb14-23"><a href="#cb14-23" aria-hidden="true" tabindex="-1"></a>cm <span class="op">=</span> confusion_matrix(y_test,yp_test)</span>
 <span id="cb14-24"><a href="#cb14-24" aria-hidden="true" tabindex="-1"></a>cm_plot <span class="op">=</span> ConfusionMatrixDisplay(cm,display_labels<span class="op">=</span>labels)</span>
 <span id="cb14-25"><a href="#cb14-25" aria-hidden="true" tabindex="-1"></a>cm_plot.plot()</span>
 <span id="cb14-26"><a href="#cb14-26" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Confusion Matrix for Sigmoid SVC Based </span><span class="ch">\n</span><span class="st">Model of NYC Subway Opinion Tweets Test Set"</span>)</span>
-<span id="cb14-27"><a href="#cb14-27" aria-hidden="true" tabindex="-1"></a>plt.savefig(<span class="st">"../../501-project-website/images/CONFUSION-MX-PBased-test-Opinion-Tweets.png"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb14-27"><a href="#cb14-27" aria-hidden="true" tabindex="-1"></a>plt.savefig(<span class="st">"../../501-project-website/images/SVM-CONFUSION-MX-test-Opinion-Tweets.png"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>CLASSIFICATION REPORT FOR TRAINING SET
