@@ -149,7 +149,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <section id="feature-selectiondata-processing" class="level2">
 <h2 class="anchored" data-anchor-id="feature-selectiondata-processing">Feature Selection/Data Processing</h2>
 <p>Inconsistencies between the data frames described above must be resolved and then merged in order to result in data that may be used to construct an appropriate model. Ridership data is gathered daily while MDBF data is gathered on a monthly basis, so the ridership data is averaged by month in order to ensure that these data frames can be compared and merged. The MBDF data frame assesses MDBF by the type of train car and includes averages for their entire fleets, so any row for specific train car type is dropped. Additionally, the ServiceDate variable tracking when each individual observation was made/reported is not necessary for a classification model, and thus it is also dropped from the data frame.</p>
-<div class="cell" data-execution_count="175">
+<div class="cell" data-execution_count="2">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Import relevant packages</span></span>
@@ -175,7 +175,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> collections <span class="im">import</span> Counter</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<div class="cell" data-execution_count="176">
+<div class="cell" data-execution_count="4">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Read in appropriate data sets</span></span>
