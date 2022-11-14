@@ -1,0 +1,751 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.2.245">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>MTA Related Tweet SVM Model Construction</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<script src="MTA-Clustering_files/libs/clipboard/clipboard.min.js"></script>
+<script src="MTA-Clustering_files/libs/quarto-html/quarto.js"></script>
+<script src="MTA-Clustering_files/libs/quarto-html/popper.min.js"></script>
+<script src="MTA-Clustering_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="MTA-Clustering_files/libs/quarto-html/anchor.min.js"></script>
+<link href="MTA-Clustering_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="MTA-Clustering_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="MTA-Clustering_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="MTA-Clustering_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="MTA-Clustering_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+
+  <script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.css">
+
+<link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+<div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+  <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a></li>
+  <li><a href="#what-is-clustering-and-how-does-it-work" id="toc-what-is-clustering-and-how-does-it-work" class="nav-link" data-scroll-target="#what-is-clustering-and-how-does-it-work">What is Clustering and How Does It Work?</a>
+  <ul class="collapse">
+  <li><a href="#k-means" id="toc-k-means" class="nav-link" data-scroll-target="#k-means">K-Means</a></li>
+  <li><a href="#dbscan" id="toc-dbscan" class="nav-link" data-scroll-target="#dbscan">DBSCAN</a></li>
+  <li><a href="#hierarchical-clustering" id="toc-hierarchical-clustering" class="nav-link" data-scroll-target="#hierarchical-clustering">Hierarchical Clustering</a></li>
+  </ul></li>
+  <li><a href="#methods" id="toc-methods" class="nav-link" data-scroll-target="#methods">Methods</a>
+  <ul class="collapse">
+  <li><a href="#data-preprocessing" id="toc-data-preprocessing" class="nav-link" data-scroll-target="#data-preprocessing">Data Preprocessing</a></li>
+  </ul></li>
+  <li><a href="#kmeans-clustering" id="toc-kmeans-clustering" class="nav-link" data-scroll-target="#kmeans-clustering">KMeans Clustering</a>
+  <ul class="collapse">
+  <li><a href="#hyperparameter-tuning" id="toc-hyperparameter-tuning" class="nav-link" data-scroll-target="#hyperparameter-tuning">Hyperparameter Tuning</a>
+  <ul class="collapse">
+  <li><a href="#elbow-method" id="toc-elbow-method" class="nav-link" data-scroll-target="#elbow-method">Elbow Method</a></li>
+  <li><a href="#silhouette-analysis" id="toc-silhouette-analysis" class="nav-link" data-scroll-target="#silhouette-analysis">Silhouette Analysis</a></li>
+  </ul></li>
+  <li><a href="#results-of-kmeans-clustering" id="toc-results-of-kmeans-clustering" class="nav-link" data-scroll-target="#results-of-kmeans-clustering">Results of KMeans Clustering</a></li>
+  </ul></li>
+  <li><a href="#dbscan-clustering" id="toc-dbscan-clustering" class="nav-link" data-scroll-target="#dbscan-clustering">DBScan Clustering</a>
+  <ul class="collapse">
+  <li><a href="#hyperparameter-tuning-1" id="toc-hyperparameter-tuning-1" class="nav-link" data-scroll-target="#hyperparameter-tuning-1">Hyperparameter Tuning</a></li>
+  <li><a href="#results-of-dbscan-clustering" id="toc-results-of-dbscan-clustering" class="nav-link" data-scroll-target="#results-of-dbscan-clustering">Results of DBSCAN Clustering</a></li>
+  </ul></li>
+  <li><a href="#hierarchical-clustering-1" id="toc-hierarchical-clustering-1" class="nav-link" data-scroll-target="#hierarchical-clustering-1">Hierarchical Clustering</a>
+  <ul class="collapse">
+  <li><a href="#hyperparameter-tuning-2" id="toc-hyperparameter-tuning-2" class="nav-link" data-scroll-target="#hyperparameter-tuning-2">Hyperparameter Tuning</a></li>
+  <li><a href="#result-of-hierarchical-clustering" id="toc-result-of-hierarchical-clustering" class="nav-link" data-scroll-target="#result-of-hierarchical-clustering">Result of Hierarchical Clustering</a></li>
+  <li><a href="#overall-results" id="toc-overall-results" class="nav-link" data-scroll-target="#overall-results">Overall Results</a></li>
+  <li><a href="#conclusions" id="toc-conclusions" class="nav-link" data-scroll-target="#conclusions">Conclusions</a></li>
+  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
+  </ul></li>
+  </ul>
+</nav>
+</div>
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">MTA Related Tweet SVM Model Construction</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+</header>
+
+<p>HEADER BAR DOES NOT WORK WITH QUARTO, ACCESS OTHER TABS BY CLOSING THIS ONE</p>
+<section id="introduction" class="level1">
+<h1>Introduction</h1>
+<p>Public transportation as a whole has to deal with the natural elements, whether it be traversing difficult terrain, battling constantly changing weather phenomena, and the natural erosion of the components of transportation equipment, among others. This is espcially true for the New York City Subway System, where hundreds of stations are above ground<span class="math inline">^1</span>, along with over a dozen tunnels underneath rivers, combined with divergent temperature extrema throughout the year (high 90s in the summer compared to 20s in the winter in Fahrenheit). The impact of these innumerable natural elements is important to evaluate to see what phenomena may pose significant challenges towards the efficiency and safety of the NYC Subway System. One way NYC Subway performance is assessed is through a metric known as mean distance between failures (MDBF), which measures, in miles, the average distance travelled by subway trains before a “failure” or breakdown occurs.<span class="math inline">^2</span>. These data span from January 2015 to August 2022, and encompasses the average MDBF of the NYC subway fleet on a monthly basis. This is juxtaposed with two indicators of weather phenomena, being the average maximum daily temperature (in Fahrenheit) and average daily precipitation (in inches), which thousands of subway train cars are subject to on a daily basis. The measurements for these two variables are extracted from the NOAA. Temperature maximum is used as average daily temperatures were not available to be extracted from the NOAA for the date range in question. To investigate this connection, various clustering methods will be performed using these three variables: MDBF, temperature maximum, and precipitation</p>
+</section>
+<section id="what-is-clustering-and-how-does-it-work" class="level1">
+<h1>What is Clustering and How Does It Work?</h1>
+<p>Clustering encompasses a subset of unsupervised machine learning algorithms that aims to group an unlabelled set of data points into some number of clusters (i.e., subgroups of data points), often with goal of unearthing previously unseen patterns in the data that can be investigated further. Since these data must be unlabeled (i.e., no reference category or variable that is being predicted is present), clustering models are not usually constructed to have predictive power, unlike supervised methods such as Naive Bayes and Support Vector Machines used earlier in this project, among others. Specifically, clustering algorithms aim to group data points together based on some sort of distance metric (i.e., how “far apart” data points are from one each other) such that elements within a cluster as alike as possible while maximizing the difference between them and other clusters. There are countless different methods that may be used to cluster data, ranging in mathematical and visual complexity. I will make use of three notable clustering algorithms: K-Means, DBSCAN, and hierarchical clustering.</p>
+<section id="k-means" class="level3">
+<h3 class="anchored" data-anchor-id="k-means">K-Means</h3>
+<p>K-Means clustering is one of the most well-known and frequently used clustering algorithms, and it aims to partition data points based on centroids. Centroids are, as the name implies, the approximate center of each created cluster. When a K-Means model is created, each data point is assigned to a centroid based on a distance metric (i.e., way of measuring distance between data points based on variables) which minimizes the distances of points within a given cluster to its given centroid while maximizing the distances of those points to those in other clusters. However, these centroids are not present in the underlying data that is being subjected to clustering analysis, they are instead determined by initial random guesses (centroids are placed randomly within the data set), and then are adjusted in accordance with an algorithm such as Lloyd’s or Elkan’s Algorithm (more information on these at https://www.vlfeat.org/api/kmeans-fundamentals.html). Once these centroids are fully readjusted, one should expect/hope for clearly delineated and separable clusters with minimal/no overlap. However, there are countless different ways that a K-Means model can be constructed, based on various user defined inputs (hyperparameters), which must be altered and adjusted to find the most optimal model for the scenario at hand (model selection).</p>
+<p>The number of centroids in K-Means clustering is a user-defined hyperparameter. This determines the number of clusters the data will be partitioned into, and thus it is paramount to find the optimal value of this parameter for a successful and useful model to be devised. To find the ideal value for this hyperparameter, one must construct a model for a user defined set of number of clusters to be tested, and evaluate each of them in comparison to one another. This is accomplished through the elbow and silhouette methods, which are utilized in this project. These are covered more in depth as they are used in the sections to come of this tab.</p>
+</section>
+<section id="dbscan" class="level3">
+<h3 class="anchored" data-anchor-id="dbscan">DBSCAN</h3>
+<p>DBSCAN, or density-based spatial clustering of applications with noise, is another partitioning clustering algorithm (i.e., like k-means), which aims to partition data points into groups based on the density of data points in given areas within a given overall data set. This method is particularly useful when analyzing data which appear to have irregularly shaped clusters and/or when there are many outliers present (hence the “noise” in DBSCAN). When the DBSCAN algorithm is applied to a given data set, data points that lie close together (calculated using a distance metric) are denoted as being part of a particular cluster, while data points that lie far away from the main sections of a data set are often denoted as outliers, or “noise.” Like K-Means, there are hyparameters that need to be configured in order to select the most optimal model for the data set at hand.</p>
+<p>One notable hyperparameter for DBSCAN is epsilon (denoted as eps in sklearn), which denotes the maximum distance such that a given point is considered near enough to another point to be considered a “neighbor” to be grouped into the same cluster. In other words, as the epsilon value is increased, each data point considers a larger “area” to be its “neighborhood” where data points therein may be part of the same cluster, resulting in larger/more expansive clusters. Another important hyparameter for DBSCAN modeling is the minimum samples parameter (denoted as min_samples in sklearn), which defines the number of data points around a given data point that are within its epsilon-based “neighborhood” such that that individual data point is a “core point.” A core point is usually within the interior of a cluster, with many other points nearby. This is juxtaposed with border points, which are at the edge of a given cluster, which, while lying within the epsilon “neighborhood” of the cluster at-large, do not have as many points nearby as core points. Different variations in these two parameters will be analyzed using silhouette scores, which are covered more in depth in the sections to come. For more information on the hyperparameters for the DBSCAN algorithm, please see the accompanying documentation: https://scikit-learn.org/stable/modules/generated/sklearn.cluster.DBSCAN.html.</p>
+</section>
+<section id="hierarchical-clustering" class="level3">
+<h3 class="anchored" data-anchor-id="hierarchical-clustering">Hierarchical Clustering</h3>
+<p>Hierarchical clustering (HC), unlike DBSCAN and k-means, does not aim to partition a data set into nonoverlapping clusters, instead opting to create a nested structure of clusters, creating a structure somewhat similar in shape to the decision trees constructed earlier in this project. There are two main characterizations of hierarchical clustering, each two sides of the same coin: agglomerative and division. Agglomerative HC begins the tree-like structure, known as a dendrogram, from the bottom-up, where each individual data point is its own little cluster, building up recursively to include nearby data points, eventually resulting in one huge cluster encompassing the whole data set at the top of the dendrogram. Division HC works in the opposite manner, breaking down the overall data set from one large cluster into smaller and smaller clusters until each data point has its own individual cluster. For this project in particular, only an agglomerative clustering will be used. Like the partition based models, hierarchical clustering models also require a model selection process, along with hyperparameter tuning of its own.</p>
+<p>The paramount parameters to be determined for HC analysis are the number of clusters to be created and the linkage method when adding up distance metrics. A linkage method is the means by which distance metrics between data points are aggregated and compared to one another to form the splits and joins of the resulting dendrograms. Both of these parameters may be optimized by looking at the dendrograms for each linkage method being considered. Specific linkage methods will be covered in more depth as they are tested later in this document. Additionally, the method as to determine what is the apparent most optimal number of clusters will also be discussed later in this document. The search space of possible linkage methods and number of clusters is large, so this project will deal with five linkage methods: Ward’s, UPGMA, WPGMA, complete, and single. All of these will be briefly introduced later in this document.</p>
+</section>
+</section>
+<section id="methods" class="level1">
+<h1>Methods</h1>
+<section id="data-preprocessing" class="level2">
+<h2 class="anchored" data-anchor-id="data-preprocessing">Data Preprocessing</h2>
+<p>Before the weather and the mean distance between failures data sets may be appropriate for clustering analysis, they must be modified and merged together, and the code that accomplishes this task is presented below. The MDBF data set includes monthly averages of mean distance between failures (in miles) across the entire NYC Subway fleet of railcars (as cleaned in the Data Cleaning section of this project), while the weather data set includes daily measurements of various characteristics of the local weather in New York City. In order for these two data sets to be merged, they must both be on the same time scale, in this case monthly averages. To accomplish this, for the weather characteristics of interest (precipitation and temperature maximum), monthly averages were calculated and summarized in a new data frame, containing the month in question, and their respective monthly averages for precipitation and temperature maximum. These fall in line with the monthly averages for MDBF present in its respective data set. These two modified dataframes were merged together, and this subsequent data set serves as the subject for the subsequent clustering analyses. Additionally, these data were normalized to optimize the speed of the performance of the subsequent clustering algorithms.</p>
+<div class="cell" data-execution_count="1">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Necessary packages</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> scipy.cluster.hierarchy <span class="im">as</span> sch</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> sklearn.cluster <span class="im">as</span> cluster</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> train_test_split</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> StandardScaler</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.cluster <span class="im">import</span> MeanShift</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.cluster <span class="im">import</span> Birch</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.cluster.hierarchy <span class="im">import</span> dendrogram, linkage</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.cluster <span class="im">import</span> AgglomerativeClustering</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.cluster <span class="im">import</span> DBSCAN</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.cluster <span class="im">import</span> KMeans</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.spatial.distance <span class="im">import</span> cdist</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> silhouette_samples, silhouette_score</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> MinMaxScaler</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="co"># Read in data files</span></span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>weather <span class="op">=</span> pd.read_csv(<span class="st">"../../data/01-modified-data/NYC-Weather-Data-Cleaned.csv"</span>,index_col<span class="op">=</span><span class="dv">0</span>)</span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>mdbf <span class="op">=</span> pd.read_csv(<span class="st">"../../data/01-modified-data/MDBF-Cleaned-Merged.csv"</span>,index_col<span class="op">=</span><span class="dv">0</span>)</span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a><span class="co"># Join files by date, create monthly averages to make joining possible</span></span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>mdbf[<span class="st">'ServiceDate'</span>] <span class="op">=</span> pd.to_datetime(mdbf[<span class="st">'ServiceDate'</span>])</span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>mdbf <span class="op">=</span> mdbf.groupby(pd.PeriodIndex(mdbf[<span class="st">'ServiceDate'</span>],freq<span class="op">=</span><span class="st">'M'</span>))[<span class="st">'mdbf'</span>].mean().reset_index()</span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>weather[<span class="st">'DATE'</span>] <span class="op">=</span> pd.to_datetime(weather[<span class="st">'DATE'</span>])</span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>mean_weather <span class="op">=</span> weather.groupby(pd.PeriodIndex(weather[<span class="st">'DATE'</span>],freq<span class="op">=</span><span class="st">'M'</span>))[[<span class="st">'PRCP'</span>,<span class="st">'TMAX'</span>]].mean().reset_index()</span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>mean_weather <span class="op">=</span> mean_weather.rename(columns<span class="op">=</span>{<span class="st">'DATE'</span>:<span class="st">"ServiceDate"</span>})</span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a><span class="co"># merge dfs</span></span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> mdbf.merge(mean_weather,on<span class="op">=</span>[<span class="st">'ServiceDate'</span>])</span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a><span class="co"># Variable selection</span></span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> np.array(df.drop(columns<span class="op">=</span><span class="st">'ServiceDate'</span>))</span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot initial data values</span></span>
+<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot clusters</span></span>
+<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a>fig <span class="op">=</span> plt.figure(figsize<span class="op">=</span>(<span class="dv">20</span>,<span class="dv">10</span>))</span>
+<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a>ax <span class="op">=</span> fig.add_subplot(<span class="dv">111</span>, projection<span class="op">=</span><span class="st">'3d'</span>)</span>
+<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a>ax.scatter(X[:,<span class="dv">0</span>], X[:,<span class="dv">1</span>], X[:,<span class="dv">2</span>],alpha<span class="op">=</span><span class="fl">0.5</span>)</span>
+<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a>ax.set_title(<span class="st">"Precipitation vs. Temperature Maximum vs. Mean Distance Between Failures"</span>)</span>
+<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a>ax.set_xlabel(<span class="st">"Mean Distance Between Failures (miles)"</span>)</span>
+<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a>ax.set_zlabel(<span class="st">"Maximum Daily Temperature (Monthly Average in Fahrenheit)"</span>)</span>
+<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a>ax.set_ylabel(<span class="st">"Daily Precipitation (Monthly Average (inches)"</span>)</span>
+<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
+<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a><span class="co"># Normalize data </span></span>
+<span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a>scaler <span class="op">=</span> StandardScaler()</span>
+<span id="cb1-49"><a href="#cb1-49" aria-hidden="true" tabindex="-1"></a>scaler.fit(X)</span>
+<span id="cb1-50"><a href="#cb1-50" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> scaler.transform(X)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display">
+<p><img src="MTA-Clustering_files/figure-html/cell-2-output-1.png" class="img-fluid"></p>
+</div>
+</div>
+<p>The above scatterplot shows the MDBF, daily precipitation, and maximum daily temperature for each month encompassed in the data set (January 2015-August 2022). There appears to be some dispersion in the data suggesting that clustering analyses may be useful towards examining this data set, given by the large clump of data to the near left with a scattering of points to the right and above it. Thus, these data will be subjected to the three clustering methods outlined earlier in this section. First, k-means clustering will be applied.</p>
+</section>
+</section>
+<section id="kmeans-clustering" class="level1">
+<h1>KMeans Clustering</h1>
+<section id="hyperparameter-tuning" class="level2">
+<h2 class="anchored" data-anchor-id="hyperparameter-tuning">Hyperparameter Tuning</h2>
+<section id="elbow-method" class="level3">
+<h3 class="anchored" data-anchor-id="elbow-method">Elbow Method</h3>
+<p>To perform hyperparameter tuning for k-means clustering to assess the appropriate “k” value (number of centroids) for these data, both the elbow method and silhouette scores were used. The elbow method will be explained here and in the section below. To accomplish this, several models were fitted to the data set using different values of k (in this case, ranging from 1 to 10), and their respective distortions and inertias were measured and compared against one another. Distortion is the average of the sum of the squared distances between each point and its respective assigned centroid, while inertia is simply the sum of the squared distances of sample points to their nearby cluster center. The distortion and inertia for the model for each “k” value are found and plotted using the code below.</p>
+<div class="cell" data-execution_count="2">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Test multiple k values using ELBOW method</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Code adapted from ANLY501 lab-5.2 authored by Alex Pattarini</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>dists <span class="op">=</span> []</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>inertias <span class="op">=</span> []</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>k <span class="op">=</span> <span class="dv">11</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> k <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1</span>,k):</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>    model <span class="op">=</span> KMeans(n_clusters<span class="op">=</span>k,init<span class="op">=</span><span class="st">'k-means++'</span>,random_state<span class="op">=</span><span class="dv">0</span>)</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>    model.fit(X)</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>    dists.append(<span class="bu">sum</span>(np.<span class="bu">min</span>(cdist(X,model.cluster_centers_,<span class="st">'euclidean'</span>),axis<span class="op">=</span><span class="dv">1</span>))<span class="op">/</span>X.shape[<span class="dv">0</span>])</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>    inertias.append(model.inertia_)</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>    df <span class="op">=</span> pd.DataFrame({<span class="st">'Cluster Num'</span>:np.arange(<span class="dv">1</span>,k<span class="op">+</span><span class="dv">1</span>), <span class="st">'Distortion'</span>:dists, <span class="st">'Inertia'</span>:inertias})</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>df.plot.line(x<span class="op">=</span><span class="st">'Cluster Num'</span>,subplots<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Distortion and Intertia vs. Number of Clusters for KMeans Model"</span>)</span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"Number of Clusters"</span>)</span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display">
+<p><img src="MTA-Clustering_files/figure-html/cell-3-output-1.png" class="img-fluid"></p>
+</div>
+</div>
+<p>The above graphs depict the number of clusters compared to the distortion and inertia for k-means models applied to these data. The aptly named elbow method involves finding the crook of the elbow shaped graphs above, which designate the most optimal number of clusters according to this method. In the plots above, it is apparent that approximately three or four clusters are the optimal number for this data set with regards to k-means clustering. However, this is not the only means to assess which k value is ideal for k-means clustering, analysis of silhouette scores are calculated and visualized in the next section of this document.</p>
+</section>
+<section id="silhouette-analysis" class="level3">
+<h3 class="anchored" data-anchor-id="silhouette-analysis">Silhouette Analysis</h3>
+<p>Silhouette analysis is another means as to assessing the effectiveness of many clustering models, including k-means. Silhouette scores measure inter-cluster variation, where each data point has its distance relative to points in other clusters evaluated, and scores range from -1 to 1, where 1 represents very high separation to other clusters, while a 0 indicates that a given point is near the borders between clusters. As different “k” values are tested, the average silhouette scores of all points in each model are calculated, stored, and compared against one another to assess which number of centroids maximizes inter-cluster separation (which we want to maxmimize as outlined earlier). The silhouette scores for the 10 different tested k values are plotted below.</p>
+<div class="cell" data-execution_count="3">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Code partially adapted from Professor James Hickman's 3D-SKLEARN-CLUSTERING-EXAMPLE.py</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>silhouette_scores <span class="op">=</span> []</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>n_clusters <span class="op">=</span> []</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> n_cluster <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">2</span>,<span class="dv">11</span>):</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    model <span class="op">=</span> KMeans(n_clusters<span class="op">=</span>n_cluster,init<span class="op">=</span><span class="st">'k-means++'</span>,random_state<span class="op">=</span><span class="dv">0</span>)</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    model_labels <span class="op">=</span> model.fit_predict(X)</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    sil_score <span class="op">=</span> silhouette_score(X, model_labels)</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>    silhouette_scores.append(sil_score)</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>    n_clusters.append(n_cluster)</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>n_clusters<span class="op">=</span>np.array(n_clusters)</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>silhouette_scores<span class="op">=</span>np.array(silhouette_scores)</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>plt.plot(n_clusters,silhouette_scores<span class="op">/</span>np.<span class="bu">max</span>(silhouette_scores), <span class="st">'-d'</span>)</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"Number of Clusters"</span>)</span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"Average Silhouette Score (Scaled to Maximum)"</span>)</span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Silhouette Score by Number of Clusters for KMeans Model"</span>)</span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>    </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display">
+<p><img src="MTA-Clustering_files/figure-html/cell-4-output-1.png" class="img-fluid"></p>
+</div>
+</div>
+<p>The plot above shows the relative silhouette average scores for the models associated with their respective number of clusters. These averages are scaled such that the model with the largest average silhouette score is assigned a value of 1, and the other models’ average silhouette scores are scaled relative to that maximum. In the plot above, the model that assigns the data to four clusters has the highest average silhouette score, with the three cluster model not far behind. Thus, considering the results of the elbow method outlined earlier as well as the silhouette scores calculated above, the final model that will be fitted to these data will have a “k” value of 4, meaning the data will be assigned to 4 clusters around 4 centroids. That model and further analyses are depicted below.</p>
+</section>
+</section>
+<section id="results-of-kmeans-clustering" class="level2">
+<h2 class="anchored" data-anchor-id="results-of-kmeans-clustering">Results of KMeans Clustering</h2>
+<div class="cell" data-execution_count="4">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Final model</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> KMeans(n_clusters<span class="op">=</span><span class="dv">4</span>,init<span class="op">=</span><span class="st">'k-means++'</span>,random_state<span class="op">=</span><span class="dv">0</span>).fit(X)</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>y_kmeans <span class="op">=</span> model.predict(X)</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>centroids <span class="op">=</span> model.cluster_centers_</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot clusters/centroids</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>fig <span class="op">=</span> plt.figure(figsize<span class="op">=</span>(<span class="dv">20</span>,<span class="dv">10</span>))</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>ax <span class="op">=</span> fig.add_subplot(<span class="dv">111</span>, projection<span class="op">=</span><span class="st">'3d'</span>)</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>ax.scatter(X[:,<span class="dv">0</span>], X[:,<span class="dv">1</span>], X[:,<span class="dv">2</span>],c<span class="op">=</span>y_kmeans, cmap<span class="op">=</span><span class="st">'brg'</span>,alpha<span class="op">=</span><span class="fl">0.5</span>)</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>ax.scatter(model.cluster_centers_[:, <span class="dv">0</span>], model.cluster_centers_[:, <span class="dv">1</span>],model.cluster_centers_[:,<span class="dv">2</span>], s<span class="op">=</span><span class="dv">200</span>, c<span class="op">=</span><span class="st">'black'</span>)</span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>ax.set_title(<span class="st">"Normalized KMeans Clustering of Precipitation vs. Temperature Maximum vs. Mean Distance Between Failures"</span>)</span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>ax.set_xlabel(<span class="st">"Normalized Mean Distance Between Failures (miles)"</span>)</span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>ax.set_zlabel(<span class="st">"Normalized Maximum Daily Temperature (Monthly Average in Fahrenheit)"</span>)</span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>ax.set_ylabel(<span class="st">"Normalized Daily Precipitation (Monthly Average (inches)"</span>)</span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display">
+<p><img src="MTA-Clustering_files/figure-html/cell-5-output-1.png" class="img-fluid"></p>
+</div>
+</div>
+<p>A scatterplot of the clusters resulting from the k=4 k-means clustering model are pictured above. We can see, given the depth of the centroids in the graph given by their opacity (darker=closer to the viewer), that this model does a decent job at separating these data into delineated and separate clusters. The blue cluster includes values that are have low MDBF, average daily precipitation, and low maximum temperature. The brown cluster, on the other hand, primarily includes months with high MDBF with low precipitation and variable maximum daily temperatures. The green cluster seems to encompass the majority of the high average precipitation months, and tends to have relatively low MDBF with variable temperature maximums. Finally, the red/purple cluster includes samples with low precipitation (given by the nearness of the centroid), low MDBF, and variable maximum temperatures. Overall, the k-means model appears to do a solid job at separating these data into clusters. However, k-means clustering is not the only way that clustering may be applied to these data, so the DBSCAN algorithm is applied in the section below.</p>
+</section>
+</section>
+<section id="dbscan-clustering" class="level1">
+<h1>DBScan Clustering</h1>
+<section id="hyperparameter-tuning-1" class="level2">
+<h2 class="anchored" data-anchor-id="hyperparameter-tuning-1">Hyperparameter Tuning</h2>
+<p>As described earlier in this document, the primary two hyperparameters that were tuned for these data were the epsilon and minimum samples parameters. Since the DBSCAN algorithm does not generate centroids as k-means does, applying the elbow method with regard to distortion and inertia is not possible, so only the evaluation of the average silhouette scores was undertaken, and the code that accomplishes this task is presented below. The below section of code tests numerous different potential DBSCAN models, with tested epsilon values varying from 0.1 to 6.0 and minimum sample values ranging from 2 to 21, meaning a wide variety of potential models were tested and compared to one another. These results are calculated and summarized below. Any models that reuslt in only one cluster are disregarded as, regardless of their silhouette score, are not interesting or useful in any way (one cluster for all the data is not useful). Only models that result in two or more clusters are considered in this analysis.</p>
+<div class="cell" data-execution_count="5">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Code adapted from ANLY501 lab-5.2 authored by Alex Pattarini</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>test_eps <span class="op">=</span> np.linspace(<span class="fl">0.1</span>,<span class="dv">6</span>,<span class="dv">120</span>)</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>test_min_samples <span class="op">=</span> np.linspace(<span class="dv">2</span>,<span class="dv">21</span>,<span class="dv">20</span>)</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>sil_scores <span class="op">=</span> []</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>clusters_nums <span class="op">=</span> []</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>best_sil_score <span class="op">=</span> <span class="op">-</span><span class="dv">1</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> ep <span class="kw">in</span> test_eps:</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> min_sample <span class="kw">in</span> test_min_samples:</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>        <span class="cf">try</span>:</span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>            model <span class="op">=</span> DBSCAN(eps<span class="op">=</span>ep,min_samples<span class="op">=</span><span class="bu">int</span>(min_sample)).fit(X)</span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>            labels <span class="op">=</span> model.labels_</span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>            <span class="co">#print(labels)</span></span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>            <span class="co"># Silhouette score</span></span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>            sil_score <span class="op">=</span> silhouette_score(X,labels)</span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>            n_clusters <span class="op">=</span> <span class="bu">len</span>(<span class="bu">set</span>(labels)) <span class="op">-</span> (<span class="dv">1</span> <span class="cf">if</span> <span class="op">-</span><span class="dv">1</span> <span class="kw">in</span> labels <span class="cf">else</span> <span class="dv">0</span>) <span class="co"># Adapted from https://scikit-learn.org/stable/auto_examples/cluster/plot_dbscan.html</span></span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>            n_noise <span class="op">=</span> <span class="bu">list</span>(labels).count(<span class="op">-</span><span class="dv">1</span>)</span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>            <span class="co"># 1 cluster is a trivial solution, so any models that result in a 1 cluster solution are disregarded</span></span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> n_clusters <span class="op">!=</span> <span class="dv">1</span>:</span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a>                sil_scores.append(sil_score)</span>
+<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a>                clusters_nums.append(n_clusters)</span>
+<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a>                <span class="co"># If this sil score is better than prior scores, save info of best eps and min sample</span></span>
+<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a>                <span class="cf">if</span> sil_score <span class="op">&gt;</span> best_sil_score:</span>
+<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a>                    best_sil_score <span class="op">=</span> sil_score</span>
+<span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a>                    best_eps <span class="op">=</span> ep</span>
+<span id="cb5-27"><a href="#cb5-27" aria-hidden="true" tabindex="-1"></a>                    best_min_samples <span class="op">=</span> min_sample</span>
+<span id="cb5-28"><a href="#cb5-28" aria-hidden="true" tabindex="-1"></a>                    best_n_clusters <span class="op">=</span> n_clusters</span>
+<span id="cb5-29"><a href="#cb5-29" aria-hidden="true" tabindex="-1"></a>            <span class="co">#print(n_clusters)</span></span>
+<span id="cb5-30"><a href="#cb5-30" aria-hidden="true" tabindex="-1"></a>            <span class="co">#print("SUCCESS")</span></span>
+<span id="cb5-31"><a href="#cb5-31" aria-hidden="true" tabindex="-1"></a>        <span class="cf">except</span>:</span>
+<span id="cb5-32"><a href="#cb5-32" aria-hidden="true" tabindex="-1"></a>            <span class="co"># Parameter test is invalid/produces unusable output (either too many or too few clusters)</span></span>
+<span id="cb5-33"><a href="#cb5-33" aria-hidden="true" tabindex="-1"></a>            a<span class="op">=</span><span class="dv">1</span></span>
+<span id="cb5-34"><a href="#cb5-34" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot of silhouette score vs num clusters</span></span>
+<span id="cb5-35"><a href="#cb5-35" aria-hidden="true" tabindex="-1"></a><span class="co">#clusters_nums=np.array(clusters_nums)</span></span>
+<span id="cb5-36"><a href="#cb5-36" aria-hidden="true" tabindex="-1"></a><span class="co">#sil_scores=np.array(sil_scores)</span></span>
+<span id="cb5-37"><a href="#cb5-37" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot of silhouette score vs num clusters</span></span>
+<span id="cb5-38"><a href="#cb5-38" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"BASED ON SILHOUETTE SCORES CALCULATED ABOVE:"</span>)</span>
+<span id="cb5-39"><a href="#cb5-39" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"The best number of clusters is: "</span><span class="op">+</span><span class="bu">str</span>(best_n_clusters))</span>
+<span id="cb5-40"><a href="#cb5-40" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"The best eps value is: "</span><span class="op">+</span><span class="bu">str</span>(best_eps))</span>
+<span id="cb5-41"><a href="#cb5-41" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"The best min_samples value is: "</span><span class="op">+</span><span class="bu">str</span>(best_min_samples))</span>
+<span id="cb5-42"><a href="#cb5-42" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"With a silhouette score of: "</span><span class="op">+</span><span class="bu">str</span>(best_sil_score))</span>
+<span id="cb5-43"><a href="#cb5-43" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-44"><a href="#cb5-44" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.DataFrame()</span>
+<span id="cb5-45"><a href="#cb5-45" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'Silhouette_Scores'</span>] <span class="op">=</span> sil_scores</span>
+<span id="cb5-46"><a href="#cb5-46" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'Number_of_Clusters'</span>] <span class="op">=</span> clusters_nums</span>
+<span id="cb5-47"><a href="#cb5-47" aria-hidden="true" tabindex="-1"></a><span class="co"># print(df)</span></span>
+<span id="cb5-48"><a href="#cb5-48" aria-hidden="true" tabindex="-1"></a>fig <span class="op">=</span> plt.subplot()</span>
+<span id="cb5-49"><a href="#cb5-49" aria-hidden="true" tabindex="-1"></a>sns.scatterplot(x<span class="op">=</span><span class="st">'Number_of_Clusters'</span>,y<span class="op">=</span><span class="st">'Silhouette_Scores'</span>,data<span class="op">=</span>df)</span>
+<span id="cb5-50"><a href="#cb5-50" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Number of Clusters vs. Silhouette Scores"</span>)</span>
+<span id="cb5-51"><a href="#cb5-51" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"Average Silhouette Scores"</span>)</span>
+<span id="cb5-52"><a href="#cb5-52" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"Number of Clusters"</span>)</span>
+<span id="cb5-53"><a href="#cb5-53" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>BASED ON SILHOUETTE SCORES CALCULATED ABOVE:
+The best number of clusters is: 2
+The best eps value is: 1.289915966386555
+The best min_samples value is: 6.0
+With a silhouette score of: 0.3625135635952267</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="MTA-Clustering_files/figure-html/cell-6-output-2.png" class="img-fluid"></p>
+</div>
+</div>
+<p>The best number of clusters as well as the accompanying hyperparameters are printed above. The scatterplot above compares the average silhouette score versus the number of clusters generated for the tested DBSCAN models. A significant proportion of hyperparameter combinations result in models without valid/usable outputs, and thus are not depicted above. These silhouette scores are not scaled relative to the maximum (as was done in the k-means graph), but it is apparent that the hyperparameters that results in a model with only two clusters has the best average silhouette score among the tested models. This model has an epsilon value of ~1.29 with a minimum samples to be a core point at 6. This model is fitted, visualized, and analyzed further below.</p>
+</section>
+<section id="results-of-dbscan-clustering" class="level2">
+<h2 class="anchored" data-anchor-id="results-of-dbscan-clustering">Results of DBSCAN Clustering</h2>
+<div class="cell" data-execution_count="6">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Final DBSCAN model with parameters above</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> DBSCAN(eps<span class="op">=</span>best_eps,min_samples<span class="op">=</span><span class="bu">int</span>(best_min_samples))</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>y_dbscan <span class="op">=</span> model.fit_predict(X)</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>labels <span class="op">=</span> model.labels_</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>u_X <span class="op">=</span> scaler.inverse_transform(X)</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot clusters</span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>fig <span class="op">=</span> plt.figure(figsize<span class="op">=</span>(<span class="dv">20</span>,<span class="dv">10</span>))</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>ax <span class="op">=</span> fig.add_subplot(<span class="dv">111</span>, projection<span class="op">=</span><span class="st">'3d'</span>)</span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>ax.scatter(u_X[:,<span class="dv">0</span>], u_X[:,<span class="dv">1</span>],u_X[:,<span class="dv">2</span>], c<span class="op">=</span>y_dbscan, cmap<span class="op">=</span><span class="st">"brg"</span>,alpha<span class="op">=</span><span class="fl">0.5</span>)</span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>ax.set_title(<span class="st">"DBSCAN Clustering of Precipitation vs. Temperature Maximum vs. Mean Distance Between Failures"</span>)</span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>ax.set_xlabel(<span class="st">"Mean Distance Between Failures (miles)"</span>)</span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>ax.set_zlabel(<span class="st">"Maximum Daily Temperature (Monthly Average in Fahrenheit)"</span>)</span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>ax.set_ylabel(<span class="st">"Daily Precipitation (Monthly Average (inches)"</span>)</span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display">
+<p><img src="MTA-Clustering_files/figure-html/cell-7-output-1.png" class="img-fluid"></p>
+</div>
+</div>
+<p>The above plot shows the resulting clusters after constructing and applying a DBSCAN model with the best epsilon and minimum sample hyperparameters found via hyperparameter tuning earlier in this document. Please note that the blue points are noise points, or “outliers” of sorts that are not associated with any cluster. This means that these points are not within the epsilon value (in terms of distance) from the clusters pictured in red and green. Ultimately, the most optimal DBSCAN model produces one huge cluster of low MDBF months with variable precipitation averages and maximum daily temperatures. The green cluster encompasses some of the high average daily precipitation months with variable MDBF and medium-low maximim daily temperatures. Overall, this method does not seem to produce particularly interesting or useful clusters given the assignment of the vast majority of data points to one cluster, while the second only contains four points.</p>
+</section>
+</section>
+<section id="hierarchical-clustering-1" class="level1">
+<h1>Hierarchical Clustering</h1>
+<section id="hyperparameter-tuning-2" class="level2">
+<h2 class="anchored" data-anchor-id="hyperparameter-tuning-2">Hyperparameter Tuning</h2>
+<p>As described earlier, two important parameters for hierarchical clustering are the number of clusters to be created, and the linkage method used to build up the agglomerative clustering dendrogram. The optimal number of clusters for HC is dependent upon the linkage method used. Using various linkage methods, the distance between clusters are calculated and depicted in the dendrograms below. In this project, five different linkage methods were tested: Ward’s, UPGMA, WPGMA, complete, and single.</p>
+<p>Ward’s method minimizes intra-cluster variance by minimizing the increase in intra-cluster variance when two points are merged in the dendrogram. This process is applied recursively from when each data point is a cluster to the top of the dendrogram. UPGMA (unweighted pair group method with arithmetic mean) finds inter-cluster distances by representing the structure of a pairwise simliarity matrix. WPGMA is the weighted counterpart of UPGMA, and produces a similar output. For these two methods, nearby clusters are combined to together to form the branches in the dendrogram. The complete method calculates inter-cluster distance by computing the difference between a given cluster and its furthest neighbor. At each step of the agglomerative process, the two nearest clusters are combined, and this process continues recursively until the whole dendrogram structure is created. Finally, the single linkage method is the most simple, also combining clusters recursively based on the nearest neighbor, while computing inter-cluster difference by simply comparing a given cluster with its nearest neighbor.</p>
+<p>Each of the dendrograms for these methods are constructed and depicted below, and the ideal number of clusters in each dendrogram is extracted from the number of vertical lines where the longest vertical line from the top of the tree structure can be split without crossing a horizontal line. This is boundary is depicted by the red line in each dendrogram.</p>
+<div class="cell" data-execution_count="7">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot Ward's Method Dendrogram</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>fig,ax <span class="op">=</span> plt.subplots()</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>Z <span class="op">=</span> linkage(X, method<span class="op">=</span><span class="st">'ward'</span>) </span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>dendro <span class="op">=</span> dendrogram(Z)</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>plt.axhline(y<span class="op">=</span><span class="fl">5.5</span>, color<span class="op">=</span><span class="st">'r'</span>, linestyle<span class="op">=</span><span class="st">'--'</span>, label<span class="op">=</span><span class="st">'5.5'</span>)</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>ax.set_title(<span class="st">"Dendrogram for Hierarchical Clustering Using Ward's Method"</span>)</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>ax.set_xticklabels([])</span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>ax.set_ylabel(<span class="st">"Distance between clusters"</span>)</span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"The optimal number of clusters based on the Ward's method dendrogram is 4"</span>)</span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot average method dendrogram</span></span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>fig,ax <span class="op">=</span> plt.subplots()</span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>Z <span class="op">=</span> linkage(X, method<span class="op">=</span><span class="st">'average'</span>) </span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>dendro <span class="op">=</span> dendrogram(Z)</span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a>plt.axhline(y<span class="op">=</span><span class="dv">3</span>, color<span class="op">=</span><span class="st">'r'</span>, linestyle<span class="op">=</span><span class="st">'--'</span>, label<span class="op">=</span><span class="st">'3'</span>)</span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a>ax.set_title(<span class="st">"Dendrogram for Hierarchical Clustering Using UPGMA"</span>)</span>
+<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a>ax.set_xticklabels([])</span>
+<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a>ax.set_ylabel(<span class="st">"Distance between clusters"</span>)</span>
+<span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
+<span id="cb8-21"><a href="#cb8-21" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"The optimal number of clusters based on the UPGMA dendrogram is 3"</span>)</span>
+<span id="cb8-22"><a href="#cb8-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-23"><a href="#cb8-23" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot single method dendrogram</span></span>
+<span id="cb8-24"><a href="#cb8-24" aria-hidden="true" tabindex="-1"></a>fig,ax <span class="op">=</span> plt.subplots()</span>
+<span id="cb8-25"><a href="#cb8-25" aria-hidden="true" tabindex="-1"></a>Z <span class="op">=</span> linkage(X, method<span class="op">=</span><span class="st">'single'</span>) </span>
+<span id="cb8-26"><a href="#cb8-26" aria-hidden="true" tabindex="-1"></a>dendro <span class="op">=</span> dendrogram(Z)</span>
+<span id="cb8-27"><a href="#cb8-27" aria-hidden="true" tabindex="-1"></a>plt.axhline(y<span class="op">=</span><span class="fl">1.75</span>, color<span class="op">=</span><span class="st">'r'</span>, linestyle<span class="op">=</span><span class="st">'--'</span>, label<span class="op">=</span><span class="st">'1.75'</span>)</span>
+<span id="cb8-28"><a href="#cb8-28" aria-hidden="true" tabindex="-1"></a>ax.set_title(<span class="st">"Dendrogram for Hierarchical Clustering Using Nearest Point Algorithm"</span>)</span>
+<span id="cb8-29"><a href="#cb8-29" aria-hidden="true" tabindex="-1"></a>ax.set_xticklabels([])</span>
+<span id="cb8-30"><a href="#cb8-30" aria-hidden="true" tabindex="-1"></a>ax.set_ylabel(<span class="st">"Distance between clusters"</span>)</span>
+<span id="cb8-31"><a href="#cb8-31" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
+<span id="cb8-32"><a href="#cb8-32" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"The optimal number of clusters based on the Nearest Point dendrogram is 2"</span>)</span>
+<span id="cb8-33"><a href="#cb8-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-34"><a href="#cb8-34" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot weighted method dendrogram</span></span>
+<span id="cb8-35"><a href="#cb8-35" aria-hidden="true" tabindex="-1"></a>fig,ax <span class="op">=</span> plt.subplots()</span>
+<span id="cb8-36"><a href="#cb8-36" aria-hidden="true" tabindex="-1"></a>Z <span class="op">=</span> linkage(X, method<span class="op">=</span><span class="st">'weighted'</span>) </span>
+<span id="cb8-37"><a href="#cb8-37" aria-hidden="true" tabindex="-1"></a>dendro <span class="op">=</span> dendrogram(Z)</span>
+<span id="cb8-38"><a href="#cb8-38" aria-hidden="true" tabindex="-1"></a>plt.axhline(y<span class="op">=</span><span class="fl">3.25</span>, color<span class="op">=</span><span class="st">'r'</span>, linestyle<span class="op">=</span><span class="st">'--'</span>, label<span class="op">=</span><span class="st">'3.25'</span>)</span>
+<span id="cb8-39"><a href="#cb8-39" aria-hidden="true" tabindex="-1"></a>ax.set_title(<span class="st">"Dendrogram for Hierarchical Clustering Using WPGMA Algorithm"</span>)</span>
+<span id="cb8-40"><a href="#cb8-40" aria-hidden="true" tabindex="-1"></a>ax.set_xticklabels([])</span>
+<span id="cb8-41"><a href="#cb8-41" aria-hidden="true" tabindex="-1"></a>ax.set_ylabel(<span class="st">"Distance between clusters"</span>)</span>
+<span id="cb8-42"><a href="#cb8-42" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
+<span id="cb8-43"><a href="#cb8-43" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"The optimal number of clusters based on the WPGMA dendrogram is 3"</span>)</span>
+<span id="cb8-44"><a href="#cb8-44" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-45"><a href="#cb8-45" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot Complete Method Dendrogram</span></span>
+<span id="cb8-46"><a href="#cb8-46" aria-hidden="true" tabindex="-1"></a>fig,ax <span class="op">=</span> plt.subplots()</span>
+<span id="cb8-47"><a href="#cb8-47" aria-hidden="true" tabindex="-1"></a>Z <span class="op">=</span> linkage(X, method<span class="op">=</span><span class="st">'complete'</span>) </span>
+<span id="cb8-48"><a href="#cb8-48" aria-hidden="true" tabindex="-1"></a>dendro <span class="op">=</span> dendrogram(Z)</span>
+<span id="cb8-49"><a href="#cb8-49" aria-hidden="true" tabindex="-1"></a>plt.axhline(y<span class="op">=</span><span class="fl">4.5</span>, color<span class="op">=</span><span class="st">'r'</span>, linestyle<span class="op">=</span><span class="st">'--'</span>, label<span class="op">=</span><span class="st">'4.5'</span>)</span>
+<span id="cb8-50"><a href="#cb8-50" aria-hidden="true" tabindex="-1"></a>ax.set_title(<span class="st">"Dendrogram for Hierarchical Clustering Using Complete Method"</span>)</span>
+<span id="cb8-51"><a href="#cb8-51" aria-hidden="true" tabindex="-1"></a>ax.set_xticklabels([])</span>
+<span id="cb8-52"><a href="#cb8-52" aria-hidden="true" tabindex="-1"></a>ax.set_ylabel(<span class="st">"Distance between clusters"</span>)</span>
+<span id="cb8-53"><a href="#cb8-53" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
+<span id="cb8-54"><a href="#cb8-54" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"The optimal number of clusters based on the complete method dendrogram is 3"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display">
+<p><img src="MTA-Clustering_files/figure-html/cell-8-output-1.png" class="img-fluid"></p>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>The optimal number of clusters based on the Ward's method dendrogram is 4</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="MTA-Clustering_files/figure-html/cell-8-output-3.png" class="img-fluid"></p>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>The optimal number of clusters based on the UPGMA dendrogram is 3</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="MTA-Clustering_files/figure-html/cell-8-output-5.png" class="img-fluid"></p>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>The optimal number of clusters based on the Nearest Point dendrogram is 2</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="MTA-Clustering_files/figure-html/cell-8-output-7.png" class="img-fluid"></p>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>The optimal number of clusters based on the WPGMA dendrogram is 3</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="MTA-Clustering_files/figure-html/cell-8-output-9.png" class="img-fluid"></p>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>The optimal number of clusters based on the complete method dendrogram is 3</code></pre>
+</div>
+</div>
+<p>The above dendrograms summarize the structure that each hierarchical clustering linkage method produces, along with accompanying ideal cluster numbers for each dendrogram printed below. Since one of the objectives of clustering is to maximize inter-cluster differences, the method that produces an optimal cluster number with the highest distance between clusters is the ideal linkage method. In these dendrograms above, Ward’s method has the highest inter-cluster distance, and thus is the chosen linkage method along with its associated optimal cluster number of 4 for the final model. That model is constructed, visualized, and analyzed below.</p>
+</section>
+<section id="result-of-hierarchical-clustering" class="level2">
+<h2 class="anchored" data-anchor-id="result-of-hierarchical-clustering">Result of Hierarchical Clustering</h2>
+<div class="cell" data-execution_count="8">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> AgglomerativeClustering(n_clusters<span class="op">=</span><span class="dv">4</span>,linkage<span class="op">=</span><span class="st">"ward"</span>).fit(X)</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>labels <span class="op">=</span> model.labels_</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>y_hac <span class="op">=</span> model.fit_predict(X)</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>u_X <span class="op">=</span> scaler.inverse_transform(X)</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot clusters</span></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>fig <span class="op">=</span> plt.figure(figsize<span class="op">=</span>(<span class="dv">20</span>,<span class="dv">10</span>))</span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>ax <span class="op">=</span> fig.add_subplot(<span class="dv">111</span>, projection<span class="op">=</span><span class="st">'3d'</span>)</span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>ax.scatter(u_X[:,<span class="dv">0</span>], u_X[:,<span class="dv">1</span>],u_X[:,<span class="dv">2</span>], c<span class="op">=</span>y_hac, cmap<span class="op">=</span><span class="st">"brg"</span>,alpha<span class="op">=</span><span class="fl">0.5</span>)</span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>ax.set_title(<span class="st">"Hierarchical Clustering of Precipitation vs. Temperature Maximum vs. Mean Distance Between Failures"</span>)</span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a>ax.set_xlabel(<span class="st">"Mean Distance Between Failures (miles)"</span>)</span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a>ax.set_zlabel(<span class="st">"Maximum Daily Temperature (Monthly Average in Fahrenheit)"</span>)</span>
+<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a>ax.set_ylabel(<span class="st">"Daily Precipitation (Monthly Average (inches)"</span>)</span>
+<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display">
+<p><img src="MTA-Clustering_files/figure-html/cell-9-output-1.png" class="img-fluid"></p>
+</div>
+</div>
+<p>The HC method with ideal parameters determined above produce clusters very similar to those produced by the k-means clustering. However, the cluster towards the top of the scatterplot (green in this plot) is smaller than that created by the k-means algorithm. Overall, this method appears to be clearly delineate these data into appropriate clusters, and thus is an effective method as to clustering these data.</p>
+</section>
+<section id="overall-results" class="level2">
+<h2 class="anchored" data-anchor-id="overall-results">Overall Results</h2>
+<p>As can be seen from the accompanying scatterplots for each clustering algorithm, the DBSCAN algorithm appears to be the least suitable for these data, relative to the hierarchical agglomerative and k-means clustering. The DBSCAN method did not produce particularly useful or interesting clusters given by the one huge cluster compared to the second miniscule cluster. Both the HC and k-means clustering algorithms produce relatively similar cluster delineations, so neither method is significantly better than the other when applied to these data. We can see through this clustering that there is an abundance of low MDBF values in the data while high MDBF months have very variable monthly average maximimum temperatures and levels of precipitation. Thus, it seems as if temperature and precipitation values do not have a significant correlation with changes in mean distance between failures given by the in-cluster variation among data points with different MDBF values. Unfortunately, there were no labels in the data set that could have been used to assess how closely these clusters model are associated with a hypothetical label. Thus, this analysis does not seem to provide any significant new revelation with regard to weather phenomena versus mean distance between failures. Further analyses could find more significant trends between these measures, and others as desired.</p>
+</section>
+<section id="conclusions" class="level2">
+<h2 class="anchored" data-anchor-id="conclusions">Conclusions</h2>
+<p>Ultimately, it was apparent that the hierarchical and k-means clustering algorithsm were most well-suited to these data. Most months have relatively low mean distance between failures, meaning on average, the average distance between failures is roughly 150000 miles for a given subway train. Although this analysis did not provide any significant new insights into the potential connection between weather and NYC subway service reliability, it is still interesting and useful to apply these methods to these data to see if any relationships/correlations did, in fact, exist.</p>
+<p>Further analyses should be undertaken to assess other new insights into the data, potentially incorporating other measures of NYC Subway performance and/or weather phenomena, or explore other natural barriers/effects that may affect the NYC Subway system. This could include examining on time performance (when data for that becomes available), how often trains need to be taken out of service, as well as weather phenomena such as humidity, snowfall, and wind, among others. There are countless possibilities that could further explore this potential connection between subway performance/reliability and natural phenomena. In short, more analysis needs to be done before establishing a connection between subway reliability and nature.</p>
+</section>
+<section id="references" class="level2">
+<h2 class="anchored" data-anchor-id="references">References</h2>
+<ol type="1">
+<li>Wikipedia contributors. “New York City Subway stations.” Wikipedia, The Free Encyclopedia. Wikipedia, The Free Encyclopedia, 25 Oct.&nbsp;2022. Web. 13 Nov.&nbsp;2022. https://en.wikipedia.org/wiki/New_York_City_Subway_stations</li>
+<li>Metropolitan Transit Authority. “MTA Subway Mean Distance Between Failures: Beginning 2015.” Data.NY.gov, 26 Sept.&nbsp;2022. Web. 13 Nov 2022. “https://data.ny.gov/Transportation/MTA-Subway-Mean-Distance-Between-Failures-Beginnin/e2qc-xgxs.</li>
+</ol>
+</section>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>
