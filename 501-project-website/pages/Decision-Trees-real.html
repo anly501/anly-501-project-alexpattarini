@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>501 Project Decision Trees</title>
+        <link rel="stylesheet" href="styles.css">
+
+        <script src="../jquery-3.6.1.min.js"></script>
+    </head>
+
+    <body>
+        <!-- embeds navigation bar -->
+        <div id="navigation">
+
+        </div>
+        <!--below function enables nav bar, adapted from https://stackoverflow.com/questions/31954089/how-can-i-reuse-a-navigation-bar-on-multiple-pages-->
+        <script>
+            $(function(){
+                $("#navigation").load("../formatting/header-list.html")
+            })
+        </script>
+
+        <!--header-->
+        <h1 class="section-header">
+            Decision Trees
+        </h1>
+        <div class="section-body">
+            <p>The notebook which contains the code for this section can be found <a href="../../codes/05-decision-trees/Agency-Decision-Trees.ipynb" target="_blank">here</a></p>
+        <h2>What Are Decision Trees and How Do They Work?</h2>
+
+        <p>Decision tree (DTs) algorithms are machine learning algorithms that can analyze both qualitative and quantitative data for classification and/or regression, although this analysis will use 
+            decision trees for classification. The ultimate goal of a decision tree algorithm is to break down some data set such that each observation is classified in a particular way while minimizing 
+            the chance of incorrect classification. DTs are structured by a set of "rules" that determine whether a particular observation fits in one category or another. For example, if one was to 
+            analyze the biological sex of individuals, a decision tree may split based on various characteristics of the subjects, such as height, weight, hair length, etc. Eventually, a sequence of 
+            Yes/No rules result, creating a tree of Y/N decisions that ultimately classify each data observation in accordance with the problem at hand.</p>
+
+        <p>The basic elements of a decision tree's structure are the root node, internal nodes, and leaf nodes. The root node is the first rule/decision in the decision tree, and exists at the top of the 
+            tree. All of the data in the data set are subject to the rule in the root node, and are distributed accordingly. Internal nodes are the "children" of the root node, and aim to further split 
+            any data subsets generated from the root node or other previous internal nodes. Internal nodes are the "branches" of the tree while the root node is, as indicated by its apt name, is the 
+            "root" or "trunk" of the tree. The root and internal nodes are split only as long as there is a mixture of classifications within each generated subset of data. When a split results in one 
+            or more nodes that contain a subset of data of one particular class (e.g., a node with only men or only women in the example described previously), then such a node is considered "pure", 
+            and need not be split further as classification as occurred. These form the "leaves" of the tree, which have no subordinate members.</p>
+
+        <p>Decision trees carry with them numerous advantages as a classification method due to their simplicity to understand, interpret, and visualize, as well as their ability to handle varied data 
+            types (e.g., a data set with categorical and quantitative variables), making them more applicable to a wider variety of scenarios. Additionally, less data preparation is necessary compared 
+            to other machine learning algorithms, which often require normalizing or otherwise scaling the data in some way to make model creation realistically possible. DTs are not subject to this 
+            caveat. However, the scope of possible decision trees for almost any classification problem are essentially limitless, meaning almost any combination of rules, branches, nodes, etc. can be 
+            generated for a given problem, creating a problem of optimization, which often requires computationally intensive processes to address. DTs are also notorious for overfitting to training 
+            data sets, are very sensitive to small alterations to existing data and additions of new data, and do not deal well with heavily unbalanced data sets (e.g., a data set classifying biological
+            sex with 90% men and 10% women)
+        </p> 
+            The subsequent analysis assesses the classification of NYC heavy rail agency (either Metro North, Long Island Railroad, or NYCT Subway) on the basis of various performance metrics 
+            (mean distance between failures and ridership). To tackle this problem, a decision tree based model will be constructed in comparison to a random probability-based model, which is dependent 
+            on the underlying class frequencies in the training data set. In order to ensure the "most optimal" decision tree model given these data is created, hyperparameter tuning will be undertaken 
+            to assess how the final decision tree model should be constructed. First, some simple data processing and reformatting must be undertaken so that models may be appropriately fitted.</p>
+        
+        <h2>Feature Selection/Data Processing</h2>
+        <table>
+            <tr>
+                <td>
+                    <p>
+                        Inconsistencies between the data frames described above must be resolved and then merged in order to result in data that may be used to construct an appropriate model. Ridership data is 
+                        gathered daily while MDBF data is gathered on a monthly basis, so the ridership data is averaged by month in order to ensure that these data frames can be compared and merged. 
+                        The MBDF data frame assesses MDBF by the type of train car and includes averages for their entire fleets, so any row for specific train car type is dropped. 
+                        Additionally, the ServiceDate variable tracking when each individual observation was made/reported is not necessary for a classification model, and thus it is also dropped from the data 
+                        frame. An image of the data set is provided to the right, and the code used to accomplish this task can be found at the link at the top of this page.
+                    </p>
+                </td>
+            <td><a href="../../501-project-website/images/DECISIONTREES-DFHEAD.png" target="_blank"><img class="data-image" src="../images/DECISIONTREES-DFHEAD.png"></a></td>
+            </tr>
+        </table>
+        <h2>Class Distribution</h2>
+        <table>
+            <tr>
+                <td>
+                    <p>
+                        The frequency of observations for each respective agency is displayed below, wherein each agency is represented roughly fairly equally within the data set. 
+                        This means that resulting models are less likely to suffer from overfitting (which would occur if one agency label was severely overpresent relative to the others),and thus 
+                        resulting models can be more generalizable. The relatively balanced nature of the classes for this model indicates that the larger class is less likely to be "overclassified,"
+                         where the smaller class gets overwhelmed by the presence of a larger class in comparison. Ultimately, this is a good indicator for the creation of the subsequent model 
+                         construction.
+                    </p>
+                </td>
+            <td><a href="../../501-project-website/images/DECISIONTREES-CLASSDIST.png" target="_blank"><img class="data-image" src="../images/DECISIONTREES-CLASSDIST.png"></a></td>
+            </tr>
+        </table>
+        <h2>Baseline Model Construction</h2>
+        <table>
+            <tr>
+                <td>
+                    <p>
+                        First, a random model will be fitted to compare the subsequent decision tree model to. This random model will be generated based on the frequency of Agency type within the training data set generated above.
+                        Before any substantive model creation can occur, the data must be split into a training data set and test data set with a 70%-30% split (70-30 due to smaller sample size). 
+                        Agencies are encoded as strings in the original data set, so they are coded as numbers for the analysis to be performed.
+                        The code that works with the data in question and produces the models in further analyses can be found <a href="../../codes/05-decision-trees/Agency-Decision-Trees.ipynb">here</a>.
+                    </p>
+                    <p>
+                        These confusion matrices illustrate the efforts of a probaiblity based model (i.e., random) assignment of data points to different agencies, based on the class distribution present
+                        within the training set of data.
+                        We can see based on these confusion matrices that this probability model does not perform a particularly good job at classifying agency type based on the performance metrics discussed earlier.
+                        An ideal set of confusion matrices would have entries primarily spanning the main diagonal (upper left to bottom right), which are indicative of correct classifications by 
+                        the given model.
+                    </p>
+                    <p>
+                        While not particularly useful in predicting agency type, this probability based model serves as a baseline to compare the more complex and thorough decision tree models to come in 
+                        the analyses below.
+                    </p>
+                </td>
+            <td><a href="../../501-project-website/images/DT-CONFUSION-MX-PBased-train.png" target="_blank"><img class="data-image" src="../images/DT-CONFUSION-MX-PBased-train.png"></a>
+                <a href="../../501-project-website/images/DT-CONFUSION-MX-PBased-test.png" target="_blank"><img class="data-image" src="../images/DT-CONFUSION-MX-PBased-test.png"></a></td>
+            </tr>
+        </table>
+        <h2>Hyperparameter Tuning</h2>
+            <p>
+                However, in order to find the most optimal decision tree model to classify agency based on various performance metrics, a set of hyperparameters (i.e., user defined inputs for the classifier method) 
+                must be chosen which will affect how well the resulting model fits the training and test data sets. For decision tree (DT) models, two important hyperparameters are the criterion and maximum depth. 
+                Criterion refers to the way that the quality of each split in the decision tree is assessed, either using the Gini impurity, or entropy. Gini impurity analyzes the frequency at which data points may
+                 be misclassified for a given split when they are randomly labelled, and its range from 0 to 0.5. When a leaf of a decision tree has a Gini impurity score of 0, that means that the leaf is pure, and
+                  no further splits should be made. Entropy is a more complex measure than Gini impurity, and it measures the extent of disorder within a target split, and the split that results in the least
+                   entropy is considered the "optimal" split. Entropy ranges from 0 to 1, and when entropy is equal to 0, that means purity is achieved within a node. The maxmimum depth of a decision tree model 
+                   caps the number of layers the DT model may have, which can enable overfitting if the value is too high, and underfitting if the maximum depth is too low.</p>
+                
+                <p>In order to aptly tune these hyperparameters to the problem of agency classification at hand, a grid search will be performed. A grid search looks at all combinations of predetermined 
+                    hyperparameter options (i.e., the range of what is searched is user defined) and constructs a model, which generates various measures of accuracy. DT models of this scale are not overly 
+                    computationally intensive to run, so I will iterate over the grid search 100 times to observe what maximum depth parameters and which criterion is more appropriate for the model at hand. 
+                    Each grid search generates a "best estimator", or best set of parameters, which I then save to be analyzed further. Once the 100 best maximum depth parameters and 100 best criterion choices have been aggregated, 
+                    they must be compared to one another to ascertain what is the most "optimal" parameter combination. Plots of the frequency of best estimators are plotted below.
+            </p>
+            <table>
+                <tr>
+                    <td><img src="../images/DT-HPTUNING-DEPTHS.png"></td>
+                    <td><img src="../images/DT-HPTUNING-CRIT.png"></td>
+                </tr>
+            </table>
+            <p>
+                As can be seen above, various maximum depths were deemed "best" by the several grid searches, while the frequency of Gini and entropy criterion being deemed the "best" estimator are 
+                not too dissimilar, although there is an apparent difference. Thus, the average of all of the "best" maximum depth parameters and the greater of the "best" criterion are to be used 
+                as the basis for the final DT model.
+            </p>
+            <h2>Final Results</h2>
+            <table>
+                <tr>
+                    <td><img src="../images/DT-CONFUSION-MX-train.png"></td>
+                    <td><img src="../images/DT-CONFUSION-MX-test.png"></td>
+                </tr>
+            </table>
+            <p>
+                Using the parameters derived through hyperparameter tuning above, we can see that this decision tree is overfitted considering the perfect accuracy in predicting the training data values but poorer, albeit still decent at 80%, 
+                accuracy in predicting test data set labels, despite the hyperparameter tuning. However, despite this overfitting, it still clearly does a better job at classifying 
+                agency type compared to the random model based on the underlying agency label frequencies in the training data set. The confusion matrices reinforce this assertion, 
+                given by the perfect accuracy of the model in predicting the training data set values due to no entries off the main diagonal being 0, indicating no false positives 
+                or false negatives. The training data set is relatively small in size, with only 4 out of 19 agency labels being misidentified, along with perfect prediction of the subway 
+                agency labels. In order to improve this DT model of agency classification, a larger sample size would provide greater insight into its suitability for this problem as well 
+                as an even more thorough hyperparameter search. Additionally, more features could be analyzed (if appropriate data can be gathered) to further enhance the capabilities of this DT model.
+            </p>
+            <h2>Conclusions</h2>
+            <p>
+                Ultimately, from the creation of the rudimentary probability-based classification model to the hyperparameter tuning and construction of the finalized SVC model, we can see that the DT 
+                model is a superior classification model compared to the probability-based model, given by the decent accuracy, precision, and recall scores along with the accompanying confusion 
+                matrices, despite the apparent overfitting. This model could be used, given performance data regarding heavy rail transit in the NYC area, predict which agency that performance data 
+                belongs to with reasonable accuracy, superior to a probability based model.
+            </p>
+            <p>
+                However, it is unclear whether a decision tree model is the most appropriate model for this particular problem. Further analyses could be done using other model types to investigate 
+                what type of model is the most appropriate to address this particular problem, which can then be compared to the decision tree model constructed in this section. Most important for 
+                this further investigation would be the acquisition of data with new explanatory variables that could be used to predict agency type. This would enhance this model's generalizability 
+                and scope of use given the wide variety of performance indicators that exist for heavy rail transit.
+            </p>
+        </div>
+    </body>
+</html>

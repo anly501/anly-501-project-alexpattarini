@@ -1,0 +1,468 @@
+,division,line,station_name,route1,route2,route3,route4,route5,route6,route7,route8,route9,route10,route11,allroutes
+0,IND,Rockaway,Far Rockaway-Mott Av,A,X,X,X,X,X,X,X,X,X,X,A
+1,IND,Rockaway,Beach 25th St,A,X,X,X,X,X,X,X,X,X,X,A
+4,IND,Rockaway,Beach 36th St,A,X,X,X,X,X,X,X,X,X,X,A
+8,IND,Rockaway,Beach 44th St,A,X,X,X,X,X,X,X,X,X,X,A
+12,IND,Queens Boulevard,Jamaica-179th St,F,X,X,X,X,X,X,X,X,X,X,F
+28,IND,Rockaway,Beach 60th St,A,X,X,X,X,X,X,X,X,X,X,A
+32,IND,Queens Boulevard,169th St,F,X,X,X,X,X,X,X,X,X,X,F
+40,IND,Rockaway,Beach 67th St,A,X,X,X,X,X,X,X,X,X,X,A
+44,IND,Archer Av,Parsons Blvd-Archer Av - Jamaica Center,E,J,Z,X,X,X,X,X,X,X,X,"E,J,Z"
+54,IND,Queens Boulevard,Parsons Blvd,F,X,X,X,X,X,X,X,X,X,X,F
+60,IND,Archer Av,Sutphin Blvd-Archer Av - JFK,E,J,Z,X,X,X,X,X,X,X,X,"E,J,Z"
+64,IND,Queens Boulevard,Sutphin Blvd,F,X,X,X,X,X,X,X,X,X,X,F
+69,IND,Rockaway,Beach 90th St,H,X,X,X,X,X,X,X,X,X,X,H
+73,IND,Rockaway,Broad Channel,A,H,X,X,X,X,X,X,X,X,X,"A,H"
+74,IND,Archer Av,Jamaica-Van Wyck,E,X,X,X,X,X,X,X,X,X,X,E
+77,IND,Rockaway,Beach 98th St,H,X,X,X,X,X,X,X,X,X,X,H
+80,IND,Queens Boulevard,Briarwood-Van Wyck Blvd,F,X,X,X,X,X,X,X,X,X,X,F
+83,IND,Liberty,Lefferts Blvd,A,X,X,X,X,X,X,X,X,X,X,A
+87,IND,Rockaway,Beach 105th St,H,X,X,X,X,X,X,X,X,X,X,H
+91,IRT,Pelham,Pelham Bay Park,6,X,X,X,X,X,X,X,X,X,X,6
+96,BMT,Broadway Jamaica,121st St,J,Z,X,X,X,X,X,X,X,X,X,"J,Z"
+100,IRT,Flushing,Flushing-Main St,7,X,X,X,X,X,X,X,X,X,X,7
+110,IND,Rockaway,Howard Beach,A,X,X,X,X,X,X,X,X,X,X,A
+114,IRT,Dyre Av,Eastchester-Dyre Av,5,X,X,X,X,X,X,X,X,X,X,5
+115,IND,Queens Boulevard,Kew Gardens-Union Turnpike,E,F,X,X,X,X,X,X,X,X,X,"E,F"
+123,IND,Liberty,111th St-Greenwood Av,A,X,X,X,X,X,X,X,X,X,X,A
+127,IRT,Pelham,Buhre Av,6,X,X,X,X,X,X,X,X,X,X,6
+130,IND,Rockaway,Aqueduct-North Conduit Av,A,X,X,X,X,X,X,X,X,X,X,A
+132,IND,Rockaway,Rockaway Park-Beach 116th,H,X,X,X,X,X,X,X,X,X,X,H
+133,IND,Rockaway,Aqueduct Racetrack,A,X,X,X,X,X,X,X,X,X,X,A
+134,IRT,Pelham,Middletown Rd,6,X,X,X,X,X,X,X,X,X,X,6
+136,BMT,Broadway Jamaica,111th St,J,X,X,X,X,X,X,X,X,X,X,J
+138,IND,Queens Boulevard,75th Av,E,F,X,X,X,X,X,X,X,X,X,"E,F"
+141,IND,Liberty,104th St-Oxford Av,A,X,X,X,X,X,X,X,X,X,X,A
+143,IRT,Dyre Av,Baychester Av,5,X,X,X,X,X,X,X,X,X,X,5
+145,IRT,Pelham,Westchester Square-East Tremont Av,6,X,X,X,X,X,X,X,X,X,X,6
+146,IND,Liberty,Rockaway Blvd,A,X,X,X,X,X,X,X,X,X,X,A
+150,BMT,Broadway Jamaica,104th St-102nd St,J,Z,X,X,X,X,X,X,X,X,X,"J,Z"
+152,IND,Queens Boulevard,Forest Hills-71st Av,E,F,M,R,X,X,X,X,X,X,X,"E,F,M,R"
+155,IND,Queens Boulevard,Forest Hills-71st Av,e,F,M,R,X,X,X,X,X,X,X,"e,F,M,R"
+157,IRT,Flushing,Mets - Willets Point,7,X,X,X,X,X,X,X,X,X,X,7
+161,IRT,Dyre Av,Gun Hill Rd,5,X,X,X,X,X,X,X,X,X,X,5
+163,IRT,Pelham,Zerega Av,6,X,X,X,X,X,X,X,X,X,X,6
+165,IRT,White Plains Road,Wakefield-241st St,2,5,X,X,X,X,X,X,X,X,X,"2,5"
+168,IRT,Pelham,Castle Hill Av,6,X,X,X,X,X,X,X,X,X,X,6
+170,IND,Liberty,88th St-Boyd Av,A,X,X,X,X,X,X,X,X,X,X,A
+172,BMT,Broadway Jamaica,Woodhaven Blvd,J,Z,X,X,X,X,X,X,X,X,X,"J,Z"
+175,IND,Queens Boulevard,67th Av,M,R,X,X,X,X,X,X,X,X,X,"M,R"
+179,IRT,White Plains Road,238th St-Nereid Av,2,5,X,X,X,X,X,X,X,X,X,"2,5"
+181,IRT,Flushing,111th St,7,X,X,X,X,X,X,X,X,X,X,7
+184,IRT,Dyre Av,Pelham Parkway,5,X,X,X,X,X,X,X,X,X,X,5
+185,IRT,White Plains Road,233rd St,2,5,X,X,X,X,X,X,X,X,X,"2,5"
+187,IND,Liberty,80th St-Hudson St,A,X,X,X,X,X,X,X,X,X,X,A
+191,BMT,Broadway Jamaica,Forest Parkway-85th St,J,X,X,X,X,X,X,X,X,X,X,J
+193,IRT,White Plains Road,225th St,2,5,X,X,X,X,X,X,X,X,X,"2,5"
+196,IRT,Dyre Av,Morris Park,5,X,X,X,X,X,X,X,X,X,X,5
+197,IRT,Pelham,Parkchester-East 177th St,6,X,X,X,X,X,X,X,X,X,X,6
+198,IND,Queens Boulevard,63rd Drive-Rego Park,M,R,X,X,X,X,X,X,X,X,X,"M,R"
+205,IRT,White Plains Road,219th St,2,5,X,X,X,X,X,X,X,X,X,"2,5"
+207,IRT,Flushing,103rd St,7,X,X,X,X,X,X,X,X,X,X,7
+211,IND,Liberty,Grant Av,A,X,X,X,X,X,X,X,X,X,X,A
+212,IRT,White Plains Road,Gun Hill Rd,2,5,X,X,X,X,X,X,X,X,X,"2,5"
+214,BMT,Broadway Jamaica,Elderts Lane-75th St,J,Z,X,X,X,X,X,X,X,X,X,"J,Z"
+216,IRT,White Plains Road,Burke Av,2,5,X,X,X,X,X,X,X,X,X,"2,5"
+218,IRT,White Plains Road,Allerton Av,2,5,X,X,X,X,X,X,X,X,X,"2,5"
+220,IRT,White Plains Road,Pelham Parkway,2,5,X,X,X,X,X,X,X,X,X,"2,5"
+225,IRT,Pelham,St Lawrence Av,6,X,X,X,X,X,X,X,X,X,X,6
+227,IRT,White Plains Road,Bronx Park East,2,5,X,X,X,X,X,X,X,X,X,"2,5"
+230,IND,Queens Boulevard,Woodhaven Blvd,M,R,X,X,X,X,X,X,X,X,X,"M,R"
+234,IRT,Flushing,Junction Blvd,7,X,X,X,X,X,X,X,X,X,X,7
+239,IND,Fulton,Euclid Av,A,C,X,X,X,X,X,X,X,X,X,"A,C"
+244,BMT,Broadway Jamaica,Cypress Hills,J,X,X,X,X,X,X,X,X,X,X,J
+247,IRT,White Plains Road,East 180th St,2,5,X,X,X,X,X,X,X,X,X,"2,5"
+249,BMT,Broadway Jamaica,Crescent St,J,Z,X,X,X,X,X,X,X,X,X,"J,Z"
+251,IRT,Pelham,Morrison Av-Soundview Av,6,X,X,X,X,X,X,X,X,X,X,6
+254,IRT,Flushing,90th St Elmhurst,7,X,X,X,X,X,X,X,X,X,X,7
+257,IND,Queens Boulevard,Grand Av-Newtown,M,R,X,X,X,X,X,X,X,X,X,"M,R"
+262,IRT,Jerome,Woodlawn,4,X,X,X,X,X,X,X,X,X,X,4
+264,IND,Concourse,Norwood-205th St,D,X,X,X,X,X,X,X,X,X,X,D
+268,IRT,Pelham,Elder Av,6,X,X,X,X,X,X,X,X,X,X,6
+270,BMT,Broadway Jamaica,Norwood Av,J,Z,X,X,X,X,X,X,X,X,X,"J,Z"
+272,IRT,White Plains Road,East Tremont Av-West Farms Sq,2,5,X,X,X,X,X,X,X,X,X,"2,5"
+277,IND,Fulton,Shepherd Av,A,C,X,X,X,X,X,X,X,X,X,"A,C"
+281,IND,Queens Boulevard,Elmhurst Av,M,R,X,X,X,X,X,X,X,X,X,"M,R"
+286,IRT,Flushing,82nd St-Jackson Heights,7,X,X,X,X,X,X,X,X,X,X,7
+289,IRT,New Lots,New Lots Av,3,X,X,X,X,X,X,X,X,X,X,3
+291,BMT,Broadway Jamaica,Cleveland St,J,X,X,X,X,X,X,X,X,X,X,J
+293,IRT,Jerome,Mosholu Parkway,4,X,X,X,X,X,X,X,X,X,X,4
+297,IRT,Pelham,Whitlock Av,6,X,X,X,X,X,X,X,X,X,X,6
+299,IND,Concourse,Bedford Park Blvd,B,D,X,X,X,X,X,X,X,X,X,"B,D"
+304,IRT,White Plains Road,174th St,2,5,X,X,X,X,X,X,X,X,X,"2,5"
+308,IRT,New Lots,Van Siclen Av,3,X,X,X,X,X,X,X,X,X,X,3
+310,BMT,Myrtle,Metropolitan Av,M,X,X,X,X,X,X,X,X,X,X,M
+311,IRT,Jerome,Bedford Park Blvd-Lehman College,4,X,X,X,X,X,X,X,X,X,X,4
+312,IND,Fulton,Van Siclen Av,A,C,X,X,X,X,X,X,X,X,X,"A,C"
+316,IRT,Pelham,Hunts Point Av,6,X,X,X,X,X,X,X,X,X,X,6
+319,IND,Queens Boulevard,Jackson Heights-Roosevelt Ave,E,F,M,R,7,X,X,X,X,X,X,"E,F,M,R,7"
+326,IRT,Flushing,Broadway-74th St,E,F,M,R,7,X,X,X,X,X,X,"E,F,M,R,7"
+327,BMT,Broadway Jamaica,Van Siclen Av,J,Z,X,X,X,X,X,X,X,X,X,"J,Z"
+329,IRT,White Plains Road,Freeman St,2,5,X,X,X,X,X,X,X,X,X,"2,5"
+333,IRT,White Plains Road,Simpson St,2,5,X,X,X,X,X,X,X,X,X,"2,5"
+338,IND,Concourse,Kingsbridge Rd,B,D,X,X,X,X,X,X,X,X,X,"B,D"
+343,IRT,New Lots,Pennsylvania Av,3,X,X,X,X,X,X,X,X,X,X,3
+345,BMT,Myrtle,Fresh Pond Rd,M,X,X,X,X,X,X,X,X,X,X,M
+347,IRT,Flushing,Fisk Av-69th St,7,X,X,X,X,X,X,X,X,X,X,7
+349,IRT,Pelham,Longwood Av,6,X,X,X,X,X,X,X,X,X,X,6
+353,IND,Fulton,Liberty Av,A,C,X,X,X,X,X,X,X,X,X,"A,C"
+357,IRT,White Plains Road,Intervale Av,2,5,X,X,X,X,X,X,X,X,X,"2,5"
+360,IRT,Jerome,Kingsbridge Rd,4,X,X,X,X,X,X,X,X,X,X,4
+363,IND,Concourse,Fordham Rd,B,D,X,X,X,X,X,X,X,X,X,"B,D"
+369,IND,Queens Boulevard,65th St,M,R,X,X,X,X,X,X,X,X,X,"M,R"
+371,IRT,Broadway-7th Ave,Van Cortlandt Park-242nd St,1,X,X,X,X,X,X,X,X,X,X,1
+375,BMT,Broadway Jamaica,Alabama Av,J,X,X,X,X,X,X,X,X,X,X,J
+377,BMT,Canarsie,New Lots Av,L,X,X,X,X,X,X,X,X,X,X,L
+378,BMT,Canarsie,East 105th St,L,X,X,X,X,X,X,X,X,X,X,L
+380,BMT,Canarsie,Livonia Av,L,X,X,X,X,X,X,X,X,X,X,L
+382,IND,Concourse,182nd-183rd Sts,B,D,X,X,X,X,X,X,X,X,X,"B,D"
+386,IRT,Broadway-7th Ave,238th St,1,X,X,X,X,X,X,X,X,X,X,1
+389,IRT,Jerome,Fordham Rd,4,X,X,X,X,X,X,X,X,X,X,4
+393,BMT,Canarsie,Canarsie - Rockaway Parkway,L,X,X,X,X,X,X,X,X,X,X,L
+394,IRT,White Plains Road,Prospect Av,2,5,X,X,X,X,X,X,X,X,X,"2,5"
+400,BMT,Canarsie,Sutter Av,L,X,X,X,X,X,X,X,X,X,X,L
+401,IRT,New Lots,Junius St,3,X,X,X,X,X,X,X,X,X,X,3
+404,IRT,Flushing,Woodside Av-61st St,7,X,X,X,X,X,X,X,X,X,X,7
+407,BMT,Myrtle,Forest Av,M,X,X,X,X,X,X,X,X,X,X,M
+409,BMT,Canarsie,Atlantic Av,L,X,X,X,X,X,X,X,X,X,X,L
+412,IRT,Jerome,183rd St,4,X,X,X,X,X,X,X,X,X,X,4
+415,BMT,Canarsie,Wilson Av,L,X,X,X,X,X,X,X,X,X,X,L
+416,BMT,Canarsie,Halsey St,L,X,X,X,X,X,X,X,X,X,X,L
+422,IRT,Pelham,East 149th St,6,X,X,X,X,X,X,X,X,X,X,6
+426,IRT,Broadway-7th Ave,231st St,1,X,X,X,X,X,X,X,X,X,X,1
+430,IND,Concourse,Tremont Av,B,D,X,X,X,X,X,X,X,X,X,"B,D"
+435,BMT,Canarsie,Bushwick Av,L,X,X,X,X,X,X,X,X,X,X,L
+436,IND,Fulton,Broadway Junction-East New York,A,C,J,L,X,X,X,X,X,X,X,"A,C,J,L"
+437,IND,Queens Boulevard,Northern Blvd,M,R,X,X,X,X,X,X,X,X,X,"M,R"
+439,IRT,Pelham,East 143rd St-St Mary's St,6,X,X,X,X,X,X,X,X,X,X,6
+443,IRT,Jerome,Burnside Av,4,X,X,X,X,X,X,X,X,X,X,4
+447,BMT,Myrtle,Seneca Av,M,X,X,X,X,X,X,X,X,X,X,M
+449,IRT,White Plains Road,Jackson Av,2,5,X,X,X,X,X,X,X,X,X,"2,5"
+453,IRT,New Lots,Rockaway Av,3,X,X,X,X,X,X,X,X,X,X,3
+455,IRT,Broadway-7th Ave,Marble Hill-225th St,1,X,X,X,X,X,X,X,X,X,X,1
+457,IND,Concourse,174-175th Sts,B,D,X,X,X,X,X,X,X,X,X,"B,D"
+461,BMT,Broadway Jamaica,Chauncey St,J,Z,X,X,X,X,X,X,X,X,X,"J,Z"
+463,BMT,Canarsie,Myrtle Av,L,M,X,X,X,X,X,X,X,X,X,"L,M"
+466,IRT,Jerome,176th St,4,X,X,X,X,X,X,X,X,X,X,4
+468,IND,Fulton,Rockaway Av,A,C,X,X,X,X,X,X,X,X,X,"A,C"
+474,BMT,Astoria,Ditmars Blvd,N,Q,X,X,X,X,X,X,X,X,X,"N,Q"
+478,IRT,Flushing,Lincoln Av-52nd St,7,X,X,X,X,X,X,X,X,X,X,7
+482,IND,Queens Boulevard,46th St,M,R,X,X,X,X,X,X,X,X,X,"M,R"
+486,IND,Concourse,170th St,B,D,X,X,X,X,X,X,X,X,X,"B,D"
+491,IRT,Pelham,Cypress Av,6,X,X,X,X,X,X,X,X,X,X,6
+495,IRT,Jerome,Mt Eden Av,4,X,X,X,X,X,X,X,X,X,X,4
+497,IRT,Broadway-7th Ave,215th St,1,X,X,X,X,X,X,X,X,X,X,1
+501,IRT,New Lots,Saratoga Av,3,X,X,X,X,X,X,X,X,X,X,3
+504,BMT,Broadway Jamaica,Halsey St,J,X,X,X,X,X,X,X,X,X,X,J
+506,IRT,White Plains Road,149th St-3rd Av,2,5,X,X,X,X,X,X,X,X,X,"2,5"
+514,IRT,Jerome,170th St,4,X,X,X,X,X,X,X,X,X,X,4
+517,BMT,Astoria,Astoria Blvd-Hoyt Av,N,Q,X,X,X,X,X,X,X,X,X,"N,Q"
+521,BMT,Canarsie,DeKalb Av,L,X,X,X,X,X,X,X,X,X,X,L
+529,IND,Concourse,167th St,B,D,X,X,X,X,X,X,X,X,X,"B,D"
+535,IRT,Flushing,Bliss St-46th St,7,X,X,X,X,X,X,X,X,X,X,7
+541,IRT,Broadway-7th Ave,207th St,1,X,X,X,X,X,X,X,X,X,X,1
+545,IRT,Pelham,Brook Av,6,X,X,X,X,X,X,X,X,X,X,6
+549,BMT,Myrtle,Knickerbocker Av,M,X,X,X,X,X,X,X,X,X,X,M
+551,IND,8 Avenue,Inwood - 207th St,A,X,X,X,X,X,X,X,X,X,X,A
+557,IND,Queens Boulevard,Steinway St,M,R,X,X,X,X,X,X,X,X,X,"M,R"
+561,IND,Fulton,Ralph Av,A,C,X,X,X,X,X,X,X,X,X,"A,C"
+564,IRT,Jerome,167th St,4,X,X,X,X,X,X,X,X,X,X,4
+568,BMT,Astoria,30 Av-Grand Av,N,Q,X,X,X,X,X,X,X,X,X,"N,Q"
+572,BMT,Broadway Jamaica,Gates Av,J,Z,X,X,X,X,X,X,X,X,X,"J,Z"
+574,IRT,New Lots,Sutter Av,3,X,X,X,X,X,X,X,X,X,X,3
+577,BMT,Canarsie,Jefferson St,L,X,X,X,X,X,X,X,X,X,X,L
+583,IRT,Flushing,Lowery St-40th St,7,X,X,X,X,X,X,X,X,X,X,7
+587,BMT,Astoria,Broadway,N,Q,X,X,X,X,X,X,X,X,X,"N,Q"
+590,IRT,Broadway-7th Ave,Dyckman St,1,X,X,X,X,X,X,X,X,X,X,1
+592,IND,Concourse,Yankee Stadium-161st St,B,D,4,X,X,X,X,X,X,X,X,"B,D,4"
+600,IRT,Jerome,Yankee Stadium-161st St,B,D,4,X,X,X,X,X,X,X,X,"B,D,4"
+608,IRT,Pelham,138th St-3rd Ave,6,X,X,X,X,X,X,X,X,X,X,6
+615,IND,8 Avenue,Dyckman St-200th St,A,X,X,X,X,X,X,X,X,X,X,A
+622,IRT,Jerome,149th St-Grand Concourse,2,4,5,X,X,X,X,X,X,X,X,"2,4,5"
+626,BMT,Myrtle,Central Av,M,X,X,X,X,X,X,X,X,X,X,M
+628,IND,Queens Boulevard,36th St,M,R,X,X,X,X,X,X,X,X,X,"M,R"
+633,BMT,Broadway Jamaica,Kosciusko St,J,X,X,X,X,X,X,X,X,X,X,J
+635,IRT,Broadway-7th Ave,191st St,1,X,X,X,X,X,X,X,X,X,X,1
+637,BMT,Astoria,36 Av-Washington Av,N,Q,X,X,X,X,X,X,X,X,X,"N,Q"
+640,IRT,Jerome,138th St,4,5,X,X,X,X,X,X,X,X,X,"4,5"
+643,IND,Fulton,Utica Av,A,C,X,X,X,X,X,X,X,X,X,"A,C"
+647,IRT,Flushing,Rawson St-33rd St,7,X,X,X,X,X,X,X,X,X,X,7
+653,BMT,Astoria,39 Av-Beebe Av,N,Q,X,X,X,X,X,X,X,X,X,"N,Q"
+655,IRT,Eastern Parkway,Utica Av,3,4,X,X,X,X,X,X,X,X,X,"3,4"
+662,BMT,Canarsie,Morgan Av,L,X,X,X,X,X,X,X,X,X,X,L
+665,IRT,Broadway-7th Ave,181st St,1,X,X,X,X,X,X,X,X,X,X,1
+667,IND,8 Avenue,190th St,A,X,X,X,X,X,X,X,X,X,X,A
+669,BMT,Broadway Jamaica,Myrtle Av,J,M,Z,X,X,X,X,X,X,X,X,"J,M,Z"
+671,IRT,Lenox,145th St,3,X,X,X,X,X,X,X,X,X,X,3
+675,IRT,Lenox,Harlem-148th St,3,X,X,X,X,X,X,X,X,X,X,3
+676,IND,Queens Boulevard,Queens Plaza,E,M,R,X,X,X,X,X,X,X,X,"E,M,R"
+683,IRT,Lexington,125th St,4,5,6,X,X,X,X,X,X,X,X,"4,5,6"
+688,IND,8 Avenue,181st St,A,X,X,X,X,X,X,X,X,X,X,A
+693,IND,Concourse,155th St,B,D,X,X,X,X,X,X,X,X,X,"B,D"
+694,IND,8 Avenue,168th St - Washington Heights,A,C,X,X,X,X,X,X,X,X,X,"A,C"
+698,IND,8 Avenue,175th St,A,X,X,X,X,X,X,X,X,X,X,A
+705,BMT,Canarsie,Montrose Av,L,X,X,X,X,X,X,X,X,X,X,L
+707,IND,8 Avenue,163rd St - Amsterdam Av,C,X,X,X,X,X,X,X,X,X,X,C
+710,IRT,Broadway-7th Ave,168th St,A,C,1,X,X,X,X,X,X,X,X,"A,C,1"
+713,IRT,Flushing,Queensboro Plaza,N,Q,7,X,X,X,X,X,X,X,X,"N,Q,7"
+715,BMT,Canarsie,Grand St,L,X,X,X,X,X,X,X,X,X,X,L
+719,IRT,Lenox,135th St,2,3,X,X,X,X,X,X,X,X,X,"2,3"
+723,IND,Fulton,Kingston-Throop,A,C,X,X,X,X,X,X,X,X,X,"A,C"
+727,BMT,Broadway Jamaica,Flushing Av,J,M,X,X,X,X,X,X,X,X,X,"J,M"
+731,IND,8 Avenue,155th St,C,X,X,X,X,X,X,X,X,X,X,C
+737,IRT,Lexington,116th St,6,X,X,X,X,X,X,X,X,X,X,6
+741,IRT,Eastern Parkway,Kingston Av,3,X,X,X,X,X,X,X,X,X,X,3
+743,IND,63rd Street,21st St,F,X,X,X,X,X,X,X,X,X,X,F
+748,IND,Crosstown,Long Island City-Court Square,G,X,X,X,X,X,X,X,X,X,X,G
+751,BMT,Canarsie,Graham Av,L,X,X,X,X,X,X,X,X,X,X,L
+755,IND,8 Avenue,145th St,A,B,C,D,X,X,X,X,X,X,X,"A,B,C,D"
+761,IRT,Lexington,110th St,6,X,X,X,X,X,X,X,X,X,X,6
+765,IRT,Broadway-7th Ave,157th St,1,X,X,X,X,X,X,X,X,X,X,1
+769,IRT,Flushing,45 Rd-Court House Sq,E,G,M,7,X,X,X,X,X,X,X,"E,G,M,7"
+772,IRT,Lenox,125th St,2,3,X,X,X,X,X,X,X,X,X,"2,3"
+776,IND,Queens Boulevard,23rd St-Ely Av,E,G,M,7,X,X,X,X,X,X,X,"E,G,M,7"
+780,BMT,Broadway Jamaica,Lorimer St,J,M,X,X,X,X,X,X,X,X,X,"J,M"
+784,IRT,Lexington,103rd St,6,X,X,X,X,X,X,X,X,X,X,6
+786,IRT,Nostrand,Flatbush Av-Brooklyn College,2,5,X,X,X,X,X,X,X,X,X,"2,5"
+794,IND,8 Avenue,135th St,B,C,X,X,X,X,X,X,X,X,X,"B,C"
+800,IRT,Nostrand,Newkirk Av,2,5,X,X,X,X,X,X,X,X,X,"2,5"
+803,IRT,Flushing,Hunters Point,7,X,X,X,X,X,X,X,X,X,X,7
+806,IRT,Nostrand,Beverly Rd,2,5,X,X,X,X,X,X,X,X,X,"2,5"
+808,IND,Crosstown,Myrtle-Willoughby Avs,G,X,X,X,X,X,X,X,X,X,X,G
+810,IRT,Nostrand,Church Av,2,5,X,X,X,X,X,X,X,X,X,"2,5"
+817,IRT,Lenox,116th St,2,3,X,X,X,X,X,X,X,X,X,"2,3"
+821,IND,Crosstown,21st St,G,X,X,X,X,X,X,X,X,X,X,G
+824,IRT,Nostrand,Winthrop St,2,5,X,X,X,X,X,X,X,X,X,"2,5"
+826,IND,Crosstown,Flushing Av,G,X,X,X,X,X,X,X,X,X,X,G
+828,BMT,Canarsie,Lorimer St,G,L,X,X,X,X,X,X,X,X,X,"G,L"
+830,IND,Crosstown,Broadway,G,X,X,X,X,X,X,X,X,X,X,G
+834,IRT,Broadway-7th Ave,145th St,1,X,X,X,X,X,X,X,X,X,X,1
+837,IND,Fulton,Nostrand Av,A,C,X,X,X,X,X,X,X,X,X,"A,C"
+841,IRT,Eastern Parkway,Nostrand Av,3,X,X,X,X,X,X,X,X,X,X,3
+843,IRT,Nostrand,President St,2,5,X,X,X,X,X,X,X,X,X,"2,5"
+845,IRT,Nostrand,Sterling St,2,5,X,X,X,X,X,X,X,X,X,"2,5"
+847,IRT,Lexington,96th St,6,X,X,X,X,X,X,X,X,X,X,6
+851,IND,Crosstown,Nassau Av,G,X,X,X,X,X,X,X,X,X,X,G
+857,IND,Crosstown,Metropolitan Av,G,L,X,X,X,X,X,X,X,X,X,"G,L"
+861,IRT,Lenox,110th St-Central Park North,2,3,X,X,X,X,X,X,X,X,X,"2,3"
+863,IND,8 Avenue,125th St,A,B,C,D,X,X,X,X,X,X,X,"A,B,C,D"
+869,IND,63rd Street,Roosevelt Island,F,X,X,X,X,X,X,X,X,X,X,F
+870,BMT,Broadway Jamaica,Hewes St,J,M,X,X,X,X,X,X,X,X,X,"J,M"
+872,IND,Crosstown,Bedford-Nostrand Avs,G,X,X,X,X,X,X,X,X,X,X,G
+878,IRT,Flushing,Vernon Blvd-Jackson Av,7,X,X,X,X,X,X,X,X,X,X,7
+886,IRT,Broadway-7th Ave,137th St-City College,1,X,X,X,X,X,X,X,X,X,X,1
+890,BMT,Brighton,Sheepshead Bay,B,Q,X,X,X,X,X,X,X,X,X,"B,Q"
+892,IND,Crosstown,Greenpoint Av,G,X,X,X,X,X,X,X,X,X,X,G
+897,IND,8 Avenue,116th St,B,C,X,X,X,X,X,X,X,X,X,"B,C"
+901,BMT,Brighton,Neck Rd,B,Q,X,X,X,X,X,X,X,X,X,"B,Q"
+902,IRT,Lexington,86th St,4,5,6,X,X,X,X,X,X,X,X,"4,5,6"
+910,BMT,Franklin,Franklin Av,A,FS,X,X,X,X,X,X,X,X,X,"A,FS"
+911,BMT,Brighton,Av U,B,Q,X,X,X,X,X,X,X,X,X,"B,Q"
+912,IND,Fulton,Franklin Av,A,C,FS,X,X,X,X,X,X,X,X,"A,C,FS"
+913,BMT,Canarsie,Bedford Av,L,X,X,X,X,X,X,X,X,X,X,L
+917,BMT,Franklin,Park Place,FS,X,X,X,X,X,X,X,X,X,X,FS
+919,BMT,Brighton,Kings Highway,B,Q,X,X,X,X,X,X,X,X,X,"B,Q"
+922,BMT,Broadway Jamaica,Marcy Av,J,M,Z,X,X,X,X,X,X,X,X,"J,M,Z"
+930,IRT,Eastern Parkway,Franklin Av,FS,2,3,4,5,X,X,X,X,X,X,"FS,2,3,4,5"
+934,IND,8 Avenue,Cathedral Parkway-110th St,B,C,X,X,X,X,X,X,X,X,X,"B,C"
+937,IRT,Broadway-7th Ave,125th St,1,X,X,X,X,X,X,X,X,X,X,1
+941,BMT,Franklin,Botanic Gardens,FS,2,3,4,5,X,X,X,X,X,X,"FS,2,3,4,5"
+942,BMT,Brighton,Av M,B,Q,X,X,X,X,X,X,X,X,X,"B,Q"
+944,IRT,Lexington,77th St,6,X,X,X,X,X,X,X,X,X,X,6
+952,IND,Crosstown,Classon Av,G,X,X,X,X,X,X,X,X,X,X,G
+955,BMT,Brighton,Av J,B,Q,X,X,X,X,X,X,X,X,X,"B,Q"
+958,BMT,Brighton,Brighton Beach,B,Q,X,X,X,X,X,X,X,X,X,"B,Q"
+966,IND,8 Avenue,103rd St,B,C,X,X,X,X,X,X,X,X,X,"B,C"
+967,BMT,Brighton,Parkside Av,B,Q,X,X,X,X,X,X,X,X,X,"B,Q"
+969,BMT,Brighton,Av H,B,Q,X,X,X,X,X,X,X,X,X,"B,Q"
+971,BMT,Brighton,Prospect Park,B,Q,FS,X,X,X,X,X,X,X,X,"B,Q,FS"
+974,BMT,Brighton,Newkirk Av,B,Q,X,X,X,X,X,X,X,X,X,"B,Q"
+975,BMT,Brighton,Church Av,B,Q,X,X,X,X,X,X,X,X,X,"B,Q"
+977,IRT,Lexington,68th St-Hunter College,6,X,X,X,X,X,X,X,X,X,X,6
+982,BMT,Brighton,Cortelyou Rd,B,Q,X,X,X,X,X,X,X,X,X,"B,Q"
+983,IRT,Broadway-7th Ave,116th St-Columbia University,1,X,X,X,X,X,X,X,X,X,X,1
+988,IRT,Eastern Parkway,Eastern Parkway-Brooklyn Museum,2,3,X,X,X,X,X,X,X,X,X,"2,3"
+990,BMT,Brighton,Beverly Rd,B,Q,X,X,X,X,X,X,X,X,X,"B,Q"
+991,IND,8 Avenue,96th St,B,C,X,X,X,X,X,X,X,X,X,"B,C"
+994,IND,Fulton,Clinton & Washington Avs,C,X,X,X,X,X,X,X,X,X,X,C
+999,IND,63rd Street,Lexington Av,F,X,X,X,X,X,X,X,X,X,X,F
+1004,IND,Crosstown,Clinton-Washington Avs,G,X,X,X,X,X,X,X,X,X,X,G
+1012,IRT,Broadway-7th Ave,Cathedral Parkway-110th St,1,X,X,X,X,X,X,X,X,X,X,1
+1015,BMT,Broadway,Lexington Av,N,Q,R,4,5,6,X,X,X,X,X,"N,Q,R,4,5,6"
+1019,IRT,Lexington,59th St,N,Q,R,4,5,6,X,X,X,X,X,"N,Q,R,4,5,6"
+1026,IRT,Broadway-7th Ave,103rd St,1,X,X,X,X,X,X,X,X,X,X,1
+1031,BMT,Brighton,Ocean Parkway,Q,X,X,X,X,X,X,X,X,X,X,Q
+1037,IND,8 Avenue,86th St,B,C,X,X,X,X,X,X,X,X,X,"B,C"
+1042,IND,Queens Boulevard,Lexington Av-53rd St,E,M,6,X,X,X,X,X,X,X,X,"E,M,6"
+1049,IRT,Eastern Parkway,Grand Army Plaza,2,3,X,X,X,X,X,X,X,X,X,"2,3"
+1053,IRT,Lexington,51st St,E,M,6,X,X,X,X,X,X,X,X,"E,M,6"
+1062,IND,8 Avenue,81st St - Museum of Natural History,B,C,X,X,X,X,X,X,X,X,X,"B,C"
+1066,IRT,Broadway-7th Ave,96th St,1,2,3,X,X,X,X,X,X,X,X,"1,2,3"
+1072,IND,Culver,Kings Highway,F,X,X,X,X,X,X,X,X,X,X,F
+1076,BMT,Brighton,7th Av,B,Q,X,X,X,X,X,X,X,X,X,"B,Q"
+1078,IND,Culver,Av P,F,X,X,X,X,X,X,X,X,X,X,F
+1080,BMT,Broadway,5th Av,N,Q,R,X,X,X,X,X,X,X,X,"N,Q,R"
+1087,IND,Culver,Av U,F,X,X,X,X,X,X,X,X,X,X,F
+1091,IND,Fulton,Lafayette Av,C,X,X,X,X,X,X,X,X,X,X,C
+1100,IND,Culver,Av N,F,X,X,X,X,X,X,X,X,X,X,F
+1104,IND,Culver,Av X,F,X,X,X,X,X,X,X,X,X,X,F
+1106,IND,Culver,Neptune Av-Van Siclen,F,X,X,X,X,X,X,X,X,X,X,F
+1108,IRT,Eastern Parkway,Bergen St,2,3,X,X,X,X,X,X,X,X,X,"2,3"
+1113,IND,Queens Boulevard,5th Av-53rd St,E,M,X,X,X,X,X,X,X,X,X,"E,M"
+1118,IND,Culver,Bay Parkway-22nd Av,F,X,X,X,X,X,X,X,X,X,X,F
+1121,IND,Crosstown,Fulton St,G,X,X,X,X,X,X,X,X,X,X,G
+1123,IND,6 Avenue,Fort Hamilton Parkway,F,X,X,X,X,X,X,X,X,X,X,F
+1127,BMT,Brighton,West 8th St,F,Q,X,X,X,X,X,X,X,X,X,"F,Q"
+1129,BMT,Coney Island,West 8th St,F,Q,X,X,X,X,X,X,X,X,X,"F,Q"
+1131,IRT,Flushing,Grand Central-42nd St,GS,4,5,6,7,X,X,X,X,X,X,"GS,4,5,6,7"
+1132,IND,Culver,Av I,F,X,X,X,X,X,X,X,X,X,X,F
+1136,IRT,Broadway-7th Ave,86th St,1,X,X,X,X,X,X,X,X,X,X,1
+1141,IND,8 Avenue,72nd St,B,C,X,X,X,X,X,X,X,X,X,"B,C"
+1144,IRT,Lexington,Grand Central-42nd St,GS,4,5,6,7,X,X,X,X,X,X,"GS,4,5,6,7"
+1152,BMT,Brighton,Atlantic Av,B,Q,D,N,R,2,3,4.0,5.0,X,X,"B,Q,D,N,R,2,3,4.0,5.0"
+1153,IND,Culver,18th Av,F,X,X,X,X,X,X,X,X,X,X,F
+1157,IND,6 Avenue,57th St,F,X,X,X,X,X,X,X,X,X,X,F
+1165,IRT,Eastern Parkway,Atlantic Av-Barclays Ctr,B,D,N,Q,R,2,3,4.0,5.0,X,X,"B,D,N,Q,R,2,3,4.0,5.0"
+1166,IND,Culver,Ditmas Av,F,X,X,X,X,X,X,X,X,X,X,F
+1170,BMT,Sea Beach,86th St,N,X,X,X,X,X,X,X,X,X,X,N
+1171,BMT,4 Avenue,Atlantic Av-Barclays Ctr,B,Q,D,N,R,2,3,4.0,5.0,X,X,"B,Q,D,N,R,2,3,4.0,5.0"
+1172,BMT,4 Avenue,Pacific St,B,Q,D,N,R,2,3,4.0,5.0,X,X,"B,Q,D,N,R,2,3,4.0,5.0"
+1174,BMT,Sea Beach,Av U,N,X,X,X,X,X,X,X,X,X,X,N
+1176,IRT,42nd St Shuttle,Grand Central,GS,4,5,6,7,X,X,X,X,X,X,"GS,4,5,6,7"
+1183,IND,6 Avenue,Prospect Park-15 St,F,X,X,X,X,X,X,X,X,X,X,F
+1189,IND,6 Avenue,Church Av,F,X,X,X,X,X,X,X,X,X,X,F
+1195,IRT,Broadway-7th Ave,79th St,1,X,X,X,X,X,X,X,X,X,X,1
+1199,IND,6 Avenue,7th Av,F,X,X,X,X,X,X,X,X,X,X,F
+1207,BMT,Sea Beach,Kings Highway,N,X,X,X,X,X,X,X,X,X,X,N
+1209,IRT,Eastern Parkway,Nevins St,2,3,4,5,X,X,X,X,X,X,X,"2,3,4,5"
+1213,BMT,Broadway,57th St,N,Q,R,X,X,X,X,X,X,X,X,"N,Q,R"
+1221,BMT,Brighton,Stillwell Av,D,F,N,Q,X,X,X,X,X,X,X,"D,F,N,Q"
+1222,BMT,Coney Island,Stillwell Av,D,F,N,Q,X,X,X,X,X,X,X,"D,F,N,Q"
+1223,IND,6 Avenue,47-50th Sts Rockefeller Center,B,D,F,M,X,X,X,X,X,X,X,"B,D,F,M"
+1239,IND,6 Avenue,47-50th Sts Rockefeller Center,B,D,F,M,7,X,X,X,X,X,X,"B,D,F,M,7"
+1240,BMT,Canarsie,1st Av,L,X,X,X,X,X,X,X,X,X,X,L
+1244,IND,Queens Boulevard,7th Av,B,D,E,X,X,X,X,X,X,X,X,"B,D,E"
+1248,IND,8 Avenue,59th St,A,B,C,D,1,X,X,X,X,X,X,"A,B,C,D,1"
+1260,BMT,4 Avenue,DeKalb Av,B,Q,R,X,X,X,X,X,X,X,X,"B,Q,R"
+1266,BMT,Sea Beach,Bay Parkway-22nd Av,N,X,X,X,X,X,X,X,X,X,X,N
+1268,IRT,Broadway-7th Ave,59th St-Columbus Circle,A,B,C,D,1,X,X,X,X,X,X,"A,B,C,D,1"
+1273,IRT,Flushing,5th Av,B,D,F,M,7,X,X,X,X,X,X,"B,D,F,M,7"
+1276,IRT,Broadway-7th Ave,72nd St,1,2,3,X,X,X,X,X,X,X,X,"1,2,3"
+1280,IRT,Lexington,33rd St,6,X,X,X,X,X,X,X,X,X,X,6
+1289,IRT,Broadway-7th Ave,66th St-Lincoln Center,1,X,X,X,X,X,X,X,X,X,X,1
+1295,BMT,4 Avenue,Union St,R,X,X,X,X,X,X,X,X,X,X,R
+1299,BMT,West End,Bay 50th St,D,X,X,X,X,X,X,X,X,X,X,D
+1303,IRT,Broadway-7th Ave,50th St,1,X,X,X,X,X,X,X,X,X,X,1
+1309,BMT,Broadway,49th St,N,Q,R,X,X,X,X,X,X,X,X,"N,Q,R"
+1316,IRT,Lexington,28th St,6,X,X,X,X,X,X,X,X,X,X,6
+1323,IND,6 Avenue,42nd St,B,D,F,M,7,X,X,X,X,X,X,"B,D,F,M,7"
+1332,IND,Fulton,Hoyt & Schermerhorn,A,C,G,X,X,X,X,X,X,X,X,"A,C,G"
+1334,BMT,Sea Beach,20th Av,N,X,X,X,X,X,X,X,X,X,X,N
+1335,IRT,Eastern Parkway,Hoyt St,2,3,X,X,X,X,X,X,X,X,X,"2,3"
+1340,BMT,Broadway,Lawrence St,A,C,F,R,X,X,X,X,X,X,X,"A,C,F,R"
+1347,IND,8 Avenue,50th St,C,E,X,X,X,X,X,X,X,X,X,"C,E"
+1357,BMT,Canarsie,3rd Av,L,X,X,X,X,X,X,X,X,X,X,L
+1361,IRT,42nd St Shuttle,Times Square,A,C,E,N,Q,R,GS,1.0,2.0,3.0,7.0,"A,C,E,N,Q,R,GS,1.0,2.0,3.0,7.0"
+1362,IRT,Lexington,23rd St,6,X,X,X,X,X,X,X,X,X,X,6
+1371,BMT,Broadway,Times Square-42nd St,A,C,E,N,Q,R,S,1.0,2.0,3.0,7.0,"A,C,E,N,Q,R,S,1.0,2.0,3.0,7.0"
+1375,BMT,West End,25th Av,D,X,X,X,X,X,X,X,X,X,X,D
+1379,IND,6 Avenue,York St,F,X,X,X,X,X,X,X,X,X,X,F
+1380,IND,Fulton,Jay St - Borough Hall,A,C,F,R,X,X,X,X,X,X,X,"A,C,F,R"
+1393,BMT,Nassau,Essex St,F,J,M,Z,X,X,X,X,X,X,X,"F,J,M,Z"
+1395,IRT,Broadway-7th Ave,Times Square,A,C,E,N,Q,R,S,1.0,2.0,3.0,7.0,"A,C,E,N,Q,R,S,1.0,2.0,3.0,7.0"
+1404,IND,6 Avenue,34th St,B,D,F,M,N,Q,R,X,X,X,X,"B,D,F,M,N,Q,R"
+1414,BMT,Broadway,34th St,B,D,F,M,N,Q,R,X,X,X,X,"B,D,F,M,N,Q,R"
+1418,IND,6 Avenue,Delancey St,F,J,M,Z,X,X,X,X,X,X,X,"F,J,M,Z"
+1422,BMT,4 Avenue,9th St,F,G,R,X,X,X,X,X,X,X,X,"F,G,R"
+1424,BMT,Broadway,28th St,N,R,X,X,X,X,X,X,X,X,X,"N,R"
+1428,BMT,Broadway,23rd St,N,R,X,X,X,X,X,X,X,X,X,"N,R"
+1436,IND,8 Avenue,42nd St,A,C,E,N,Q,R,S,1.0,2.0,3.0,7.0,"A,C,E,N,Q,R,S,1.0,2.0,3.0,7.0"
+1445,IND,6 Avenue,4th Av,F,X,X,X,X,X,X,X,X,X,X,F
+1447,IND,6 Avenue,2nd Av,F,X,X,X,X,X,X,X,X,X,X,F
+1451,IRT,Lexington,14th St-Union Square,L,N,Q,R,4,5,6,X,X,X,X,"L,N,Q,R,4,5,6"
+1457,IRT,Clark,Borough Hall,R,2,3,4,5,X,X,X,X,X,X,"R,2,3,4,5"
+1461,IRT,Lexington,Borough Hall,R,2,3,4,5,X,X,X,X,X,X,"R,2,3,4,5"
+1466,IND,6 Avenue,East Broadway,F,X,X,X,X,X,X,X,X,X,X,F
+1470,BMT,Sea Beach,18th Av,N,X,X,X,X,X,X,X,X,X,X,N
+1472,IND,8 Avenue,High St,A,C,J,Z,2,3,4,5.0,X,X,X,"A,C,J,Z,2,3,4,5.0"
+1475,BMT,Broadway,Union Square,L,N,Q,R,4,5,6,X,X,X,X,"L,N,Q,R,4,5,6"
+1479,BMT,Canarsie,Union Square,L,N,Q,R,4,5,6,X,X,X,X,"L,N,Q,R,4,5,6"
+1481,IND,6 Avenue,Bergen St,F,G,X,X,X,X,X,X,X,X,X,"F,G"
+1487,IRT,Broadway-7th Ave,34th St,1,2,3,X,X,X,X,X,X,X,X,"1,2,3"
+1498,IRT,Lexington,Astor Place,6,X,X,X,X,X,X,X,X,X,X,6
+1500,BMT,Broadway,Court St,R,2,3,4,5,X,X,X,X,X,X,"R,2,3,4,5"
+1503,BMT,Broadway,8th St,N,R,X,X,X,X,X,X,X,X,X,"N,R"
+1511,IND,6 Avenue,23rd St,F,M,X,X,X,X,X,X,X,X,X,"F,M"
+1519,BMT,4 Avenue,Prospect Av,R,X,X,X,X,X,X,X,X,X,X,R
+1522,IRT,Clark,Clark St,2,3,X,X,X,X,X,X,X,X,X,"2,3"
+1524,IRT,Broadway-7th Ave,28th St,1,X,X,X,X,X,X,X,X,X,X,1
+1530,IND,8 Avenue,34th St,A,C,E,X,X,X,X,X,X,X,X,"A,C,E"
+1546,BMT,West End,Bay Parkway,D,X,X,X,X,X,X,X,X,X,X,D
+1550,IND,6 Avenue,Grand St,B,D,X,X,X,X,X,X,X,X,X,"B,D"
+1553,BMT,Nassau,Bowery,J,Z,X,X,X,X,X,X,X,X,X,"J,Z"
+1555,BMT,West End,Fort Hamilton Parkway,D,X,X,X,X,X,X,X,X,X,X,D
+1559,BMT,West End,9th Av,D,X,X,X,X,X,X,X,X,X,X,D
+1560,IRT,Lexington,Bleecker St,B,D,F,M,6,X,X,X,X,X,X,"B,D,F,M,6"
+1567,BMT,West End,50th St,D,X,X,X,X,X,X,X,X,X,X,D
+1571,IND,6 Avenue,Carroll St,F,G,X,X,X,X,X,X,X,X,X,"F,G"
+1576,BMT,West End,55th St,D,X,X,X,X,X,X,X,X,X,X,D
+1579,IRT,Broadway-7th Ave,23rd St,1,X,X,X,X,X,X,X,X,X,X,1
+1583,IND,6 Avenue,Smith-9th St,F,G,R,X,X,X,X,X,X,X,X,"F,G,R"
+1584,IND,6 Avenue,Broadway-Lafayette St,B,D,F,M,6,X,X,X,X,X,X,"B,D,F,M,6"
+1589,IND,6 Avenue,14th St,F,L,M,1,2,3,X,X,X,X,X,"F,L,M,1,2,3"
+1599,BMT,Sea Beach,New Utrecht Av,D,N,X,X,X,X,X,X,X,X,X,"D,N"
+1601,BMT,Canarsie,6th Av,F,L,M,1,2,3,X,X,X,X,X,"F,L,M,1,2,3"
+1603,BMT,West End,62nd St,D,N,X,X,X,X,X,X,X,X,X,"D,N"
+1606,IRT,Lexington,Spring St,6,X,X,X,X,X,X,X,X,X,X,6
+1610,BMT,Broadway,Prince St,N,R,X,X,X,X,X,X,X,X,X,"N,R"
+1614,IRT,Broadway-7th Ave,18th St,1,X,X,X,X,X,X,X,X,X,X,1
+1620,IND,8 Avenue,23rd St,C,E,X,X,X,X,X,X,X,X,X,"C,E"
+1631,BMT,4 Avenue,25th St,R,X,X,X,X,X,X,X,X,X,X,R
+1633,BMT,West End,20th Av,D,X,X,X,X,X,X,X,X,X,X,D
+1637,BMT,West End,71st St,D,X,X,X,X,X,X,X,X,X,X,D
+1643,BMT,Nassau,Canal St,J,N,Q,R,Z,6,X,X,X,X,X,"J,N,Q,R,Z,6"
+1644,IRT,Lexington,Canal St,J,N,Q,R,Z,6,X,X,X,X,X,"J,N,Q,R,Z,6"
+1651,IRT,Broadway-7th Ave,14th St,F,L,M,1,2,3,X,X,X,X,X,"F,L,M,1,2,3"
+1659,IND,8 Avenue,West 4th St,A,B,C,D,E,F,M,X,X,X,X,"A,B,C,D,E,F,M"
+1665,BMT,West End,79th St,D,X,X,X,X,X,X,X,X,X,X,D
+1669,IND,8 Avenue,14th St,A,C,E,L,X,X,X,X,X,X,X,"A,C,E,L"
+1677,BMT,West End,18th Av,D,X,X,X,X,X,X,X,X,X,X,D
+1680,BMT,Broadway,Canal St (UL),J,N,Q,R,Z,6,X,X,X,X,X,"J,N,Q,R,Z,6"
+1687,IRT,Flushing,34 St Hudson Yards,7,X,X,X,X,X,X,X,X,X,X,7
+1689,BMT,Canarsie,8th Av,A,C,E,L,X,X,X,X,X,X,X,"A,C,E,L"
+1691,IRT,Broadway-7th Ave,Christopher St,1,X,X,X,X,X,X,X,X,X,X,1
+1696,BMT,Nassau,Chambers St,J,Z,4,5,6,X,X,X,X,X,X,"J,Z,4,5,6"
+1698,BMT,4 Avenue,36th St,N,R,X,X,X,X,X,X,X,X,X,"N,R"
+1701,IRT,Lexington,Brooklyn Bridge-City Hall,J,Z,4,5,6,X,X,X,X,X,X,"J,Z,4,5,6"
+1702,IND,8 Avenue,Spring St,C,E,X,X,X,X,X,X,X,X,X,"C,E"
+1713,IND,8 Avenue,Canal St,A,C,E,X,X,X,X,X,X,X,X,"A,C,E"
+1718,BMT,Sea Beach,Fort Hamilton Parkway,N,X,X,X,X,X,X,X,X,X,X,N
+1720,IRT,Broadway-7th Ave,Houston St,1,X,X,X,X,X,X,X,X,X,X,1
+1728,IRT,Broadway-7th Ave,Canal St,1,X,X,X,X,X,X,X,X,X,X,1
+1732,IRT,Clark,Fulton St,A,C,J,Z,2,3,4,5.0,X,X,X,"A,C,J,Z,2,3,4,5.0"
+1736,IRT,Broadway-7th Ave,Franklin St,1,X,X,X,X,X,X,X,X,X,X,1
+1741,BMT,Broadway,City Hall,R,X,X,X,X,X,X,X,X,X,X,R
+1744,BMT,Nassau,Fulton St,A,C,J,Z,2,3,4,5.0,X,X,X,"A,C,J,Z,2,3,4,5.0"
+1750,IND,8 Avenue,Broadway-Nassau,A,C,J,Z,2,3,4,5.0,X,X,X,"A,C,J,Z,2,3,4,5.0"
+1752,IND,8 Avenue,Chambers St,A,C,E,2,3,X,X,X,X,X,X,"A,C,E,2,3"
+1761,IRT,Clark,Park Place,A,C,E,1,2,3,X,X,X,X,X,"A,C,E,1,2,3"
+1762,IRT,Clark,Wall St,2,3,X,X,X,X,X,X,X,X,X,"2,3"
+1768,IRT,Broadway-7th Ave,Chambers St,1,2,3,X,X,X,X,X,X,X,X,"1,2,3"
+1773,IRT,Lexington,Fulton St,A,C,J,Z,2,3,4,5.0,X,X,X,"A,C,J,Z,2,3,4,5.0"
+1778,IND,8 Avenue,World Trade Center,A,C,E,2,3,X,X,X,X,X,X,"A,C,E,2,3"
+1786,BMT,4 Avenue,45th St,R,X,X,X,X,X,X,X,X,X,X,R
+1790,BMT,Broadway,Cortlandt St,R,X,X,X,X,X,X,X,X,X,X,R
+1794,BMT,Nassau,Broad St,J,Z,X,X,X,X,X,X,X,X,X,"J,Z"
+1803,BMT,Sea Beach,8th Av,N,X,X,X,X,X,X,X,X,X,X,N
+1804,IRT,Lexington,Wall St,4,5,X,X,X,X,X,X,X,X,X,"4,5"
+1812,BMT,Broadway,Whitehall St,R,1,X,X,X,X,X,X,X,X,X,"R,1"
+1818,BMT,Broadway,Rector St,R,X,X,X,X,X,X,X,X,X,X,R
+1827,IRT,Broadway-7th Ave,South Ferry,R,1,X,X,X,X,X,X,X,X,X,"R,1"
+1832,IRT,Broadway-7th Ave,Rector St,1,X,X,X,X,X,X,X,X,X,X,1
+1838,BMT,4 Avenue,53rd St,R,X,X,X,X,X,X,X,X,X,X,R
+1843,IRT,Lexington,Bowling Green,4,5,X,X,X,X,X,X,X,X,X,"4,5"
+1848,BMT,4 Avenue,59th St,N,R,X,X,X,X,X,X,X,X,X,"N,R"
+1854,BMT,4 Avenue,Bay Ridge Av,R,X,X,X,X,X,X,X,X,X,X,R
+1857,BMT,4 Avenue,77th St,R,X,X,X,X,X,X,X,X,X,X,R
+1860,BMT,4 Avenue,86th St,R,X,X,X,X,X,X,X,X,X,X,R
+1863,BMT,4 Avenue,95th St,R,X,X,X,X,X,X,X,X,X,X,R
