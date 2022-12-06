@@ -22,10 +22,158 @@
 
         <!--header-->
         <h1 class="section-header">
-            Decision Trees
+            SVM
         </h1>
         <div class="section-body">
-            
+            <h2>What is SVM and How Does It Work?</h2>
+            The notebook which contains the code for this section can be found <a href="../../codes/06-SVM/MTA-Tweet-Sentiment-SVM.ipynb">here</a>.
+            <p>
+                SVM, or support vector machines, is a supervised machine learning algorithm which can analyze data for classification and/or regression, however the subject of the subsequent analysis 
+                will involve SVC, or support vector classifiers. The overarching goal of the use of SVM classification is to separate one set of data into two groups by finding a hyperplane (A.K.A. a 
+                decision boundary) such that one class of objects is on one side of the boundary, and the other is on the opposing side while minimizing incorrect classifications. It is important to 
+                note that SVMs are binary classifiers by nature, meaning that individually, an application of SVM can only be used to separate a set of data as being part of one group or another 
+                (rather than a set of three or more groups being the basis). The ideal outcome of an SVM-based analysis is the discovery of a hyperplane that maximizes the "margin", or the distance 
+                between the resulting hyperplane and the support vectors (i.e., nearby observations).
+            </p>
+            <p>
+                One of the most important parts of SVM are the aptly named "support vectors", which are the points that are near the to-be-determined decision boundary. These points hold the most 
+                influence and sway over where exactly the hyperplane that attempts to classify the set of data points will manifest. The SVM algorithm then assesses these data points (along with all 
+                others), and computes a decision boundary based on a set of hyperparameters (i.e., user defined inputs) which are discussed in more depth later on in this section. There are several 
+                advantages that SVM models have, such as the ability to deal effectively with high dimensional data (for example, words in a text data set such as this analysis deals with) and low 
+                sample sizes, along with being very versatile given its varied hyperparameters, and is relatively computationally efficient given its heavy reliance on support vectors (which are a 
+                subset of the overall data set). However, SVMs are notoriously suspect to overfitting, where the decision boundary may be extremely accurate for a training data set, but is not 
+                generalizable because the generated hyperplane is way too specific. This makes the process of hyperparameter tuning even more vital when constructing an SVM-based model.
+            </p>
+            <p>
+                The subsequent analysis asessess sentiment analysis labels of tweets (as also explored in the Naive Bayes section) as "positive" or "negative", so this is purely a binary classification 
+                problem. In the coming analyses, an SVC based model will be constructed in comparison to a random, simple probability-based model based on the number of "positives" and "negatives" 
+                inherent within the already-labelled tweets. It is important to note that these labelled tweets have already been pre-processed to an extent as outlined in the Data Cleaning section, 
+                where stop words and other redundant/irrelevant characters and words were removed from the tweets, along with stemming and lemmitization to standardize words of different forms but 
+                similar roots (e.g., play, plays, played, playing all have the same root of play). This in and of itself functiosn as a form of feature selection for the subsequent model construction. 
+            </p>
+            <h2>Feature Selection/Data Preprocessing</h2>
+            <p>
+                The data used in this section can be downloaded <a href="../../data/01-modified-data/NYCT-Opinion-Tweets-Sentiments.csv">here</a>. In the accompanying notebook, the opinion tweet data is cleaned in the following manner.
+                Firstly, the set of tweets is converted into a list, and their accompanying sentiment labels are 
+                assigned a numeric value (0 for negative, 1 for positive), and converted to a numpy array. Secondly, the tweets themselves are "vectorized" using the CountVectorizer method in which 
+                the text is broken up into words. It is important to note that in prior <a href="../pages/data-cleaning.html">data cleaning</a>, stop words and redundant characters and words were removed, which functions as a form of feature 
+                selection. Additionally, feature selection is achieved as words that appear in very few of the tweets are not considered in this analysis (given by the min_df=0.001 argument in 
+                CountVectorizer), ensuring that words that have very little impact or relevance to the overall analysis are removed, thus improving the runtime of the subsequent models. 
+                These sets of words are then combined into a one-hot encoded document term frequency matrix where each row represents a "document" (in this case tweet), and columns represents the 
+                presence of words in each document. Finally, the data is now ready to be further analyzed and models may now be built.
+            </p>
+            <h2>Class Distribution</h2>
+            <table>
+                <tr>
+                    <td>
+                        <p>
+                            The class distribution is visualized to the right where "negative" is denoted as "0", and "positive" is denoted as "1".
+                            Although the label of "positive" and "negative" have been converted into numeric form, we can see that they are not too different in count, indicating that there is generally a good 
+                            amount of class balance between the labels. This means that resulting models are less likely to suffer from overfitting (which would occur if one sentiment label was overpresent relative 
+                            to the other),and thus resulting models can be more generalizable. The relatively balanced nature of the classes for this model indicates that the larger class is likely to be 
+                            "overclassified," where the smaller class gets overwhelmed by the presence of a larger class in comparison. Ultimately, this is a good indicator for the creation of the subsequent 
+                            model construction, and we proceed accordingly.
+                        </p>
+                    </td>
+                    <td><img src="../images/SVM-CLASSDIST.png""></td>
+                </tr>
+            </table>
+            <h2>Baseline Model Construction</h2>
+            <p>
+                Before any analysis and model construction occurs, the overall data set of tweets must be split into a training and test set, which in this case is split in an 80%-20% fashion. 
+                To provide a baseline to which an SVM model will be compared to, a model based on the prior frequencies/probabilities of positive and negative sentiment labels within the training data. 
+                Using these probabilities (i.e., proportion of training tweets with a "positive" label and the proportion with a "negative" label), predictions of sentiment labels were randomly assigned 
+                with no regard for the word composition of the tweets. Subsequently, various measures of model fit, such as accuracy, precision, and recall scores, are calculated, displayed, and interpreted 
+                below. Additionally, confusion matrices showing the number of correctly and incorrectly predicted sentiment labels are displayed below, where entries in the top left and bottom right indicate 
+                the number of correctly labelled tweets.
+            </p>
+            <table>
+                <tr>
+                    <td><img src="../images/SVM-CLASSREPORT-PBased-train.png"></td>
+                    <td><img src="../images/SVM-CLASSREPORT-PBased-test.png"></td>
+                </tr>
+                <tr>
+                    <td><img src="../images/SVM-CONFUSION-MX-PBased-train-Opinion-Tweets.png"></td>
+                    <td><img src="../images/SVM-CONFUSION-MX-PBased-test-Opinion-Tweets.png"></td>
+                </tr>
+            </table>
+            <p>
+                The above probability-based model is clearly a poor classifier of the sentiments of the MTA-related tweets given by the poor accuracy, precision, and recall scores across the board 
+                (all in and around 50%, or not much better than flipping a coin to classify). This is not surprising considering that predictions for this model are entirely random, based on the existing 
+                proportions of positive and negative labelled tweets in the training data set. Thus, a more complex and specific model must be used to classify these tweets, so I will build a Support Vector 
+                Classifier (SVC) model and analyze its effectiveness compared to the probability-based model constructed above.
+            </p>
+            <h2>Hyperparameter Tuning</h2>
+            <p>
+                However, in order to find the optimal SVC model to classify the MTA-related tweets, there are certain hyperparameters (i.e., user-defined inputs) that affect how a given SVC model fits a given 
+                set of data.  Hyperparameters are independent of any training/validation/test data set, and must be determined by the individual constructing a given model. For the SVC type of model, these 
+                hyperparameters/choics are C, Gamma, and the kernel. Firstly, the C hyperparameter controls to what extent the model tries to avoid misclassifying observations, with a larger C value leading 
+                to the model to try to correctly classify more points, which leads to the risk of overfitting. However, a C parameter that is too low will lead to the resulting model having low accuracy and 
+                high rates of misclassification. The kernel choice determines what type of mathematical function the SVC model uses to find its resulting decision hyperplane. Different sets of data may be 
+                classified more effectively with differing types of functiosn as their baseline, which indicates that investigating models with differing kernel choices is necessary to find an optimal model. 
+                Finally, the gamma parameter essentially controls the curvature of the constructed decision hyperplane, with a high gamma enabling the SVC model to have a more curved decision barrier. 
+                This gamma parameter is only truly relevant for RBF (radial basis function) SVC models.
+            </p>
+            <p>
+                In order to investigate what set of parameters is most optimal for classifying the sentiments of the MTA-related tweets cleaned and explored in prior sections of this project, 
+                many combinations of these three parameters must be tested. To do this, I will perform a grid search where models are systematically constructed with differing combinations of 
+                parameters and their respective measures of accuracy, precision, etc. are internally calculated. The results of these grid searches are visualized below:
+            </p>
+            <table>
+                <tr>
+                    <td><img src="../images/SVM-HPTUNING-linear.png"></td>
+                    <td><img src="../images/SVM-HPTUNING-poly.png"></td>
+                </tr>
+                <tr>
+                    <td><img src="../images/SVM-HPTUNING-sigmoid.png"></td>
+                    <td><img src="../images/SVM-HPTUNING-rbf.png"></td>
+                </tr>
+            </table>
+            <p>
+                From the graphs above, we can see the differing mean test scores (i.e., how "good" the built model is for the training data set) by the differing kernel choice, with different colored lines 
+                in accordance with the different tested C values. From analyzing these graphs, an "optimal" set of parameters was found by maximizing the mean score across all kernel types and test C values. 
+                Thus, our final SVC model will be 
+                parameterized by those three parameters (C=10,gamma=0.1,kernel=sigmoid), given by the red line the bottom left graph, which maximizes the mean score at just over 0.85. 
+                The graph of the differing mean test scores for the sigmoid kernel hyperparameter tuning contains the maximum 
+                mean test score across all kernels and C values at the three parameters printed above. More detailed outputs on the resulting "optimal" model and associated accuracy, precision, recall, etc. 
+                measures are examined below.
+            </p>
+            <h2>Final Results</h2>
+            <p>
+                The same measures and visualizations used in the probaiblity based model are displayed below:
+            </p>
+            <table>
+                <tr>
+                    <td><img src="../images/SVM-CLASSREPORT-SVM-train.png"></td>
+                    <td><img src="../images/SVM-CLASSREPORT-SVM-test.png"></td>
+                </tr>
+                <tr>
+                    <td><img src="../images/SVM-CONFUSION-MX-train-Opinion-Tweets.png"></td>
+                    <td><img src="../images/SVM-CONFUSION-MX-test-Opinion-Tweets.png"></td>
+                </tr>
+            </table>
+            <p>
+                We can see that this model generally does a good job of classifying the sentiments of MTA-related tweets based on their word composition (after removing stop words/standardizing and other 
+                feature selection) given by the accuracy, precision, and recall scores occupying the neighborhood in and around 80% across both the training and test set predictions. The confusion matrices 
+                back up this assertion given by the number of correclty identified setniments in the main diagonal compared to false negative classifications and false positive classifications. In comparison 
+                to the probability based model constructed earlier, it is very clear that the SVC model is a better classifier of these sentiments. In order to improve the fit of this type of model, the 
+                hyperparameter tuning could accommodate more options in terms of possible C and gamma values, although such a process would be more computationally intensive and time consuming. The model does 
+                not appear to overfitted given by the similar accuracy scores between the predictions regarding the training set and those regarding the test set.
+            </p>
+            <h2>Conclusions</h2>
+            <p>
+                Ultimately, from the creation of the rudimentary probability-based classification model to the hyperparameter tuning and construction of the finalized SVC model, we can see that the SVC model 
+                is a vastly superior classification model compared to the probability-based model, given by the decent accuracy, precision, and recall scores along with the accompanying confusion matrices. 
+                Thus, this model could be used to easily and quickly predict the sentiment scores of unlabelled tweets. For example, if one was to extract some number of tweets about the MTA from today, 
+                their sentiment label could be predicted with reasonably good accuracy using the model constructed above. There is no real indication of overfitting occurring between the training and test 
+                data sets, which is evidence to support this model being generalizable to tweets regarding the MTA as a whole, not purely just the data set used to construct the SVC model.
+            </p>
+            <p>
+                However, this process could be improved in several ways to construct an even more accurate and appropriate model. For one, the hyperparameter search could search over a larger range of potential 
+                inputs. This would be a lot more computationally intensive, but may result in a better fitting/more optimal model compared to the one constructed in this section. Additionally, this analysis 
+                does not deal with neutral tweets, so further analyses could incorporate those to create a larger classification problem and resulting model. Ultimately, this model serves as a useful means 
+                to assessing the positivity and negativity present in tweets regarding the MTA and its various services (such as heavy rail as is the focus of this project as a whole).
+            </p>
         </div>
     </body>
 </html>
