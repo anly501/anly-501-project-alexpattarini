@@ -25,9 +25,50 @@
             Association Rule Mining and Networking
         </h1>
         <div class="section-body">
+            <p>
+                The notebook which contains the code for this section can be found <a href="../../codes/08-ARM/MTA-ARM.ipynb">here</a>.
+            </p>
             <h2>Introduction</h2>
             <p>
-                
+                Public transportation, and the NYC Subway in particular, is often plagued with delays and mishaps that hamper the travels of hundreds of thousands, if not millions of 
+                commuters daily. Additionally, a system of the scale of the NYC Subway is characterized by high complexity, with tons of interconnecting pieces, routes, and stations. A delay 
+                affecting one line may send reverberations across the system as a whole. For example, a broken down train on the E line at 7th Ave/50 st. in midtown can lead to delays in the B and D lines,
+                which in turn affect the other lines that share their tracks (F,M,N,Q,R), which in turn can spread to the system as a whole. Thus, it is important to analyze how delays for particular subway lines 
+                are associated with other lines, and a useful means as to addressing that goal is Association Rule Mining/Network Analysis.
+            </p>
+            <p>
+                The <a href="https://twitter.com/NYCTSubway?ref_src=twsrc%5Egoogle%7Ctwcamp%5Eserp%7Ctwgr%5Eauthor">@NYCTSubway</a> Twitter account tweets every time a delay is reported on the 
+                subway system, specifying all of the train routes that may be affected. An example tweet could be: "Brooklyn bound F and M trains are experiencing delays after a signal malfunction
+                at 14th St." All line names on the NYC Subway are singular numbers or letters, and thus can be separated from the other words in a given tweet. These will be extracted from a large set of
+                tweets gathered in the Data Gathering section of this project, primarily from September 2022-October 2022. The processing of these data will be covered more in depth later in this section.
+            </p>
+            <h2>What is Association Rule Mining and How Does It Work?</h2>
+            <p>
+                Association Rule Mining (ARM) is an unsupervised machine learning mechanism that looks for associations/connections between different features within a transactional database. Before 
+                explaining how ARM itself works, it is important to note what data is appropriate for ARM analysis. ARM analysis requires "transactional" data, which means that the data must consist of 
+                observations that each have a "basket" of features present for that observation. A prototypical example of transaction data would be lists of grocery store purchases. Each individual would be 
+                associated with a list of items they purchased, and inevitably some items will overlap between different individuals, and others will not. ARM analysis aims to analyze the significance and
+                strength of overlaps/lack thereof. It is extremely important to note that the associations derived from ARM analysis are not indicative of an actual causal link. Even if we observe a large 
+                number of people buying, say, salt and pepper together, we cannot conclude from that information alone that there is a causal reason that those item are bought together, even if it seems intuitive.
+            </p>
+            <p>
+                The associations that ARM generate are known as "rules". These "rules" are essentially what features are often present together in many transactions. For example, one might find 
+                a rule two items are often bought together, however one must ask how does ARM analysis determine what connections are significant/insignificant? The three most notable means as to assessing the strength of 
+                potential rules are support, confidence, and lift. These three meausres all derive from concepts related to statistical independence.
+            </p>
+            <p>
+                Support is the most simple of the three metrics, and measures how often some number of items appear in the same transaction relative to all other transactions. For example, using the prior example 
+                about salt and pepper being purchased together, the support of that rule would be the number of purchases that contain both of those items divided by the total number of purchases in the 
+                data set. Confidence is a more specific measure, involving how often some number of items appear in the same transaction relative to all transactions containing one of those number of items.
+                Regarding salt and pepper, the confidence for that rule would be the number of transactions that contain both salt and pepper divided by the number of all transactions that contain salt (at minimum).
+                Finally, lift is the most complex of the three indicators of association strength, measuring the ratio of the support for the rule in question, divided by the product of the two sides of the given 
+                rule. Lift aims to quantify whether two sets of items for a rule are independent or not. If the ratio is equal to 1, then no association is observed between the items in question (for example, if salt 
+                and pepper were never in the same purchase within a given data set), and if the ratio is greater than/less than 1, then a positive and negative association is indicated respectively. For all of these
+                measures, a higher value indicates a stronger positive association of a given rule.
+            </p>
+            <h2>Initial Data Processing</h2>
+            <p>
+                The code that accomplishes all of the following tasks is attached at the top of this page.
             </p>
         </div>
     </body>
