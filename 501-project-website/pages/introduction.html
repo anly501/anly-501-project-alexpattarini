@@ -111,25 +111,50 @@
                 </td>
             </tr>
         </table>
+        <div class="section-body">
+            <h2>What Methods will be Applied?</h2>
+            <table>
+                <tr>
+                    <td>
+                        <p>
+                            There will be a wide variety of machine learning methods applied to these data. The technical explanations for the mechanisms behind these methods are 
+                            explained in more depth within their respective sections, however they are each introduced briefly here. The first methods that will be applied are supervised, classification 
+                            machine learning methods that aim to classify labelled data into different categories.
+                            The first of these is based upon Bayes' Theorem, known as Naive Bayes, and is explained in more depth in its respective section. Both tweets and service reliability metrics will have Naive Bayes 
+                            applied to them. Decision trees also aim to classify, but instead based on an "if-else" type of structure, and I will apply decision trees to service reliability data. Support 
+                            Vector Machines can separate a group of data in a binary manner (i.e., two categories) using distance metrics, and I will apply this to tweets regarding public opinion of 
+                            the MTA.
+                        </p>
+                        <p>
+                            Subsequently, I will move to unsupervised machine learning methods, namely clustering and association rule mining (ARM). These methods aim to find underlying patterns in 
+                            unlabeled data sets. Clustering encompasses a wide variety of methods that aim to find groups within data sets that do not contain known groupings. There are many different 
+                            ways data can be clustered, and three of those methods will be explored in the clustering section of this project, where weather data will be compared to service reliability 
+                            metrics. Finally, ARM will be applied to data gleaned from tweets relating to delays on the NYC Subway. ARM uses transactional data and aims to find commonalities between different 
+                            observations while quantifying the strength of their relationships, aiming to find previously hidden relationships between different variables.
+                        </p>
+                    </td>
+                    <td><img class="data-image" src="../images/CONCLUSION-machinelearning.png"></td>
+                </tr>
+            </table>
+        </div>
         <h2>The Big Questions</h2>
         <div class="section-body">
             <!--list of questions, ul was not used due to style sheet issues-->
             <p>1. How "on-time" are each of transit agencies' rail services?</p>
-            <p>2. How frequently do service interruptions occur across agencies?</p>
-            <p>3. What is the nature of these service interruptions and do they vary across agencies?</p>
-            <p>4. How has the COVID-19 pandemic influenced these phenomena?</p>
-            <p>5. Where (geographically) are these effects most damaging/influential?</p>
-            <p>6. How does the public regard these transit agencies?</p>
-            <p>7. Has the relationship between the public and transit agencies changed over time?</p>
-            <p>8. How has the effectiveness of transportation affected local economic activity?</p>
-            <p>9. Have the steps taken by these agencies to address their issues/shortcomings been effective?</p>
-            <p>10. How efficient and "on-time" have transit agency construction projects been?</p>
+            <p>2. How reliable is the service for these rail agencies?</p>
+            <p>3. Do the natural elements have any effect on rail service?</p>
+            <p>4. What factors are most important/impactful towards rail service?</p>
+            <p>5. Do these factors vary across transit agency (MNR, LIRR, Subways)?</p>
+            <p>6. Which transit agency is the most "reliable"?</p>
+            <p>7. How does the public regard these transit agencies?</p>
+            <p>8. Has the relationship between the public and transit agencies changed over time?</p>
+            <p>9. How do train delays spread across the NYC subway system?</p>
+            <p>10. What relationships exist (if any) between the different lines of the NYC subway system?</p>
         </div>
         <p class="section-body">
             These questions will all be addressed in the subsequent analysis, and conclusions will be drawn regarding a holistic impression of the NYC rail transit system as a whole. These conclusions
-            will concern both in-group analyses and cross comparisons between these three agencies, encompassing a wide variety of indicators from the physical transit capabilities of these agencies to
-            public opinion to overall accessibility and safety with regard to the neighborhoods and towns this massive transit system is situated within.
+            will concern both in-group analyses and cross comparisons between these three agencies, encompassing a wide variety of indicators from performance metrics indicating on time percentage and
+            mean distance between failures to public opinion data gathered from twitter to weather data gathered from the NOAA, and much more.
         </p>
-
     </body>
 </html>

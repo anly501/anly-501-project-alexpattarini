@@ -26,6 +26,7 @@
         </h1>
 
         <div class="section-body">
+            All raw data for this section may be downloaded <a href="https://github.com/anly501/anly-501-project-alexpattarini/tree/main/codes/01-data-gathering" target="_blank">here</a>.
             <!--introductory paragraph-->
             <p>
                 To analyze the efficacy of such a major transit system, a wide variety of data types must be analyzed. These include, but are not limited to, counts of events/trips, geospatial data of 
@@ -47,12 +48,12 @@
                         the first 25 rows of a data set compiled by the MTA that aggregates total daily ridership by mode of transport (e.g., subways, buses, LIRR, Metro North, etc.). Each day is considered an "observation",
                         and total estimated ridership numbers are aggregated in the columns. Each medium of transport has two dedicated columns, with the left being the total estimated ridership for a given
                         day, and the right side being a comparison of that day's ridership to a typical pre-pandemic day's worth of ridership. These data span from March 2020 to March 2022. Four columns of the 
-                        raw data set have been omitted in this image as they are not relevant to this analysis (they refer to Access-A-Ride and Bridge/Tunnel traffic), but the raw data may be downloaded by clicking
-                        on the image to the right. The original source where this data set was downloaded can be found <a href="https://data.world/data-ny-gov/vxuj-8kew" target="_blank">here</a>.
+                        raw data set have been omitted in this image as they are not relevant to this analysis (they refer to Access-A-Ride and Bridge/Tunnel traffic). 
+                        The original source where this data set was downloaded can be found <a href="https://data.world/data-ny-gov/vxuj-8kew" target="_blank">here</a>.
                     </td>
                     <!--row 1 col 2-->
                     <td>
-                        <a href="../../data/00-raw-data/lirr-metro-north-data/mta-daily-ridership-data-beginning-2020-1.csv">
+                        <a>
                             <img class="data-image" src="../images/MTA-daily-ridership-head.PNG">
                         </a>
                     </td>
@@ -67,14 +68,13 @@
                         of this data set, which contains almost 100,000 rows, spanning from January 2017 to August 2021. The raw data set from the MTA website (found below) contains data tracing back to 2010, 
                         although these data were omitted as this analysis does not cover MTA data prior to 2017, primarily due to the availability of data that the MTA provides for other matters  .
                         Numerous columns are omitted in this image due to space constraints, but these omitted columns are
-                        simply more types of Metrocards, which, although less used than the pictured types of metrocards, will still be considered in this analysis. The full data set from which this image was generated
-                        can be downloaded by clicking on the image. Each row represents a given week's aggregation of Metrocard swipes (i.e., station entries) at a particular station in the NYC Subway network. These
+                        simply more types of Metrocards, which, although less used than the pictured types of metrocards, will still be considered in this analysis. Each row represents a given week's aggregation of Metrocard swipes (i.e., station entries) at a particular station in the NYC Subway network. These
                         data were acquired through the use of the Socrata API, and the script used to extract these data can be found <a href="../../codes/01-data-gathering/MTA_API_gathering.py">here</a> and the original
                         source of the data can be found <a href="https://data.ny.gov/d/v7qc-gwpn" target="_blank">here</a>
                     </td>
                     <!--row 2 col 2-->
                     <td>
-                        <a href="../../data/00-raw-data/MTA-Fare-Card-Data-From-2010.csv">
+                        <a>
                             <img class="data-image" src="../images/Subway-Entry-Data-Head.PNG">
                         </a>
                     </td>
@@ -88,7 +88,7 @@
                         regarding these varying transit mediums. The image of the dataset to the right contains the most recent three months worth of raw data that was acquired through the use of the MTA's Socrata API via Python.
                         These data span from October 2017 to June 2022, and cover numbers of complaints and commendations received by the MTA with regard to ridership by transit medium. The Access-A-Ride
                         rows will be disregarded in the analyses of this project. The complaint and commendation rates are the number of complaints/commendations per 100,000 rides of each respective
-                        delineated subject matter. The Python code that extracts this data via the Socrata API can be downloaded <a href="../../codes/01-data-gathering/MTA_API_gathering.py">here</a> and the 
+                        delineated subject matter. The Python code that extracts this data via the Socrata API can be found <a href="https://github.com/anly501/anly-501-project-alexpattarini/tree/main/codes/01-data-gathering">here</a> and the 
                         original source of the data can be found <a href="https://data.ny.gov/d/hrau-ksig" target="_blank">here</a>.
                     </td>
                     <!--row 3 col 2-->
@@ -105,15 +105,15 @@
                         <h2>NYC Subway Geospatial Data</h2>
                         Additionally, the MTA records very specific location data on their subway stations, including specific latitude and longitude on each entrance and exit of every station on the network.
                         The image to the right displays the first twenty rows of this data set, although the columns that regard the specific latitudes and longitudes of individual entrances/exits are omitted
-                        as they are not necessary to this analysis, although the full data set can be downloaded through the sources listed below or by clicking on the image to the right. In this analysis, the
+                        as they are not necessary to this analysis, although the full data set can be downloaded through the sources listed below. In this analysis, the
                         overall geospatial location of the NYC subway stations will be used as well as the existence/lack thereof of disability access and staffing. The accessibility of these stations is incredibly
                         important when analyzing the overall effectiveness and suitability of the NYC subway system as a whole, although the specific geospatial data of each individual entrance and exit is not of use.
-                        These data were extracted using the MTA's Socrata API using Python using code that can be downloaded <a href="../../codes/01-data-gathering/MTA_API_gathering.py">here</a> and the original
+                        These data were extracted using the MTA's Socrata API using Python using code that can be downloaded <a href="https://github.com/anly501/anly-501-project-alexpattarini/tree/main/codes/01-data-gathering">here</a> and the original
                         source of the data can be found <a href="https://data.ny.gov/d/i9wp-a4ja" target="_blank">here</a>>
                     </td>
                     <!--row 4 col 2-->
                     <td>
-                        <a href="../../data/00-raw-data/MTA-Subway-Station-Location-Data.csv">
+                        <a>
                         <img class="data-image" src="../images/Subway-Geospatial-Data-Head.PNG">
                         </a>
                     </td>
@@ -129,12 +129,12 @@
                         Essentially, the MTA is aggregating the on-time performance of Metro North and LIRR routes on a monthly basis, and stratifying by AM/PM Peak hours in specific scenarios. The 
                         missing values in the image to the right are due to the fact that the MTA does not track OTP for AM/PM Peak hours for Metro-North, but does for the LIRR. These data span from 
                         January 2015 to Januray 2022, although the Metro North data only spans from January 2019 to January 2022 and there is no LIRR data after October 2021. The original source from 
-                        which these data were downloaded can be found <a href="https://data.world/data-ny-gov/6kq9-5ikh">here</a>, and the raw data set can also be downloaded by clicking on the image.
+                        which these data were downloaded can be found <a href="https://data.world/data-ny-gov/6kq9-5ikh">here</a>.
                         
                     </td>
                     <!--row 5 col 2-->
                     <td>
-                        <a href="../../data/00-raw-data/lirr-metro-north-data/mta-lirr-and-metro-north-on-time-performance-beginning-2015-1.csv">
+                        <a>
                             <img class="data-image" src="../images/MNR-LIRR-OTP-head.PNG">
                         </a>
                     </td>
@@ -156,12 +156,12 @@
                         <table>
                             <tr>
                                 <td>
-                                    <a href="../../data/00-raw-data/lirr-metro-north-data/mta-lirr-and-metro-north-service-reliability-beginning-2015-1.csv">
+                                    <a>
                                         <img class="data-image" src="../images/MNR-LIRR-incidents-head.PNG">
                                     </a>
                                 </td>
                                 <td>
-                                    <a href="../../data/00-raw-data/lirr-metro-north-data/mta-lirr-systemwide-delays-beginning-2015-1.csv">
+                                    <a>
                                         <img class="data-image" src="../images/MNR-LIRR-delayed-trains-head.PNG">
                                     </a>
                                 </td>
@@ -180,12 +180,12 @@
                         NYC Subway system. The image to the right depicts the first several rows of 1017 tweets extracted from the NYCTSubway account in the past two weeks, encompassing all tweets posted
                         by this account. These data were acquired through the use of the Twitter API and R (via the twitteR package), and thus is time limited, meaning the Twitter API does not allow for 
                         searches of older tweets. Ultimately, this means these data are limited to recent occurrences which are still useful to this analysis. The R script used to access the Twitter API and 
-                        extract the relevant tweets can be downloaded <a href="../../codes/01-data-gathering/Twitter_API_gathering.R">here</a> and the resulting data frame can be downloaded by clicking on the 
-                        image on the right.
+                        extract the relevant tweets can be downloaded <a href="https://github.com/anly501/anly-501-project-alexpattarini/tree/main/codes/01-data-gathering">here</a> and the resulting data frame can be downloaded in the GitHub repository linked 
+                        at the top of this section.
                     </td>
                     <!--row 7 col 2-->
                     <td>
-                        <a href="../../data/00-raw-data/NYCTSubway-Tweets-0901-0914.csv">
+                        <a>
                             <img class="data-image" src="../images/NYCT-subway-tweets-head.PNG"
                         </a>
                     </td>
@@ -195,17 +195,28 @@
                     <!--row 8 col 1-->
                     <td>
                         <h2>Remote Station ID Lookup</h2>
+                        The MTA fare card data set described earlier contains a variable known as the remote station ID, a unique ID associated with each NYC Subway station.
+                        However, that data set does not have any variable relating to the lines associated with each station. Fortunately, there is the data set that is pictured to the right,
+                        that associates each unique remote station ID with a station name, and a string containing all of the lines that stop at each given station. There are additional identifiers, such as 
+                        booth ID and complex ID, but these are not used in any of the subsequent analyses. The original source of this data set can be found 
+                        <a href="https://qri.cloud/nyc-transit-data/remote_complex_lookupcsv">here</a>, and the CSV file pictured to the right can be downloaded in the GitHub repository linked at the 
+                        top of this section.
                     </td>
                     <!--row 8 col 2-->
-                    <td></td>
+                    <td><img class="data-image" src="../images/remote-station-lookup-head.png"></td>
                 </tr>
                 <tr>
                     <!--row 9 col 1-->
                     <td>
-                        <h2>Estimated Total Ridership</h2>
+                        <h2>NOAA Weather Data</h2>
+                        The NYC Subway constantly has to deal with the natural elements, including weather. Thus, a data set from the National Oceanic and Atmospheric Administration (<a href="https://www.ncdc.noaa.gov/cdo-web/search">NOAA</a>) was acquired 
+                        through their website. These data quantify the day to day temperature maximum and minimum, levels of precipiation, and levels of snow as pictured to the right.
+                        These data were collected to match the time frame present in the performance metric data, and thus spans from 2015 to 2022. It is important to note that these data sets 
+                        were downloaded in two separate documents, one spanning from 2015 to 2017, and the other from 2017 to 2022 to accommodate the NOAA's data size maximums when acquiring data 
+                        from their website. These two data sets can be found in the GitHub repository linked at the top of this document.
                     </td>
                     <!--row 9 col 2-->
-                    <td></td>
+                    <td><img class="data-image" src="../images/noaa-weather-head.png"></td>
                 </tr>
             </table>
         </div>
