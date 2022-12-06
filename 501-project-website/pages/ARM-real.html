@@ -33,7 +33,9 @@
                 Public transportation, and the NYC Subway in particular, is often plagued with delays and mishaps that hamper the travels of hundreds of thousands, if not millions of 
                 commuters daily. Additionally, a system of the scale of the NYC Subway is characterized by high complexity, with tons of interconnecting pieces, routes, and stations. A delay 
                 affecting one line may send reverberations across the system as a whole. For example, a broken down train on the E line at 7th Ave/50 st. in midtown can lead to delays in the B and D lines,
-                which in turn affect the other lines that share their tracks (F,M,N,Q,R), which in turn can spread to the system as a whole. Thus, it is important to analyze how delays for particular subway lines 
+                which in turn affect the other lines that share their tracks (F,M,N,Q,R), which in turn can spread to the system as a whole. Additionally, planned diversions and track work can also have 
+                adverse impacts upon the transit system as a whole.
+                Thus, it is important to analyze how delays for particular subway lines 
                 are associated with other lines, and a useful means as to addressing that goal is Association Rule Mining/Network Analysis.
             </p>
             <p>
@@ -41,6 +43,7 @@
                 subway system, specifying all of the train routes that may be affected. An example tweet could be: "Brooklyn bound F and M trains are experiencing delays after a signal malfunction
                 at 14th St." All line names on the NYC Subway are singular numbers or letters, and thus can be separated from the other words in a given tweet. These will be extracted from a large set of
                 tweets gathered in the Data Gathering section of this project, primarily from September 2022-October 2022. The processing of these data will be covered more in depth later in this section.
+                The data sets in question are multiple different queries of the Twitter API, and thus includes multiple files, which are stored <a href="https://github.com/anly501/anly-501-project-alexpattarini/tree/main/data/00-raw-data">here</a> in the GitHub repository associated with this project.
             </p>
             <h2>What is Association Rule Mining and How Does It Work?</h2>
             <p>
@@ -54,7 +57,7 @@
             <p>
                 The associations that ARM generate are known as "rules". These "rules" are essentially what features are often present together in many transactions. For example, one might find 
                 a rule two items are often bought together, however one must ask how does ARM analysis determine what connections are significant/insignificant? The three most notable means as to assessing the strength of 
-                potential rules are support, confidence, and lift. These three meausres all derive from concepts related to statistical independence.
+                potential rules are support, confidence, and lift. These three meausres all derive from concepts related to statistical independence (1).
             </p>
             <p>
                 Support is the most simple of the three metrics, and measures how often some number of items appear in the same transaction relative to all other transactions. For example, using the prior example 
@@ -66,10 +69,77 @@
                 and pepper were never in the same purchase within a given data set), and if the ratio is greater than/less than 1, then a positive and negative association is indicated respectively. For all of these
                 measures, a higher value indicates a stronger positive association of a given rule.
             </p>
-            <h2>Initial Data Processing</h2>
+            <h2>Methods: Data Processing</h2>
+            <table>
+                <tr>
+                    <td>
+                        <p>
+                            The code that accomplishes all of the following tasks is attached at the top of this page. While there is not a traditional notion of transaction data that may be applied to an analysis 
+                            of the NYC Subway (ticket sales for example are not public), we can use the tweets from the @NYCTSubway account to create a data set in the manner of a transactions data set. As mentioned in 
+                            the introduction, the @NYCTSubway Twitter account posts about delays and planned work, among other incidents involving the NYC Subway system. All NYC Subway lines relevant to this analysis
+                            (i.e., not the Staten Island Railroad), are denoted by one capital letter or one number. An example tweet is additionally provided to the right. If this tweet were subject to the subsequent ARM analysis,
+                            it would be broken down from the full text seen to the right to merely a row containing the lines referenced, in this case "E","F". Each tweet serves as a "transaction", with each subway line 
+                            referenced being a feature that may be associated/not associated with each tweet. If we saw "E" and "F" in a large number of tweets, it may form the basis for a strong rule indicating that 
+                            E and F trains are often delayed at the same time according to an ARM analysis.
+                        </p>
+                        <p>
+                            Initially, these tweets were imported into python, and certain abnormal characters and strings (e.g., backslashes, URLs, etc.) are removed. Subequently, any lower case letters are also removed,
+                            as the letter subway lines on the NYC Subway are always capitalized (e.g., "a" is not the same as "A"). Then, each tweet was broken into its respective words, and any one letter length "words" that 
+                            represent one of the NYC Subway lines was kept, and all other tweet content was dropped. The final step of this process was to remove any duplicate subway lines present within tweets. This is important 
+                            as ARM can only function if features appear at most one time within each transaction. Finally, the set of tweets is ready to have ARM analysis applied to it. The first several sets of lines are pictured 
+                            to the right as an example.
+                        </p>
+                    </td>
+                    <td>
+                        <a href="https://sarahgrand.files.wordpress.com/2012/08/subway_lines.jpg"><img class="data-image" src="../images/NYC-SUBWAY-LINES.jpg"></a>(2)
+                        <img class="data-image" src="../images/NYCT-subway-tweets-example.png">
+                        <img class="data-image" src="../images/ARM-DATA-example.png">
+                    </td>
+                </tr>
+            </table>
+            <h2>Results</h2>
             <p>
-                The code that accomplishes all of the following tasks is attached at the top of this page.
+                The code that generates the plot below is attached at the top of this page. Some portions of that code is partially derived from other sources and is noted accordingly within the notebook
+                attached at the top.
             </p>
+            <p>
+                The network plot below displays the most significant rules as generated by the apriori algorithm applied to this data set. The apriori algorithm is a mechanism through which association rules 
+                are determined based on a few parameters that are user-defined. This algorithm uses minimum support and confidence thresholds to determine what rules count as "significant", or strong enough 
+                to be of note. There is no specific numeric guideline as to how to set these parameters ideally, but if these parameters are set too low,
+                then the apriori algorithm would generate a huge number of "significant" rules, and the network plot would be an unreadable, jumbled mess. Setting these parameters too high raises the threshold 
+                which rules must exceed to be deemed "significant", which would make the network plot more simple, but may hide interesting associations. Ultimately, a minimum confidence and minimum support value of 
+                0.0125 were chosen as to not overwhelm the graph with extraneous connections while still showing an interesting network of points.
+            </p>
+            <img src="../images/ARM-NetworkPlot.png">
+            <p>
+                From a cursory glance at the network plot above, one can see some relatively straightforward outcomes. As shown in the graphic displaying the different NYC subway lines, lines of the same color often 
+                run parallel and/or on the same tracks throughout much of their respective routes, and thus delays to one of these lines would often be associated with delays to all of them. For example, the N is 
+                connected with Q, R, and W, which are all yellow line trains that share tracks throughout a large portion of their routes. 
+            </p>
+            <p>
+                Most interestingly, it appears that the apriori algorithm has generated two separate 
+                networks on top of one another, namely one for the letter lines, and one for the number lines. The 1,2,3,4,5, and 6 lines are all connected to at least one of each other, but none are connected with any 
+                letter lines, except 4 to W. This is not a surprising result, as there is only one station on the entire NYC Subway system (which has over 400 stations) where a number line train and letter line train even share the same 
+                platform, let alone the same tracks. Thus, it is understandable that there is a "mini-network" of sorts for the number lines separate from the letter lines. The 4 to W connection is a surprising find, considering 
+                that the 4 and W only share three stations where one can transfer between the two, and they are on separate platforms, so it is interesting to see those two lines be associated with one another. 
+            </p>
+            <p>
+                Ultimately, beyond the connections of the W line to the 4 line, none of the results from this network plot are particularly surprising, as most of the other connections are between lines that 
+                either share track or run parallel to one another, and thus are dependent upon one another. It is understandable to see that delays/planned track work for one of these lines is associated with delays 
+                and other service changes among their nearby/accompanying lines.
+            </p>
+            <h2>Conclusions</h2>
+            <p>
+                
+            </p>
+
+
+
+
+
+            <h2>References</h2>
+            <p>1. Lutkevich, Ben. "association rules". TechTarget.com. https://www.techtarget.com/searchbusinessanalytics/definition/association-rules-in-data-mining</p>
+            <p>2. https://sarahgrand.files.wordpress.com/2012/08/subway_lines.jpg</p>
         </div>
     </body>
 </html>
